@@ -1,0 +1,1178 @@
+import {
+  Box,
+  Center,
+  Flex,
+  Heading,
+  Text,
+  Button,
+  Input,
+  Select,
+  FormLabel,
+  Divider,
+  Radio,
+  RadioGroup,
+  Stack,
+  Textarea,
+  Tabs,
+  TabList,
+  TabPanels,
+  Tab,
+  TabPanel,
+  InputGroup,
+  InputLeftAddon,
+} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import React, { useState, useEffect, useRef } from "react";
+import { useForm, useFieldArray, Controller } from "react-hook-form";
+import Image from "next/image";
+import { Upload } from "react-feather";
+
+import { AddAttributes } from "@/Components/AddAttributes";
+import { Texteditor } from "@/Components/QuillEditor/TextEditor";
+// import { Varinats } from "@/Components/Varinats";
+
+export default function Addproduct() {
+  const [disableButton2, setdisableButton2] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const [uploadImages, setuploadImages] = useState([]);
+  const Router = useRouter();
+  const [tags, setTags] = useState([]);
+  const toast = useToast();
+  const [getCategory, setgetCategory] = useState("");
+  const [filterCategory, setfilterCategory] = useState([]);
+  const selectAttribute = useRef();
+  const [disableButton, setdisableButton] = useState(false);
+  const [allAttribute, setallAttribute] = useState([]);
+
+  //set attibute data in Api reques
+
+  const [AttributeName, setAttributeName] = useState([]);
+  const [sizeAttribute, setsizeAttribute] = useState([]);
+  const [typeAttribute, settypeAttribute] = useState([]);
+  const [colorAttribute, setcolorAttribute] = useState([]);
+  const [combinations, setCombinations] = useState([]);
+  const [weight, setweight] = useState("");
+  const [listWeight, setlistWeight] = useState([]);
+  const [getSizeList, setgetSizeList] = useState([]);
+  const [getTypeList, setgetTypeList] = useState([]);
+  const [getColorList, setgetColorList] = useState([]);
+  const [finalCombinations, setfinalCombinations] = useState([]);
+  const [combinationImage, setcombinationImage] = useState([]);
+  const [combinationimageselected, setcombinationimageselected] = useState([]);
+  const [backOrder, setbackOrder] = useState("false");
+  const [priceType, setpriceType] = useState("fixed");
+  const [variants, setvariants] = useState("no");
+  const [shortDescription, setshortDescription] = useState("");
+  const [longDescription, setlongDescription] = useState("");
+  const [ispost, setispost] = useState(false);
+
+  const {
+    register,
+    handleSubmit,
+    reset,
+    control,
+
+    formState: { errors },
+    setValue,
+  } = useForm({
+    defaultValues: {
+      combinationList: [],
+    },
+  });
+
+  const { fields, append, remove, update } = useFieldArray({
+    control,
+    name: "combinationList",
+  });
+
+  const [tagss, setTagss] = useState([]);
+
+  const onSubmit = async (data) => {
+    console.log(uploadImages);
+    setdisableButton2(true);
+    // setdisableButton2(true);
+    // console.log(data, tags);
+    // console.log(data.combinationList);
+    // console.log(shortDescription, longDescription);
+    // console.log(backOrder, priceType, variants);
+    const formData = new FormData();
+    if (uploadImages.length) {
+      for (let i = 0; i < uploadImages.length; i++) {
+        formData.append("files[]", uploadImages[i]);
+      }
+    }
+
+    console.log(data.combinationList);
+    if (variants === "yes") {
+      for (let i = 0; i < data.combinationList.length; i++) {
+        if (data.combinationList[i].image[0]) {
+          formData.append("variantimage[]", data.combinationList[i].image[0]);
+        } else {
+          formData.append("variantimage[]", null);
+        }
+      }
+      formData.append("options[]", JSON.stringify(data.combinationList));
+    }
+    if (priceType === "range") {
+      formData.append("minprice", data.minPrice);
+      formData.append("maxprice", data.maxPrice);
+    } else {
+      formData.append("fixedprice", data.fixedPrice);
+      formData.append("saleprice", data.salePrice);
+    }
+    formData.append("title", data.title);
+    formData.append("slug", data.slug);
+    formData.append("category", data.category);
+    formData.append("short_description", shortDescription);
+    formData.append("long_description", longDescription);
+
+    formData.append("combination_set", AttributeName);
+    // combination
+    formData.append("combination", JSON.stringify(combinations));
+    formData.append("model", data.model);
+    formData.append("quantity", data.quantity);
+    formData.append("weight", data.weight);
+    formData.append("backorder", backOrder);
+    formData.append("pricetype", priceType);
+    formData.append("variant", variants);
+    formData.append("tags[]", JSON.stringify(tags));
+    // console.log(data.combinationList[0].image[0]);
+    const response = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/addProduct`,
+      {
+        method: "POST",
+        body: formData,
+      }
+    );
+    const data2 = await response.json();
+    console.log("responce", data2);
+    if (data2.success == true) {
+      toast({
+        title: "Product Publish.",
+        description: "Item have been registerd ",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      reset();
+      setTags([]);
+      setshortDescription("");
+      setlongDescription("");
+      setCombinations([]);
+      setAttributeName([]);
+      setsizeAttribute([]);
+      setallAttribute([]);
+      settypeAttribute([]);
+      setcolorAttribute([]);
+      setfinalCombinations([]);
+      setSelectedImages([]);
+      setispost(true);
+      setdisableButton2(false);
+      // Router.push("/admin");
+    } else {
+      toast({
+        title: "error",
+        description: data2.msg,
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+      reset();
+      setTags([]);
+      setshortDescription("");
+      setlongDescription("");
+      setCombinations([]);
+      setAttributeName([]);
+      setsizeAttribute([]);
+      setallAttribute([]);
+      settypeAttribute([]);
+      setcolorAttribute([]);
+      setfinalCombinations([]);
+      setSelectedImages([]);
+      setispost(true);
+      setdisableButton2(false);
+    }
+  };
+
+  // const updateFields = () => {
+  //   finalCombinations.forEach((combination, index) => {
+  //     setValue(
+  //       `combinationList[${index}].combination`,
+  //       combination.combination
+  //     );
+  //     setValue(`combinationList[${index}].weight`, combination.weight);
+  //     setValue(`combinationList[${index}].price`, combination.price);
+  //   });
+  // };
+
+  useEffect(() => {
+    // Update the default values when the finalCombinations array changes
+    reset({
+      combinationList: finalCombinations.map((combination) => ({
+        combination: combination.combination,
+        weight: "",
+        price: "",
+        image: "",
+      })),
+    });
+  }, [finalCombinations, reset]);
+
+  function handleKeyDown(e) {
+    if (e.key !== "Enter") return;
+    const value = e.target.value;
+    if (!value.trim()) return;
+    setTags([...tags, value]);
+    e.target.value = "";
+  }
+
+  function removeTag(index) {
+    setTags(tags.filter((el, i) => i !== index));
+  }
+
+  // console.log("tages", tags);
+
+  const onSelectFile = (event) => {
+    const selectedFiles = event.target.files;
+    setuploadImages((previousImages) =>
+      previousImages.concat(event.target.files[0])
+    );
+    // console.log(selectedFiles);
+    const selectedFilesArray = Array.from(selectedFiles);
+
+    const imagesArray = selectedFilesArray.map((file) => {
+      return URL.createObjectURL(file);
+    });
+
+    setSelectedImages((previousImages) => previousImages.concat(imagesArray));
+
+    // FOR BUG IN CHROME
+    // event.target.value = "";
+  };
+
+  function deleteHandler(image, index2) {
+    setSelectedImages(selectedImages.filter((e) => e !== image));
+    setuploadImages(uploadImages.filter((e, index) => index !== index2));
+    URL.revokeObjectURL(image);
+  }
+
+  const handleCategory = (e) => {
+    // console.log(e.target.value);
+    setgetCategory(e.target.value);
+  };
+
+  useEffect(() => {
+    const getAllSubCategory = async () => {
+      const response = await fetch(
+        `${process.env.NEXT_PUBLIC_HOST}/api/getCategorys`,
+        {
+          method: "GET",
+        }
+      );
+
+      const data2 = await response.json();
+      // console.log(data2.getAll);
+      const filterCategory = data2.getAll.filter((items) => {
+        return items.mainCategory == getCategory;
+      });
+
+      // if(filterCategory[0])
+
+      // console.log(filterCategory.length);
+      if (filterCategory.length) {
+        setfilterCategory(filterCategory[0].subCategory);
+      }
+    };
+
+    getAllSubCategory();
+  }, [getCategory]);
+
+  const handleAttribute = async () => {
+    setdisableButton(true);
+
+    const responce = await fetch(
+      `${process.env.NEXT_PUBLIC_HOST}/api/getAttributes`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        body: JSON.stringify({
+          id: selectAttribute.current.value,
+        }),
+      }
+    );
+
+    let result = await responce.json();
+    // console.log(result);
+    if (result.success) {
+      setdisableButton(false);
+      toast({
+        title: "Attribute Successfully Added",
+        status: "success",
+        duration: 5000,
+        isClosable: true,
+      });
+      // setAttributeName((prev) => [...prev, result.msg.name]);
+
+      if (result.msg.name == "size") {
+        setsizeAttribute(result.msg.values);
+        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
+        setAttributeName((prev) => [...prev, result.msg.name]);
+      } else if (result.msg.name == "type") {
+        settypeAttribute(result.msg.values);
+        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
+        setAttributeName((prev) => [...prev, result.msg.name]);
+      } else if (result.msg.name == "color") {
+        setcolorAttribute(result.msg.values);
+        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
+        setAttributeName((prev) => [...prev, result.msg.name]);
+      }
+
+      // setAttributeName((oldValues) => [...oldValues, result.msg.name]);
+    } else {
+      setdisableButton(false);
+      toast({
+        title: "Attribute Not added please add one",
+        status: "error",
+        duration: 5000,
+        isClosable: true,
+      });
+    }
+  };
+
+  // console.log("size", combinations);
+  // console.log(typeAttribute);
+  // console.log(backOrder);
+
+  const handleAddButton = (e, index) => {
+    // console.log(i);
+    let flag = false;
+    if (listWeight.length) {
+      const newArr = [...listWeight];
+
+      newArr.map((items) => {
+        if (items.index == index) {
+          flag = true;
+          // console.log("find", items);
+          items.weight = weight;
+
+          // console.log("newList", newArr);
+          return setlistWeight(newArr);
+        }
+      });
+      if (!flag) {
+        return setlistWeight((prev) => [...prev, { weight, index }]);
+      }
+    } else {
+      // console.log("new added");
+      setlistWeight((prev) => [...prev, { weight, index }]);
+    }
+  };
+
+  const handleDelete = (i) => {
+    setTags(tags.filter((tag, index) => index !== i));
+  };
+
+  const handleAddition = (tag) => {
+    setTags([...tags, tag]);
+  };
+
+  const handleDrag = (tag, currPos, newPos) => {
+    const newTags = tags.slice();
+
+    newTags.splice(currPos, 1);
+    newTags.splice(newPos, 0, tag);
+
+    // re-render
+    setTags(newTags);
+  };
+
+  const handleTagClick = (index) => {
+    console.log("The tag at index " + index + " was clicked");
+  };
+
+  // console.log("allAttr", allAttribute);
+
+  // console.log("getlist of size for combination", getSizeList, getTypeList);
+
+  useEffect(() => {
+    if (getSizeList.length || getTypeList.length || getColorList.length) {
+      setCombinations([
+        getSizeList ? getSizeList : null,
+        getTypeList ? getTypeList : null,
+        getColorList ? getColorList : null,
+      ]);
+    }
+  }, [getSizeList, getTypeList, getColorList]);
+  // console.log("combination ", combinations);
+
+  //get Combinations
+
+  function generateCombinations(
+    arrays,
+    index = 0,
+    current = [],
+    weight = "",
+    price = "",
+    image = null,
+    result = []
+  ) {
+    if (index === arrays.length) {
+      result.push({ combination: current.join("-"), weight, price, image });
+      return;
+    }
+
+    for (let i = 0; i < arrays[index].length; i++) {
+      const element = arrays[index][i];
+      const newCurrent = current.concat(element);
+      generateCombinations(
+        arrays,
+        index + 1,
+        newCurrent,
+        weight,
+        price,
+        image,
+        result
+      );
+    }
+  }
+  useEffect(() => {
+    if (combinations.length) {
+      const combinationss = [];
+      const combinedArrays = combinations.filter((arr) => arr.length !== 0);
+
+      generateCombinations(combinedArrays, 0, [], "", "", null, combinationss);
+      // console.log("combinationss", combinationss);
+      setfinalCombinations(combinationss);
+    }
+  }, [combinations]);
+
+  // console.log(AttributeName);
+  // console.log("final", finalCombinations);
+  // console.log(combinations);
+
+  return (
+    <>
+      <Box
+        width={"100%"}
+        // height="100vh"
+        bg={"gray.200"}
+      >
+        <Box bg={"#153A5B"} p="0.4rem">
+          <Center>
+            <Heading color={"white"}>Add Products</Heading>
+          </Center>
+        </Box>
+
+        <Flex
+          align={"center"}
+          direction="column"
+          border={"1px"}
+          borderColor="gray.200"
+          // width="90%"
+          marginInline={"auto"}
+          bg="white"
+          borderRadius={"8px"}
+          justify="center"
+        >
+          <Box width={"100%"} my={"1rem"}>
+            <form>
+              <Flex width={"100%"} direction={"column"} p="1rem">
+                <Box width={"100%"} my={"1rem"}>
+                  <Flex
+                    direction={"row"}
+                    // border="1px "
+                    wrap={"wrap"}
+                    gap="6rem"
+                    justify="center"
+                    width={"100%"}
+                  >
+                    <Box
+                      border={"1px"}
+                      borderRadius={"9px"}
+                      borderColor={"gray.300"}
+                      p={"1rem"}
+                    >
+                      <Box my="0.5rem">
+                        <FormLabel>Product Name</FormLabel>
+                        <Input
+                          w={"100%"}
+                          type="text"
+                          placeholder="Product name"
+                          {...register("title", {
+                            // required: true,
+                            maxLength: 80,
+                          })}
+                          // my="1rem"
+                        />
+                      </Box>
+
+                      <Box my="3rem" w={"100%"}>
+                        <FormLabel>Product Short Description</FormLabel>
+                        {/* <Textarea
+                          height={"200px"}
+                          type="text"
+                          placeholder="Product Short Description"
+                          {...register("short_description", {
+                            required: true,
+                            maxLength: 1000,
+                          })}
+                          // my="1rem"
+                        /> */}
+                        <Texteditor
+                          isposted={ispost}
+                          setText={setshortDescription}
+                        />
+                      </Box>
+                      <Flex
+                        justify={"center"}
+                        wrap={"wrap"}
+                        gap={"3rem"}
+                        my={"2rem"}
+                      >
+                        <Box my="0.5rem">
+                          <FormLabel>Product Quantity</FormLabel>
+                          <Input
+                            step={"0"}
+                            type="number"
+                            placeholder="Quantity 5 - 8"
+                            {...register("quantity", {
+                              // required: true,
+                            })}
+                            // my="1rem"
+                          />
+                        </Box>
+                        <Flex
+                          justify={"center"}
+                          direction={"column"}
+                          // align={"center"}
+                        >
+                          <FormLabel>Accept BackOrder ? </FormLabel>
+                          <RadioGroup onChange={setbackOrder} value={backOrder}>
+                            <Stack direction="row" gap={"1rem"}>
+                              <Radio value="true">Yes</Radio>
+                              <Radio value="false">No</Radio>
+                            </Stack>
+                          </RadioGroup>
+                        </Flex>
+
+                        <Flex
+                          justify={"center"}
+                          direction={"column"}
+                          // align={"center"}
+                        >
+                          <FormLabel>Product Price Type ? </FormLabel>
+                          <RadioGroup onChange={setpriceType} value={priceType}>
+                            <Stack direction="row" gap={"1rem"}>
+                              <Radio value="fixed">fixed</Radio>
+                              <Radio value="range">range</Radio>
+                            </Stack>
+                          </RadioGroup>
+                        </Flex>
+
+                        {priceType !== "fixed" ? (
+                          <>
+                            <Box my="0.5rem">
+                              <FormLabel>Product Min-Price</FormLabel>
+                              <InputGroup>
+                                <InputLeftAddon children="$" />
+                                <Input
+                                  step="0.01"
+                                  type="number"
+                                  placeholder="Min-Price"
+                                  {...register("minPrice", {
+                                    // required: true,
+                                  })}
+                                  // my="1rem"
+                                />
+                              </InputGroup>
+                            </Box>
+                            <Box my="0.5rem">
+                              <FormLabel>Product Max-Price</FormLabel>
+                              <InputGroup>
+                                <InputLeftAddon children="$" />
+                                <Input
+                                  step="0.01"
+                                  type="number"
+                                  placeholder="Max-Price"
+                                  {...register("maxPrice")}
+                                  // my="1rem"
+                                />
+                              </InputGroup>
+                            </Box>
+                          </>
+                        ) : (
+                          <>
+                            <Box my="0.5rem">
+                              <FormLabel>Product Price</FormLabel>
+                              <InputGroup>
+                                <InputLeftAddon children="$" />
+                                <Input
+                                  type="number"
+                                  placeholder="Price"
+                                  {...register("fixedPrice", {
+                                    // required: true,
+                                  })}
+                                  // my="1rem"
+                                />
+                              </InputGroup>
+                            </Box>
+                            <Box my="0.5rem">
+                              <FormLabel>Sale Price</FormLabel>
+                              <InputGroup>
+                                <InputLeftAddon children="$" />
+                                <Input
+                                  type="number"
+                                  placeholder="Sale Price"
+                                  {...register("salePrice")}
+                                  // my="1rem"
+                                />
+                              </InputGroup>
+                            </Box>
+                          </>
+                        )}
+                      </Flex>
+
+                      <Box my="1rem" height={"400px"} w={"100%"}>
+                        <FormLabel>Product Long Description</FormLabel>
+                        {/* <Textarea
+                          height={"300px"}
+                          type="text"
+                          placeholder="Product Long Description"
+                          {...register("long_description", {
+                            required: true,
+                            maxLength: 1000,
+                          })}
+                          // my="1rem"
+                        /> */}
+                        <Texteditor
+                          isposted={ispost}
+                          setText={setlongDescription}
+                        />
+                      </Box>
+                    </Box>
+
+                    <Box
+                      border={"1px"}
+                      borderRadius={"9px"}
+                      borderColor={"gray.200"}
+                      p={"1rem"}
+                    >
+                      <Box my="0.5rem">
+                        <FormLabel>Product Model</FormLabel>
+                        <Input
+                          type="text"
+                          placeholder="Model"
+                          {...register("model", {
+                            // required: true,
+                            maxLength: 100,
+                          })}
+                          // my="1rem"
+                        />
+                      </Box>
+
+                      <Box my="0.5rem">
+                        <FormLabel>Product Category</FormLabel>
+                        <Select
+                          onChangeCapture={handleCategory}
+                          {...register("category", {
+                            // required: true,
+                          })}
+                        >
+                          <option value="">Select Category</option>
+                          <option value="plastic surgery instruments">
+                            plastic surgery instruments
+                          </option>
+                          <option value="liposuction cannula and accessories">
+                            liposuction cannula and accessories
+                          </option>
+                          <option value="instruments by procedures">
+                            instruments by procedures
+                          </option>
+                          <option value="instruments sets">
+                            instruments sets
+                          </option>
+                          <option value="ent instruments">
+                            ent instruments
+                          </option>
+                        </Select>
+                      </Box>
+                      <Box my="1rem">
+                        <FormLabel>Product Sub-category</FormLabel>
+                        <Select
+                          w={"100%"}
+                          {...register("slug", {
+                            // required: true,
+                          })}
+                        >
+                          <option value="">Select Product Sub-category</option>
+                          filterCategory ?
+                          {filterCategory.map((items) => {
+                            return (
+                              <option key={items.name} value={items.name}>
+                                {items.name}
+                              </option>
+                            );
+                          })}
+                          :""
+                        </Select>
+                      </Box>
+                      <Box my="0.5rem">
+                        <FormLabel>Product Weigth</FormLabel>
+                        <Input
+                          step="0.01"
+                          type="number"
+                          placeholder="Weight : 0.16kg"
+                          {...register("weight", {
+                            // required: true,
+                          })}
+                          // my="1rem"
+                        />
+                      </Box>
+                    </Box>
+                    <Box
+                      border={"1px"}
+                      p={"1rem"}
+                      borderColor={"gray.300"}
+                      borderRadius={"9px"}
+                    >
+                      <FormLabel fontSize={"1.5rem"}>
+                        Add Products-Tags
+                      </FormLabel>
+                      <div className="tags-input-container">
+                        {tags.map((tag, index) => (
+                          <div className="tag-item" key={index}>
+                            <span className="text">{tag}</span>
+                            <span
+                              className="close"
+                              onClick={() => removeTag(index)}
+                            >
+                              &times;
+                            </span>
+                          </div>
+                        ))}
+                        <Input
+                          onKeyDown={handleKeyDown}
+                          type="text"
+                          className="tags-input"
+                          placeholder="Type somthing"
+                        />
+                      </div>
+                    </Box>
+
+                    <Flex
+                      width={"100%"}
+                      align="center"
+                      direction={"column"}
+                      // border={"1px"}
+                    >
+                      <Flex
+                        justify={"start"}
+                        direction={"column"}
+                        align={"start"}
+                        // border={"1px"}
+                        width={"80%"}
+                      >
+                        <FormLabel fontWeight={"semibold"} fontSize={"1rem"}>
+                          Do You Want To Add Variants ?{" "}
+                        </FormLabel>
+                        <RadioGroup
+                          my={"1rem"}
+                          onChange={setvariants}
+                          value={variants}
+                        >
+                          <Stack direction="row" gap={"1rem"}>
+                            <Radio value="yes">yes</Radio>
+                            <Radio value="no">no</Radio>
+                          </Stack>
+                        </RadioGroup>
+                      </Flex>
+
+                      {variants === "yes" ? (
+                        <>
+                          <Heading my={"1rem"} size={"lg"} color="#153A5B">
+                            Add Varients
+                          </Heading>
+                          <Box
+                            border={"1px"}
+                            borderColor="gray.400"
+                            width="80%"
+                          >
+                            <Tabs>
+                              <TabList>
+                                <Tab>Select Attribute </Tab>
+                                <Tab>Variations</Tab>
+                                {/* <Tab>Three</Tab> */}
+                              </TabList>
+
+                              <TabPanels>
+                                <TabPanel>
+                                  <Box>
+                                    <Flex justify={"center"} gap="5rem">
+                                      <Select
+                                        ref={selectAttribute}
+                                        w={"50%"}
+                                        placeholder="Select Attributes"
+                                      >
+                                        <option
+                                          disabled={AttributeName.includes(
+                                            "size"
+                                          )}
+                                          value={"size"}
+                                        >
+                                          Size
+                                        </option>
+                                        <option
+                                          disabled={AttributeName.includes(
+                                            "type"
+                                          )}
+                                          value={"type"}
+                                        >
+                                          Type
+                                        </option>
+                                        <option
+                                          disabled={AttributeName.includes(
+                                            "color"
+                                          )}
+                                          value={"color"}
+                                        >
+                                          Color
+                                        </option>
+                                      </Select>
+                                      {AttributeName.includes(
+                                        "color" || "size" || "type"
+                                      ) ? (
+                                        <Button
+                                          onClick={handleAttribute}
+                                          colorScheme={"green"}
+                                          // isDisabled={disableButton}
+                                          disabled={true}
+                                        >
+                                          Add Attribut
+                                        </Button>
+                                      ) : (
+                                        <Button
+                                          // disabled={true}
+                                          onClick={handleAttribute}
+                                          colorScheme={"green"}
+                                          // isDisabled={true}
+                                          isDisabled={disableButton}
+                                        >
+                                          Add Attribut
+                                        </Button>
+                                      )}
+                                    </Flex>
+                                    <Box>
+                                      <Text my={"1rem"}>
+                                        List of Attributes that Selected
+                                      </Text>
+                                      <Flex
+                                        // border={"1px"}
+                                        direction={"column"}
+                                        // justify={"center"}
+                                        gap="1rem"
+                                      >
+                                        <Flex
+                                          align={"center"}
+                                          justify={"center"}
+                                          gap="1rem"
+                                          wrap={"wrap"}
+                                          // border="1px"
+                                        >
+                                          {sizeAttribute.length ? (
+                                            <Flex
+                                              justify={"center"}
+                                              // border={"1px"}
+                                              w={"100%"}
+                                              gap={"2rem"}
+                                              align="center"
+                                            >
+                                              <Flex
+                                                justify={"center"}
+                                                align={"center"}
+                                                width="70%"
+                                                gap={"0.5rem"}
+                                              >
+                                                <Text>Select Size :</Text>
+                                                <AddAttributes
+                                                  setSizeList={setgetSizeList}
+                                                  data={sizeAttribute}
+                                                />
+                                              </Flex>
+                                            </Flex>
+                                          ) : (
+                                            ""
+                                          )}
+
+                                          {typeAttribute.length ? (
+                                            <Flex
+                                              justify={"center"}
+                                              // border={"1px"}
+                                              w={"100%"}
+                                              gap={"2rem"}
+                                              align="center"
+                                            >
+                                              <Flex
+                                                justify={"center"}
+                                                align={"center"}
+                                                width="70%"
+                                                gap={"0.5rem"}
+                                              >
+                                                <Text>Select Type :</Text>
+                                                <AddAttributes
+                                                  setSizeList={setgetTypeList}
+                                                  data={typeAttribute}
+                                                />
+                                              </Flex>
+                                            </Flex>
+                                          ) : (
+                                            ""
+                                          )}
+
+                                          {colorAttribute.length ? (
+                                            <Flex
+                                              justify={"center"}
+                                              // border={"1px"}
+                                              w={"100%"}
+                                              gap={"2rem"}
+                                              align="center"
+                                            >
+                                              <Flex
+                                                justify={"center"}
+                                                align={"center"}
+                                                width="70%"
+                                                gap={"0.5rem"}
+                                              >
+                                                <Text>Select Color :</Text>
+                                                <AddAttributes
+                                                  setSizeList={setgetColorList}
+                                                  data={colorAttribute}
+                                                />
+                                              </Flex>
+                                            </Flex>
+                                          ) : (
+                                            ""
+                                          )}
+
+                                          {/* <Box w={"100%"}>
+                                      <AddAttributes data={sizeAttribute} />
+                                    </Box> */}
+                                        </Flex>
+                                      </Flex>
+                                    </Box>
+                                  </Box>
+                                </TabPanel>
+                                <TabPanel>
+                                  <Box width={"100%"}>
+                                    {finalCombinations.length ? (
+                                      <>
+                                        <Text>All Combination</Text>
+                                        {finalCombinations.map(
+                                          (field, index) => {
+                                            return (
+                                              <Flex
+                                                key={`${field.id}-${index}`}
+                                                justify="center"
+                                                gap={"1.5rem"}
+                                                my="1rem"
+                                                align={"center"}
+                                              >
+                                                <label
+                                                  htmlFor={`combination-${index}`}
+                                                >
+                                                  Combination
+                                                </label>
+                                                <Input
+                                                  disabled={true}
+                                                  _disabled={{
+                                                    color: "black",
+                                                    border: "none",
+                                                  }}
+                                                  width={"20%"}
+                                                  type="text"
+                                                  id={`combination-${index}`}
+                                                  {...register(
+                                                    `combinationList.${index}.combination`
+                                                  )}
+                                                  defaultValue={
+                                                    field.combination
+                                                  }
+                                                />
+
+                                                <label
+                                                  htmlFor={`weight-${index}`}
+                                                >
+                                                  Weight
+                                                </label>
+                                                <Input
+                                                  width={"20%"}
+                                                  type="number"
+                                                  step={0.1}
+                                                  id={`weight-${index}`}
+                                                  {...register(
+                                                    `combinationList.${index}.weight`
+                                                  )}
+                                                  defaultValue={field.weight}
+                                                />
+
+                                                <label
+                                                  htmlFor={`price-${index}`}
+                                                >
+                                                  Price
+                                                </label>
+                                                <Input
+                                                  width={"20%"}
+                                                  type="number"
+                                                  step={0.01}
+                                                  id={`price-${index}`}
+                                                  {...register(
+                                                    `combinationList.${index}.price`
+                                                  )}
+                                                  defaultValue={field.price}
+                                                />
+
+                                                <label
+                                                  htmlFor={`quantity-${index}`}
+                                                >
+                                                  Image
+                                                </label>
+                                                <Input
+                                                  width={"15%"}
+                                                  type="file"
+                                                  accept="image/png , image/jpeg, image/webp"
+                                                  required={true}
+                                                  id={`image-${index}`}
+                                                  {...register(
+                                                    `combinationList.${index}.image`
+                                                  )}
+                                                  defaultValue={field.image}
+                                                />
+                                              </Flex>
+                                            );
+                                          }
+                                        )}
+                                      </>
+                                    ) : (
+                                      "Select Attribute First"
+                                    )}
+                                  </Box>
+                                </TabPanel>
+                              </TabPanels>
+                            </Tabs>
+                          </Box>
+                        </>
+                      ) : (
+                        ""
+                      )}
+                    </Flex>
+                  </Flex>
+
+                  <Box p={"1rem"}>
+                    <section className="Psection">
+                      <FormLabel fontSize={"1.5rem"}>
+                        Add Products-Images
+                      </FormLabel>
+                      <label className="Plabel">
+                        + Add Images
+                        <br />
+                        <span className="Pspan">up to 10 images</span>
+                        <Input
+                          className="Pinput"
+                          type="file"
+                          name="images"
+                          onChange={onSelectFile}
+                          multiple
+                          accept="image/png , image/jpeg, image/webp"
+                        />
+                      </label>
+                      <br />
+
+                      <Flex
+                        border={"1px"}
+                        borderColor="gray.300"
+                        align={"center"}
+                        justify="center"
+                        gap={"1.5rem"}
+                        my="1rem"
+                        wrap={"wrap"}
+                        // className="images"
+                      >
+                        {selectedImages &&
+                          selectedImages.map((image, index) => {
+                            return (
+                              <Flex
+                                border={"1px"}
+                                borderColor="gray.300"
+                                // height={"160px"}
+                                key={image}
+                                // className="image"
+                                direction={"column"}
+                              >
+                                <Image
+                                  className="img"
+                                  src={image}
+                                  height={100}
+                                  width={150}
+                                  alt="upload"
+                                />
+                                <Flex
+                                  my={"0.2rem"}
+                                  // border={"1px"}
+                                  justify={"center"}
+                                  align="center"
+                                >
+                                  <Button
+                                    colorScheme={"red"}
+                                    onClick={() => deleteHandler(image, index)}
+                                  >
+                                    delete image
+                                  </Button>
+                                </Flex>
+                              </Flex>
+                            );
+                          })}
+                      </Flex>
+
+                      {/* {selectedImages.length > 0 &&
+                        (selectedImages.length > 10 ? (
+                          <p className="error">
+                            You can't upload more than 10 images! <br />
+                            <span>
+                              please delete{" "}
+                              <b> {selectedImages.length - 10} </b> of them{" "}
+                            </span>
+                          </p>
+                        ) : (
+                          <button
+                            className="upload-btn"
+                            onClick={() => {
+                              console.log(selectedImages);
+                            }}
+                          >
+                            UPLOAD {selectedImages.length} IMAGE
+                            {selectedImages.length === 1 ? "" : "S"}
+                          </button>
+                        ))} */}
+                    </section>
+                  </Box>
+                </Box>
+                <Box my={"1rem"}></Box>
+                <Button
+                  isLoading={disableButton2}
+                  loadingText="Submitting"
+                  isDisabled={disableButton2}
+                  variant={"solid"}
+                  colorScheme="purple"
+                  onClick={handleSubmit(onSubmit)}
+                >
+                  Submit
+                </Button>
+              </Flex>
+            </form>
+          </Box>
+        </Flex>
+      </Box>
+    </>
+  );
+}
