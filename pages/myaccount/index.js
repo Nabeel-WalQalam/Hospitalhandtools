@@ -13,11 +13,10 @@ import { useForm } from "react-hook-form";
 import { useToast, useColorMode } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
-import useAuth from "@/useAuth";
+
 import secureLocalStorage from "react-secure-storage";
 
 export default function Index() {
-  // useAuth();
   const { colorMode, toggleColorMode } = useColorMode();
   const toast = useToast();
   const Router = useRouter();

@@ -28,12 +28,11 @@ import { CiDeliveryTruck } from "react-icons/ci";
 import { FiPackage } from "react-icons/fi";
 import { BsFillGiftFill, BsSendCheckFill } from "react-icons/bs";
 import { BsBagCheck } from "react-icons/bs";
-import useAuth from "@/useAuth";
+
 import { AiOutlineCheck } from "react-icons/ai";
 import { RxCross2 } from "react-icons/rx";
 
 export default function Orderdetail({ order }) {
-  useAuth;
   const { colorMode } = useColorMode();
   // const orderData = JSON.parse(order.paymentInfo);
 

@@ -17,7 +17,7 @@ import {
   useColorMode,
 } from "@chakra-ui/react";
 import Link from "next/link";
-import useAuth from "@/useAuth";
+
 import secureLocalStorage from "react-secure-storage";
 import { useSelector } from "react-redux";
 

@@ -12,10 +12,9 @@ import {
 } from "@chakra-ui/react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
-import useAuth from "@/useAuth";
+
 import secureLocalStorage from "react-secure-storage";
 export default function Index() {
-  useAuth();
   const Router = useRouter();
   const [email, setEmail] = useState("");
   const [password, setpassword] = useState("");

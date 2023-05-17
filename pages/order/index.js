@@ -22,7 +22,7 @@ import {
 import Link from "next/link";
 import Image from "next/image";
 import { AiOutlineCopyright } from "react-icons/ai";
-import useAuth from "@/useAuth";
+
 import { useSelector, useDispatch } from "react-redux";
 import { setCart } from "@/store/cartSlice";
 export default function Index({ order, clearCart }) {
