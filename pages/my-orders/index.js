@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import localStorage from "react-secure-storage";
+// import localStorage from "react-secure-storage";
 import { useSelector } from "react-redux";
 
 export default function Index({ orders }) {
