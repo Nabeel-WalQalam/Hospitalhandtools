@@ -34,7 +34,7 @@ export const Table = ({ allOrder }) => {
         duration: 4000,
         isClosable: true,
       });
-      Router.push("/admin");
+      Router.push("/haniyanasir/admin");
     } else {
       toast({
         title: "error",
@@ -55,7 +55,7 @@ export const Table = ({ allOrder }) => {
         Headers: "Edit Status",
         accessor: "_id",
         Cell: ({ row }) => (
-          <Link href={`/admin/orderdetail?id=${row.original._id}`}>
+          <Link href={`/haniyanasir/admin/orderdetail?id=${row.original._id}`}>
             <Button colorScheme={"purple"}>Edit</Button>
           </Link>
         ),
