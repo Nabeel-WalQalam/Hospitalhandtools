@@ -11,9 +11,11 @@ async function dbConnect() {
   /* connecting to our database */
 
   try {
+    mongoose.set("strictQuery", false);
     const db = mongoose.connect(process.env.MONGO_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+
       // useFindAndModify: false,
     });
   } catch (error) {
