@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import secureLocalStorage from "react-secure-storage";
+import localStorage from "react-secure-storage";
 import { useSelector } from "react-redux";
 
 export default function Index({ orders }) {
@@ -38,7 +38,7 @@ export default function Index({ orders }) {
     console.log(filterOrders);
     setOrder(filterOrders);
 
-    if (!secureLocalStorage.getItem("token")) {
+    if (!localStorage.getItem("token")) {
       Router.push("/");
     }
   }, [orders]);
