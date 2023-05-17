@@ -14,7 +14,7 @@ import { useToast, useColorMode } from "@chakra-ui/react";
 
 import { useRouter } from "next/router";
 
-import secureLocalStorage from "react-secure-storage";
+import localStorage from "react-secure-storage";
 
 export default function Index() {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -44,7 +44,7 @@ export default function Index() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            token: secureLocalStorage.getItem("token"),
+            token: localStorage.getItem("token"),
             password1: data.password1,
             password2: data.password2,
             password3: data.password3,
@@ -84,7 +84,7 @@ export default function Index() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: secureLocalStorage.getItem("token"),
+          token: localStorage.getItem("token"),
           address: data.Address,
           displayName: data.UserName,
           city: data.City,
@@ -119,7 +119,7 @@ export default function Index() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          token: secureLocalStorage.getItem("token"),
+          token: localStorage.getItem("token"),
         }),
       }
     );
@@ -146,7 +146,7 @@ export default function Index() {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          email: secureLocalStorage.getItem("token"),
+          email: localStorage.getItem("token"),
         }),
       };
 
@@ -170,7 +170,7 @@ export default function Index() {
       // console.log("data", data);
     };
 
-    if (secureLocalStorage.getItem("token")) {
+    if (localStorage.getItem("token")) {
       getEmail();
       fetchUser();
     } else {
