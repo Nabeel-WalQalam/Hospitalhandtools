@@ -66,7 +66,7 @@ export default function Addcategory() {
         duration: 6000,
         isClosable: true,
       });
-      Router.push("/admin");
+      Router.push("/haniyanasir/admin");
     } else {
       toast({
         title: data2.msg,
@@ -74,7 +74,7 @@ export default function Addcategory() {
         duration: 6000,
         isClosable: true,
       });
-      Router.push("/admin/allcategory");
+      Router.push("/haniyanasir/admin/allcategory");
     }
 
     console.log(data2);
