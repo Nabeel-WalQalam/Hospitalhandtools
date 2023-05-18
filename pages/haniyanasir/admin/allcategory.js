@@ -66,7 +66,9 @@ export default function Allcategory({ products }) {
                 <Divider />
                 <CardFooter>
                   <ButtonGroup spacing="2">
-                    <Link href={`/admin/editcategory?id=${items._id}`}>
+                    <Link
+                      href={`/haniyanasir/admin/editcategory?id=${items._id}`}
+                    >
                       <Button
                         _hover={{
                           bg: "white",
