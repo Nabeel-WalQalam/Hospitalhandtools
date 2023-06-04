@@ -214,7 +214,7 @@ export const NavbarCat = ({}) => {
                 <Flex
                   // border={"1px"}
                   direction={"column"}
-                  height={"90%"}
+                  height={["none", "90%"]}
                   justify={"space-between"}
                 >
                   <Flex
@@ -526,13 +526,15 @@ export const NavbarCat = ({}) => {
                         marginInline="auto"
                       />
                       <Flex
-                        mr={"3rem"}
+                        mr={["0px", "3rem"]}
                         my={"1.5rem"}
                         justify={"space-between"}
-                        align={"center"}
+                        align={["none", "center"]}
+                        direction={["column", "row"]}
+                        gap={["1rem", "0px"]}
                       >
-                        <Box ml={"2rem"}>
-                          <Text mr={"2rem"} textDecor={"underline"}>
+                        <Box ml={["0px", "2rem"]}>
+                          <Text mr={["0px", "2rem"]} textDecor={"underline"}>
                             Shipping and taxes calculated at checkout*
                           </Text>
                         </Box>
@@ -561,44 +563,47 @@ export const NavbarCat = ({}) => {
                         // marginInline="auto"
                       />
                     </Flex>
-                    <Flex justify={"end"} align={"end"} direction={"column"}>
-                      <Box>
+                    <Flex
+                      gap="1rem"
+                      justify={["center", "center", "end"]}
+                      align={"center"}
+                      direction={["column", "row"]}
+                    >
+                      <Button
+                        width={[80, 80, 80, 60]}
+                        variant="outline"
+                        color={"#153A5B"}
+                        bg="white"
+                        borderColor="#153A5B"
+                        _hover={{
+                          bg: "#153A5B",
+                          color: "white",
+                          border: "1px",
+                          borderColor: "#153A5B",
+                        }}
+                        onClick={() => dispatch(clearCart(null))}
+                        // mr="1.5rem"
+                      >
+                        Clear Cart
+                      </Button>
+                      <Link href={"/checkout"}>
                         <Button
+                          onClick={onClose}
                           width={[80, 80, 80, 60]}
                           variant="outline"
-                          color={"#153A5B"}
-                          bg="white"
-                          borderColor="#153A5B"
+                          color={"white"}
+                          bg="#153A5B"
+                          // mr="1rem"
                           _hover={{
-                            bg: "#153A5B",
-                            color: "white",
+                            bg: "white",
+                            color: "#153A5B",
                             border: "1px",
                             borderColor: "#153A5B",
                           }}
-                          onClick={() => dispatch(clearCart(null))}
-                          mr="1.5rem"
                         >
-                          Clear Cart
+                          Check Out Now
                         </Button>
-                        <Link href={"/checkout"}>
-                          <Button
-                            onClick={onClose}
-                            width={[80, 80, 80, 60]}
-                            variant="outline"
-                            color={"white"}
-                            bg="#153A5B"
-                            mr="1rem"
-                            _hover={{
-                              bg: "white",
-                              color: "#153A5B",
-                              border: "1px",
-                              borderColor: "#153A5B",
-                            }}
-                          >
-                            Check Out Now
-                          </Button>
-                        </Link>
-                      </Box>
+                      </Link>
                     </Flex>
                   </Flex>
                 </Flex>

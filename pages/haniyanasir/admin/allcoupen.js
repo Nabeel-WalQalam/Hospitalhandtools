@@ -20,9 +20,9 @@ export default function Allcoupen({ Coupens }) {
   console.log(Coupens);
   const Router = useRouter();
   const toast = useToast();
-  const [coupen, setcoupen] = useState(Coupens[0].coupen);
+  const [coupen, setcoupen] = useState(Coupens[0] ? Coupens[0].coupen : "");
   const [coupenFreeShipping, setcoupenFreeShipping] = useState(
-    Coupens[0].coupenFreeShipping
+    Coupens[0] ? Coupens[0].coupenFreeShipping : ""
   );
   const coupenType = useRef();
   const coupenAmount = useRef();
@@ -133,7 +133,7 @@ export default function Allcoupen({ Coupens }) {
                 Coupen Type
               </Text>
               <Select
-                defaultValue={Coupens[0].coupenType}
+                defaultValue={Coupens[0] ? Coupens[0].coupenType : ""}
                 ref={coupenType}
                 required
                 border={"1px"}
@@ -147,7 +147,7 @@ export default function Allcoupen({ Coupens }) {
                 Coupen amount
               </Text>
               <Input
-                defaultValue={Coupens[0].coupenAmount}
+                defaultValue={Coupens[0] ? Coupens[0].coupenAmount : ""}
                 ref={coupenAmount}
                 border={"1px"}
                 type={"number"}
@@ -181,6 +181,7 @@ export async function getServerSideProps(context) {
   await dbConnect();
   let Allcoupen = await Coupen.find();
   const posts = await JSON.parse(JSON.stringify(Allcoupen));
+  console.log(posts);
   return {
     props: { Coupens: posts },
   };

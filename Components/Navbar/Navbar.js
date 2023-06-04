@@ -54,10 +54,7 @@ const Navbar = ({ isOpen, onToggle }) => {
   }, []);
 
   const logout = () => {
-    secureLocalStorage.removeItem("token");
-    secureLocalStorage.removeItem("identity");
-    secureLocalStorage.removeItem("cart");
-    secureLocalStorage.removeItem("username");
+    localStorage.clear();
     dispatch(setUser(null));
     Router.push("/");
   };
@@ -291,7 +288,7 @@ const Navbar = ({ isOpen, onToggle }) => {
                   <Badge
                     pos={"absolute"}
                     bg="red.500"
-                    borderRadius={"50%"}
+                    borderRadius={"45px"}
                     top={"0px"}
                     color={"white"}
                     // top={"3rem"}
@@ -337,7 +334,7 @@ const Navbar = ({ isOpen, onToggle }) => {
                   <Badge
                     pos={"absolute"}
                     bg="red.500"
-                    borderRadius={"50%"}
+                    borderRadius={"48px"}
                     top={"0px"}
                     color={"white"}
                     // top={"3rem"}

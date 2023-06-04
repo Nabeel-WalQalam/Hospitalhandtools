@@ -5,6 +5,7 @@ import cartSlice from "./cartSlice";
 import { setCart } from "./cartSlice";
 import compareSlice from "./compareSlice";
 import wishListSlice from "./wishListSlice";
+import searchProductSlice from "./searchProduct";
 
 const middlewareEnhancer = applyMiddleware(thunkMiddleware);
 export const store = configureStore({
@@ -13,6 +14,7 @@ export const store = configureStore({
     cart: cartSlice,
     compare: compareSlice,
     wishList: wishListSlice,
+    products: searchProductSlice,
 
     applyMiddleware: [thunkMiddleware],
   },

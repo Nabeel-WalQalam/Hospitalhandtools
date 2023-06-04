@@ -23,6 +23,8 @@ import { Provider } from "react-redux";
 import { getUserData } from "../store";
 import Message from "@/Components/Contact/Message";
 import Index from "@/Components/SubNavbar/Index";
+import TawkTo from "@/Components/Chat/Tawk";
+import Head from "next/head";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -111,6 +113,12 @@ export default function App({ Component, pageProps }) {
 
   return Loading ? (
     <>
+      <Head>
+        <script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        ></script>
+      </Head>
       <Flex
         justify={"center"}
         align={"center"}
@@ -157,7 +165,7 @@ export default function App({ Component, pageProps }) {
                   progress={progress}
                   onLoaderFinished={() => setProgress(0)}
                 />
-                <Flex width={"100%"}>
+                <Flex>
                   <Sidebar />
                   <Component {...pageProps} />
                 </Flex>
@@ -190,6 +198,9 @@ export default function App({ Component, pageProps }) {
               {<Navbar isOpen={isOpen} onToggle={onToggle} />}
               <Index />
               <Component {...pageProps} />
+              <Box display={["none", "none", "block"]}>
+                <TawkTo />
+              </Box>
 
               <Footer />
             </>

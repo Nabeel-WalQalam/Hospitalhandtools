@@ -41,7 +41,7 @@ export const UserTable = ({ Users }) => {
 
   return (
     <>
-      <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} />
+      {/* <GlobalFilter filter={globalFilter} setFilter={setGlobalFilter} /> */}
 
       <Table {...getTableProps()}>
         <Thead>
@@ -49,8 +49,8 @@ export const UserTable = ({ Users }) => {
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <Th
-                  color={"white"}
-                  fontSize="1.2rem"
+                  color={"#153A5B"}
+                  // fontSize="1.2rem"
                   {...column.getHeaderProps()}
                 >
                   {column.render("Headers")}

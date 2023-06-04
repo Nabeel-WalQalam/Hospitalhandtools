@@ -20,16 +20,26 @@ import {
   TabPanel,
   InputGroup,
   InputLeftAddon,
+  VStack,
+  Image,
+  IconButton,
+  CloseButton,
 } from "@chakra-ui/react";
+import { DeleteIcon } from "@chakra-ui/icons";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-import Image from "next/image";
+// import Image from "next/image";
 import { Upload } from "react-feather";
+import { CloudinaryContext, Image as CloudinaryImage } from "cloudinary-react";
+import Head from "next/head";
 
 import { AddAttributes } from "@/Components/AddAttributes";
 import { Texteditor } from "@/Components/QuillEditor/TextEditor";
+import CloudinaryUploader from "@/Components/CloudinaryUploader";
+import crypto from "crypto";
+
 // import { Varinats } from "@/Components/Varinats";
 
 export default function Addproduct() {
@@ -66,6 +76,14 @@ export default function Addproduct() {
   const [shortDescription, setshortDescription] = useState("");
   const [longDescription, setlongDescription] = useState("");
   const [ispost, setispost] = useState(false);
+
+  const [images, setImages] = useState([]);
+
+  console.log("images", images);
+
+  const handleUpload = (imageUrl) => {
+    setUploadedImages((prevImages) => [...prevImages, imageUrl]);
+  };
 
   const {
     register,
@@ -448,9 +466,68 @@ export default function Addproduct() {
     }
   }, [combinations]);
 
-  // console.log(AttributeName);
-  // console.log("final", finalCombinations);
-  // console.log(combinations);
+  const handleImageUpload = async (event) => {
+    const file = event.target.files[0];
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "mbqw8fjf"); // Replace with your Cloudinary upload preset
+
+    try {
+      const response = await fetch(
+        "https://api.cloudinary.com/v1_1/dexc7zdm4/image/upload",
+        {
+          method: "POST",
+          body: formData,
+        }
+      );
+      const data = await response.json();
+      console.log("responce", data);
+
+      setImages((prevImages) => [
+        ...prevImages,
+        { id: data.public_id, url: data.secure_url },
+      ]);
+    } catch (error) {
+      console.error("Error uploading image: ", error);
+    }
+  };
+  console.log("images", images);
+
+  const generateSHA1 = (data) => {
+    const hash = crypto.createHash("sha1");
+    hash.update(data);
+    return hash.digest("hex");
+  };
+
+  const generateSignature = (publicId, apiSecret) => {
+    const timestamp = new Date().getTime();
+    return `public_id=${publicId}&timestamp=${timestamp}${apiSecret}`;
+  };
+
+  const handleImageDelete = async (Public_id, signature2, id, deleteToken) => {
+    const timestamp = new Date().getTime();
+    const Latestsignature = generateSHA1(
+      generateSignature(Public_id, "cE_mxtg1AcfO-3q8A84vGy0v2Kg")
+    );
+    try {
+      await fetch(`https://api.cloudinary.com/v1_1/dexc7zdm4/image/destroy`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          public_id: Public_id,
+          signature: Latestsignature,
+          api_key: "196271779257317",
+          timestamp: timestamp,
+        }),
+      });
+
+      setImages((prevImages) => prevImages.filter((image) => image.id !== id));
+    } catch (error) {
+      console.error("Error deleting image: ", error);
+    }
+  };
 
   return (
     <>
@@ -459,9 +536,9 @@ export default function Addproduct() {
         // height="100vh"
         bg={"gray.200"}
       >
-        <Box bg={"#153A5B"} p="0.4rem">
+        <Box bg={"gray.300"} p="0.2rem">
           <Center>
-            <Heading color={"white"}>Add Products</Heading>
+            <Heading color={"#153A5B    "}>Add Products</Heading>
           </Center>
         </Box>
 
@@ -967,7 +1044,7 @@ export default function Addproduct() {
                                   <Box width={"100%"}>
                                     {finalCombinations.length ? (
                                       <>
-                                        <Text>All Combination</Text>
+                                        {/* <Text>All Combination</Text> */}
                                         {finalCombinations.map(
                                           (field, index) => {
                                             return (
@@ -1032,7 +1109,7 @@ export default function Addproduct() {
                                                   defaultValue={field.price}
                                                 />
 
-                                                <label
+                                                {/* <label
                                                   htmlFor={`quantity-${index}`}
                                                 >
                                                   Image
@@ -1047,7 +1124,27 @@ export default function Addproduct() {
                                                     `combinationList.${index}.image`
                                                   )}
                                                   defaultValue={field.image}
-                                                />
+                                                /> */}
+
+                                                <label
+                                                  className={`quantity-${index}`}
+                                                  // className="Plabel"
+                                                >
+                                                  + Add Images
+                                                  <br />
+                                                  <Input
+                                                    type="file"
+                                                    // name="images"
+                                                    onChange={onSelectFile}
+                                                    // multiple
+                                                    accept="image/png , image/jpeg, image/webp"
+                                                    id={`image-${index}`}
+                                                    {...register(
+                                                      `combinationList.${index}.image`
+                                                    )}
+                                                    defaultValue={field.image}
+                                                  />
+                                                </label>
                                               </Flex>
                                             );
                                           }
@@ -1067,8 +1164,19 @@ export default function Addproduct() {
                       )}
                     </Flex>
                   </Flex>
-
-                  <Box p={"1rem"}>
+                  {/* <label className="Plabel">
+                    + Add Images
+                    <br />
+                    <Input
+                      className="Pinput"
+                      type="file"
+                      name="images"
+                      onChange={onSelectFile}
+                      // multiple
+                      accept="image/png , image/jpeg, image/webp"
+                    />
+                  </label> */}
+                  {/* <Box p={"1rem"}>
                     <section className="Psection">
                       <FormLabel fontSize={"1.5rem"}>
                         Add Products-Images
@@ -1134,28 +1242,52 @@ export default function Addproduct() {
                           })}
                       </Flex>
 
-                      {/* {selectedImages.length > 0 &&
-                        (selectedImages.length > 10 ? (
-                          <p className="error">
-                            You can't upload more than 10 images! <br />
-                            <span>
-                              please delete{" "}
-                              <b> {selectedImages.length - 10} </b> of them{" "}
-                            </span>
-                          </p>
-                        ) : (
-                          <button
-                            className="upload-btn"
-                            onClick={() => {
-                              console.log(selectedImages);
-                            }}
-                          >
-                            UPLOAD {selectedImages.length} IMAGE
-                            {selectedImages.length === 1 ? "" : "S"}
-                          </button>
-                        ))} */}
+                     
                     </section>
-                  </Box>
+                  </Box> */}
+                  <Flex
+                    justify={"center"}
+                    w={"60%"}
+                    direction={"column"}
+                    marginY={"1rem"}
+                  >
+                    <Heading marginBottom={"0.5rem"}>Product Images</Heading>
+                    <CloudinaryUploader setImages2={setImages} />
+                    <Flex gap="1rem" margin={"2rem"}>
+                      {images.length != 0
+                        ? images.map((items) => (
+                            <Box position={"relative"} key={items.id}>
+                              <Image
+                                border={"1px"}
+                                borderColor={"gray.300"}
+                                width={"150px"}
+                                height={"150px"}
+                                src={items.url}
+                                alt="images"
+                              />
+                              <CloseButton
+                                // border={"1px"}
+                                // borderColor={"gray.200"}
+                                bg="gray.100"
+                                // color={"blue"}
+                                zIndex={"9999"}
+                                position={"absolute"}
+                                top={"0px"}
+                                right="0rem"
+                                onClick={() =>
+                                  handleImageDelete(
+                                    items.public_id,
+                                    items.signature,
+                                    items.id,
+                                    items.delete_token
+                                  )
+                                }
+                              />
+                            </Box>
+                          ))
+                        : null}
+                    </Flex>
+                  </Flex>
                 </Box>
                 <Box my={"1rem"}></Box>
                 <Button

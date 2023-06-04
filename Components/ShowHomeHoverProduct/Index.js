@@ -73,7 +73,13 @@ const Index = ({ product }) => {
         exit={{ opacity: 0, x: 50 }}
         transition={{ duration: 0.3 }}
       >
-        <Flex direction={"column"} align={"center"} justify={"center"}>
+        <Flex
+          // border={"1px"}
+          marginTop={"1rem"}
+          direction={"column"}
+          align={"center"}
+          justify={"center"}
+        >
           <Box
             my={"1rem"}
             // border="1px"
@@ -123,9 +129,9 @@ const Index = ({ product }) => {
                   >
                     <Flex
                       // border={"1px"}
-                      width={"90%"}
+                      width={"80%"}
                       mx={"auto"}
-                      borderColor={"white"}
+                      // borderColor={"white"}
                       justify={"space-between"}
                       // gap={"4rem"}
                       align={"center"}
@@ -235,13 +241,13 @@ const Index = ({ product }) => {
               {product.category}
             </Box>
           </Box>
-          <Box mt={"0.5rem"}>
+          <Box>
             <Box
               // pos={"relative"}
               // bottom={"-0.5rem"}
               textAlign={"center"}
               fontSize={"1rem"}
-              fontWeight={"bold"}
+              fontWeight={"semibold"}
               // color={"#153A5B"}
               width={"90%"}
               mx="auto"
@@ -256,7 +262,7 @@ const Index = ({ product }) => {
             <Box
               // pos={"absolute"}
               // bottom={"-3.5rem"}
-              mt={"0.2rem"}
+              // mt={"0.2rem"}
               textAlign={"center"}
               fontSize={"1rem"}
               fontWeight={"normal"}

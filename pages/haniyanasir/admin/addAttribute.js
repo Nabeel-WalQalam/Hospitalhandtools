@@ -70,9 +70,9 @@ export default function AddAttribute() {
   };
 
   return (
-    <Box bg={"gray.100"} minH={"100vh"} width={"100%"}>
-      <Center bg={"#153A5B"}>
-        <Heading color={"white"}>Add Attribute</Heading>
+    <Box bg={"gray.100"} width={"100%"}>
+      <Center bg={"gray.200"}>
+        <Heading color={"#153A5B"}>Add Attribute</Heading>
       </Center>
       <Flex mt={"5rem"} justify="center" direction={"column"}>
         <Box my={"3rem"} ml="2rem">
@@ -129,7 +129,7 @@ export default function AddAttribute() {
               })}
             </Flex>
 
-            <Flex justify={"center"}>
+            <Flex mt="1rem" justify={"center"}>
               <Button
                 type="button"
                 colorScheme={"green"}

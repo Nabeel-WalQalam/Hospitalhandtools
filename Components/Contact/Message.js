@@ -1,6 +1,6 @@
 import { Box, Flex, Text, Tooltip, useColorMode } from "@chakra-ui/react";
 import React from "react";
-import { EmailIcon, WhatsappIcon } from "react-share";
+import { EmailIcon, FacebookMessengerIcon, WhatsappIcon } from "react-share";
 import { motion } from "framer-motion";
 import { BsSkype } from "react-icons/bs";
 
@@ -44,6 +44,24 @@ const Message = () => {
           gap={"0.6rem"}
           mr="1rem"
         >
+          <Tooltip label="Messenger" aria-label="Messenger">
+            <Box
+              as={motion.div}
+              whileHover={{ scale: 1.1 }}
+              // whileTap={{ scale: 0.9 }}
+              transition={{
+                type: "spring",
+                stiffness: 300,
+                damping: 25,
+              }}
+            >
+              <FacebookMessengerIcon
+                cursor={"pointer"}
+                size={25}
+                round={true}
+              />
+            </Box>
+          </Tooltip>
           <Tooltip label="WhatsApp" aria-label="WhatsApp">
             <Box
               as={motion.div}

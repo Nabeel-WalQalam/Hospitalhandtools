@@ -9,6 +9,8 @@ import {
   Avatar,
   useColorMode,
   Image,
+  useColorModeValue,
+  HStack,
 } from "@chakra-ui/react";
 import Link from "next/link";
 import React from "react";
@@ -19,183 +21,123 @@ export default function Index() {
   const { colorMode } = useColorMode();
   return (
     <>
-      <Box minH={"100vh"}>
-        <Center bg={"#153A5B"}>
-          <Heading color={"white"}>Blogs</Heading>
+      <Box paddingY={"4rem"}>
+        <Center>
+          <Heading as="h2" marginTop="5">
+            Stories by HospitalHandTools
+          </Heading>
         </Center>
-        <Box>
-          <Text p="2rem" fontSize={"4xl"} fontWeight="semibold">
-            Latest blog posts
-          </Text>
-        </Box>
-        <Box>
-          <Flex my={"1rem"} justify={"center"} gap="2rem" wrap={"wrap"}>
+        <Box
+          py={"2rem"}
+          marginTop={{ base: "1", sm: "5" }}
+          display="flex"
+          flexDirection={{ base: "column", sm: "row" }}
+          justifyContent="space-between"
+        >
+          <Box
+            display="flex"
+            flex="1"
+            marginRight="3"
+            position="relative"
+            alignItems="center"
+          >
             <Box
-              border={"1px"}
-              borderColor="gray.300"
-              _hover={{ filter: "grayscale(50%)", boxShadow: "base" }}
-              minw="30%"
-              p={"1rem"}
-            ></Box>
-            <Box
-              border={"1px"}
-              borderColor="gray.300"
-              _hover={{ filter: "grayscale(50%)", boxShadow: "base" }}
-              minw="30%"
-              p={"1rem"}
+              width={{ base: "100%", sm: "85%" }}
+              zIndex="2"
+              marginLeft={{ base: "0", sm: "5%" }}
+              marginTop="5%"
             >
+              <Link
+                textDecoration="none"
+                href={
+                  "/Blogs/5-Types-of-Surgical-Instruments-Every-Operating-Room-Should-Have"
+                }
+                _hover={{ textDecoration: "none" }}
+              >
+                <Image
+                  borderRadius="lg"
+                  src={"/assets/Blogs/pic1.jpg"}
+                  alt="some good alt text"
+                  objectFit="contain"
+                />
+              </Link>
+            </Box>
+            <Box zIndex="1" width="100%" position="absolute" height="100%">
+              <Box
+                bgGradient={useColorModeValue(
+                  "radial(#153A5B 1px, transparent 1px)",
+                  "radial(blue.300 1px, transparent 1px)"
+                )}
+                backgroundSize="20px 20px"
+                opacity="0.4"
+                height="100%"
+              />
+            </Box>
+          </Box>
+          <Box
+            display="flex"
+            flex="1"
+            flexDirection="column"
+            justifyContent="center"
+            marginTop={{ base: "3", sm: "0" }}
+          >
+            <Badge size={"md"} variant="solid" colorScheme="orange">
+              surgical instruments
+            </Badge>
+
+            <Badge fontSize="0.8em" colorScheme="red">
+              Importance of surgical instruments
+            </Badge>
+
+            <Badge fontSize="0.8em" colorScheme="purple">
+              surgical procedures
+            </Badge>
+            <Badge fontSize="0.8em" colorScheme="green">
+              Types of surgical instruments
+            </Badge>
+            <Heading marginTop="1">
               <Link
                 href={
                   "/Blogs/5-Types-of-Surgical-Instruments-Every-Operating-Room-Should-Have"
                 }
+                textDecoration="none"
+                _hover={{ textDecoration: "none" }}
+                color="#153A5B"
               >
-                <Box>
-                  <Image
-                    src={"/assets/Blogs/pic1.jpg"}
-                    alt={"Surgons"}
-                    width={450}
-                    height={100}
-                  />
-                </Box>
-                <Box my={"1rem"}>
-                  <Box>
-                    <Flex
-                      //   border={"1px"}
-                      wrap={"wrap"}
-                      // align="s"
-                      // justify="center"
-                      gap={"0.4rem"}
-                      w={"90%"}
-                    >
-                      <Badge fontSize="0.8em" colorScheme={"orange"}>
-                        surgical instruments
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="green">
-                        room
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="red">
-                        essential
-                      </Badge>
-
-                      <Badge fontSize="0.8em" colorScheme="purple">
-                        surgical procedures
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="green">
-                        types
-                      </Badge>
-                    </Flex>
-                  </Box>
-                  <Box>
-                    <Heading
-                      color={colorMode == "light" ? "#153A5B" : "white"}
-                      as={"h2"}
-                      size="md"
-                      my={"0.5rem"}
-                      _hover={{ textDecoration: "underline" }}
-                    >
-                      5 Types of Surgical Instruments <br /> Every Operating
-                      Room Should Have
-                    </Heading>
-                  </Box>
-
-                  <Box my={"20px"}>
-                    <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                      <Avatar name="Adnan Rauf" src="/assets/Blogs/admin.png" />
-
-                      <Box>
-                        <Heading
-                          color={colorMode == "light" ? "#153A5B" : "white"}
-                          size="sm"
-                        >
-                          Adnan Rauf
-                        </Heading>
-                        <Text color={"gray.400"}>March 20 , 2023</Text>
-                      </Box>
-                    </Flex>
-                  </Box>
-                </Box>
+                5 Types of Surgical Instruments Every Operating Room
               </Link>
-            </Box>
-            <Box
-              border={"1px"}
-              borderColor="gray.300"
-              _hover={{ filter: "grayscale(50%)", boxShadow: "base" }}
-              minw="30%"
-              p={"1rem"}
+            </Heading>
+            <Text
+              as="p"
+              marginTop="2"
+              // px={"2rem"}
+              color={useColorModeValue("gray.700", "gray.200")}
+              fontSize="lg"
             >
-              <Link
-                href={
-                  "/Blogs/5-Types-of-Surgical-Instruments-Every-Operating-Room-Should-Have"
-                }
-              >
-                <Box>
-                  <Image
-                    src={"/assets/Blogs/pic1.jpg"}
-                    alt={"Surgons"}
-                    width={450}
-                    height={100}
-                  />
-                </Box>
-                <Box my={"1rem"}>
-                  <Box>
-                    <Flex
-                      //   border={"1px"}
-                      wrap={"wrap"}
-                      // align="s"
-                      // justify="center"
-                      gap={"0.4rem"}
-                      w={"90%"}
-                    >
-                      <Badge fontSize="0.8em" colorScheme={"orange"}>
-                        surgical instruments
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="green">
-                        room
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="red">
-                        essential
-                      </Badge>
-
-                      <Badge fontSize="0.8em" colorScheme="purple">
-                        surgical procedures
-                      </Badge>
-                      <Badge fontSize="0.8em" colorScheme="green">
-                        types
-                      </Badge>
-                    </Flex>
-                  </Box>
-                  <Box>
-                    <Heading
-                      color={colorMode == "light" ? "#153A5B" : "white"}
-                      as={"h2"}
-                      size="md"
-                      my={"0.5rem"}
-                      _hover={{ textDecoration: "underline" }}
-                    >
-                      5 Types of Surgical Instruments <br /> Every Operating
-                      Room Should Have
-                    </Heading>
-                  </Box>
-
-                  <Box my={"20px"}>
-                    <Flex flex="1" gap="4" alignItems="center" flexWrap="wrap">
-                      <Avatar name="Adnan Rauf" src="/assets/Blogs/admin.png" />
-
-                      <Box>
-                        <Heading
-                          color={colorMode == "light" ? "#153A5B" : "white"}
-                          size="sm"
-                        >
-                          Adnan Rauf
-                        </Heading>
-                        <Text color={"gray.400"}>March 20 , 2023</Text>
-                      </Box>
-                    </Flex>
-                  </Box>
-                </Box>
-              </Link>
-            </Box>
-          </Flex>
+              Having the proper surgical instruments is crucial while carrying
+              out surgical procedures. Having access to the correct tools can
+              make all the difference in the result of the treatment, whether
+              you're a surgeon, surgical technician, or nurse. This blog post
+              will discuss five ....
+            </Text>
+            <HStack
+              marginTop="2"
+              spacing="2"
+              display="flex"
+              alignItems="center"
+            >
+              <Image
+                borderRadius="full"
+                boxSize="40px"
+                src="/assets/Blogs/admin.png"
+                alt={`Avatar of `}
+              />
+              <Text fontWeight="medium">Adnan Rauf - CEO</Text>
+              <Text>—</Text>
+              <Text>May 1 , 2013</Text>
+            </HStack>
+            {/* <BlogAuthor name="John Doe" date={new Date('2021-04-06T19:01:27Z')} /> */}
+          </Box>
         </Box>
       </Box>
     </>

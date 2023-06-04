@@ -4,7 +4,7 @@ import LatestProduct from "../HomeSliderProduct/LatestProduct";
 const SliderProducts = () => {
   return (
     <>
-      <Tabs>
+      <Tabs display={["none", "block"]}>
         <TabList color={"rgba(139, 145, 152, 1)"}>
           <Tab
             fontWeight={["normal", "bold"]}

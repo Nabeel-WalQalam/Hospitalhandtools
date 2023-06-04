@@ -17,6 +17,7 @@ import { NavbarCat } from "../Navbar/NavbarCat";
 import { MdDarkMode, MdSunny } from "react-icons/md";
 import { IoMdSunny } from "react-icons/io";
 import { useSelector } from "react-redux";
+import Link from "next/link";
 
 const Index = () => {
   const { onOpen, onClose, isOpen, onToggle } = useDisclosure();
@@ -85,70 +86,76 @@ const Index = () => {
               />
             </Box>
             <Box>
-              <Tooltip label="About" aria-label="About">
-                <Button
-                  as={motion.button}
-                  whileHover={{ scale: 1.1 }}
-                  // whileTap={{ scale: 0.9 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 25,
-                  }}
-                  variant={"unstyled"}
-                  style={{ fontWeight: "bold" }}
-                  // onClick={() => setIsOpen(!isOpen)}
-                  fontWeight={"bold"}
-                  color={colorMode === "light" ? "#153A5B" : "white"}
-                  fontSize={"0.9rem"}
-                >
-                  ABOUT
-                </Button>
-              </Tooltip>
+              <Link href={"/About"}>
+                <Tooltip label="About" aria-label="About">
+                  <Button
+                    as={motion.button}
+                    whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.9 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    }}
+                    variant={"unstyled"}
+                    style={{ fontWeight: "bold" }}
+                    // onClick={() => setIsOpen(!isOpen)}
+                    fontWeight={"bold"}
+                    color={colorMode === "light" ? "#153A5B" : "white"}
+                    fontSize={"0.9rem"}
+                  >
+                    ABOUT
+                  </Button>
+                </Tooltip>
+              </Link>
             </Box>
             <Box>
-              <Tooltip label="Contact" aria-label="Contact">
-                <Button
-                  as={motion.button}
-                  whileHover={{ scale: 1.1 }}
-                  // whileTap={{ scale: 0.9 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 25,
-                  }}
-                  variant={"unstyled"}
-                  style={{ fontWeight: "bold" }}
-                  // onClick={() => setIsOpen(!isOpen)}
-                  fontWeight={"bold"}
-                  color={colorMode === "light" ? "#153A5B" : "white"}
-                  fontSize={"0.9rem"}
-                >
-                  CONTACT
-                </Button>
-              </Tooltip>
+              <Link href={"/Contact"}>
+                <Tooltip label="Contact" aria-label="Contact">
+                  <Button
+                    as={motion.button}
+                    whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.9 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    }}
+                    variant={"unstyled"}
+                    style={{ fontWeight: "bold" }}
+                    // onClick={() => setIsOpen(!isOpen)}
+                    fontWeight={"bold"}
+                    color={colorMode === "light" ? "#153A5B" : "white"}
+                    fontSize={"0.9rem"}
+                  >
+                    CONTACT
+                  </Button>
+                </Tooltip>
+              </Link>
             </Box>
             <Box>
-              <Tooltip label="Blog" aria-label="Blog">
-                <Button
-                  as={motion.button}
-                  whileHover={{ scale: 1.1 }}
-                  // whileTap={{ scale: 0.9 }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 25,
-                  }}
-                  variant={"unstyled"}
-                  style={{ fontWeight: "bold" }}
-                  // onClick={() => setIsOpen(!isOpen)}
-                  fontWeight={"bold"}
-                  color={colorMode === "light" ? "#153A5B" : "white"}
-                  fontSize={"0.9rem"}
-                >
-                  BLOG
-                </Button>
-              </Tooltip>
+              <Link href={"/Blogs"}>
+                <Tooltip label="Blog" aria-label="Blog">
+                  <Button
+                    as={motion.button}
+                    whileHover={{ scale: 1.1 }}
+                    // whileTap={{ scale: 0.9 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 300,
+                      damping: 25,
+                    }}
+                    variant={"unstyled"}
+                    style={{ fontWeight: "bold" }}
+                    // onClick={() => setIsOpen(!isOpen)}
+                    fontWeight={"bold"}
+                    color={colorMode === "light" ? "#153A5B" : "white"}
+                    fontSize={"0.9rem"}
+                  >
+                    BLOG
+                  </Button>
+                </Tooltip>
+              </Link>
             </Box>
           </Flex>
           <Flex

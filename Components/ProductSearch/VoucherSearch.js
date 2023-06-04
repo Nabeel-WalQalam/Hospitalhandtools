@@ -14,13 +14,23 @@ import {
   MenuOptionGroup,
   MenuItemOption,
   useColorMode,
+  List,
+  ListItem,
+  Text,
+  Spinner,
+  InputGroup,
+  InputRightElement,
 } from "@chakra-ui/react";
+import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaArrowDown } from "react-icons/fa";
 import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 // import axios from "axios";
 // import { useCookies } from "react-cookie";
 import { useToast } from "@chakra-ui/react";
+import Image from "next/image";
+import Link from "next/link";
+import { setCategory, setProduct, setquery } from "@/store/searchProduct";
 // import Vouchers from "../admindashboard/vouchers";
 function VoucherSearch() {
   // const [cookie, setCookie] = useCookies(["token"]);
@@ -30,6 +40,13 @@ function VoucherSearch() {
   const [keyword, setkeyword] = useState("");
   const [agentname, setagentname] = useState("All");
   const [category, setcategory] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+
+  const [loader, setloader] = useState(false);
+  const [showAllResults, setShowAllResults] = useState(false);
+
+  let dispatch = useDispatch();
 
   const getCategory = (e) => {
     // console.log(e);
@@ -41,12 +58,6 @@ function VoucherSearch() {
 
   // console.log(agentname);
   // console.log(keyword);
-
-  function handleReset() {
-    setagentname("All");
-    setkeyword("");
-    // keyword.current
-  }
 
   const handleApi = async (e) => {
     e.preventDefault();
@@ -60,6 +71,7 @@ function VoucherSearch() {
       })
       .then((res) => {
         console.log("response came", res.data);
+        setSearchResults(res.data);
         // if (res.data.success) {
         //   toast({
         //     title: "Welcome To THE GURU",
@@ -80,25 +92,130 @@ function VoucherSearch() {
       });
   };
 
+  useEffect(() => {
+    let timer;
+
+    if (searchQuery.length > 0) {
+      timer = setTimeout(() => {
+        setloader(true);
+        axios
+          .post(`${process.env.NEXT_PUBLIC_HOST}/api/searchProduct`, {
+            category: agentname,
+            query: searchQuery,
+          })
+          .then((res) => {
+            console.log("response came", res.data);
+            setSearchResults(res.data.msg);
+            dispatch(setProduct(res.data.msg));
+            dispatch(setquery(searchQuery));
+            dispatch(setCategory(agentname));
+            setloader(false);
+            // if (res.data.success) {
+            //   toast({
+            //     title: "Welcome To THE GURU",
+            //     status: "success",
+            //   });
+            //   reset();
+            //   localStorage.setItem("token", res.data.payload.token);
+            //   dispatch(setCurrentUser(res.data.payload.user));
+            //   Router.push("/");
+            // } else {
+            //   toast({
+            //     title: res.data.payload,
+            //   });
+            // }
+          })
+          .catch((err) => {
+            console.log("error", err);
+            setloader(false);
+          });
+      }, 400); // Adjust the debounce delay as needed
+    } else {
+      setSearchResults([]);
+    }
+
+    return () => clearTimeout(timer);
+  }, [searchQuery]);
+
+  const handleSearchChange = (e) => {
+    setloader(true);
+    setSearchQuery(e.target.value);
+    setloader(false);
+  };
+
+  const handleCloseMenu = () => {
+    setSearchResults([]);
+    setSearchQuery("");
+  };
+
+  const handleShowAllResults = () => {
+    setSearchResults([]);
+    setSearchQuery("");
+    setShowAllResults(true);
+  };
+
+  const visibleResults = showAllResults
+    ? searchResults
+    : searchResults.slice(0, 5);
+
+  const renderSearchResults = () => {
+    if (visibleResults.length > 0) {
+      return (
+        <List spacing={2}>
+          {visibleResults.map((result) => {
+            const category = result.category.replace(/\s+/g, "-");
+            const slug = result.slug.replace(/\s+/g, "-");
+            const tite = result.title.replace(/\s+/g, "-");
+
+            return (
+              <Link
+                key={result.id}
+                href={`/${category}/${slug}/${tite}`}
+                onClick={handleCloseMenu}
+              >
+                <Flex gap={"1rem"} my={"0.5rem"}>
+                  <Box
+                    border={"1px"}
+                    width={"50px"}
+                    borderColor={"gray.300"}
+                    height={"50px"}
+                    pos={"relative"}
+                  >
+                    <Image
+                      src={result.image ? result.image : "/assets/150.png"}
+                      fill="fill"
+                      objectFit="contain"
+                      // alt={result.title}
+                      // fill={true}
+                    />
+                  </Box>
+                  <Flex direction={"column"}>
+                    <ListItem>{result.title}</ListItem>
+                    <ListItem>
+                      {result.priceType !== "fixed"
+                        ? `$${result.minPrice} - $${result.maxPrice} `
+                        : `$${result.fixedPrice}`}
+                    </ListItem>
+                  </Flex>{" "}
+                </Flex>
+              </Link>
+            );
+          })}
+        </List>
+      );
+    } else if (searchQuery.length > 0) {
+      return <Text>No products found.</Text>;
+    }
+  };
+
   return (
     <>
       <Flex
-        // borderRadius={"8px"}
         // border={"1px"}
-        // borderRadius="40%"
-        // borderColor="gray.300"
-        // py="5px"
-        // bg="#153A5B"
         display={["block", "block", "none", "none", "block"]}
-        // w={["unset", "unset", "10%", "20%"]}
-        // px="1rem"
+        pos={"relative"}
       >
-        <Flex
-          // border="1px"
-          // gap={"0.6rem"}
-          justify={"center"}
-          // direction={["column", "column", "row", "row"]}
-        >
+        <Flex justify={"center"}>
           <Box position={"relative"}>
             <Menu w={"100%"} closeOnSelect={false}>
               <MenuButton
@@ -133,7 +250,8 @@ function VoucherSearch() {
                   border: "1px",
                   borderColor: colorMode === "light" ? "#153A5B" : "white",
                 }}
-                w={"50px"}
+                // w={"50px"}
+                px={"1rem"}
               >
                 {agentname}
               </MenuButton>
@@ -172,27 +290,24 @@ function VoucherSearch() {
             // width={["100%", "100%", "100%", "100%"]}
             w={["270px", "250px", "270px", "370px"]}
           >
-            <Input
-              border={colorMode === "light" ? "1px" : "none"}
-              borderColor={colorMode == "light" ? "gray.300" : "white"}
-              borderRadius="none"
-              borderTopRightRadius={"none"}
-              borderBottomRightRadius={"none"}
-              // _hover={{ border: "2px", borderColor: "#153A5B" }}
-              // type={"search"}
-              // colorMode === "light" ? "#153A5B" : "white"
-              // _focus={{ border: "1px solid white", color: "white" }}
-              variant={"none"}
-              placeholder="Search here..."
-              value={keyword}
-              onChange={(e) => {
-                setkeyword(e.target.value);
-              }}
-
-              // ref={keyword}
-              // color={colorMode === "light" ? "#153A5B" : "white"}
-              // fontcolor={colorMode === "light" ? "white" : "153A5B"}
-            />
+            <InputGroup>
+              <Input
+                border={colorMode === "light" ? "1px" : "none"}
+                borderColor={colorMode == "light" ? "gray.300" : "white"}
+                borderRadius="none"
+                borderTopRightRadius={"none"}
+                borderBottomRightRadius={"none"}
+                variant={"none"}
+                placeholder="Search here..."
+                // value={keyword}
+                value={searchQuery}
+                // onChange={(e) => {
+                //   setkeyword(e.target.value);
+                // }}
+                onChange={handleSearchChange}
+              />
+              <InputRightElement>{loader ? <Spinner /> : ""}</InputRightElement>
+            </InputGroup>
           </Box>
 
           <Box>
@@ -237,6 +352,30 @@ function VoucherSearch() {
             </ButtonGroup>
           </Box>
         </Flex>
+        <Box
+          position="absolute"
+          zIndex={9999}
+          bg="white"
+          border="1px"
+          borderColor="gray.200"
+          mt={2}
+          p={2}
+          width={"100%"}
+          display={searchQuery.length ? "block" : "none"}
+        >
+          {renderSearchResults()}
+
+          {!showAllResults && searchResults.length > 5 && (
+            <Button
+              textDecor={"underline"}
+              variant="link"
+              color="facebook"
+              onClick={handleShowAllResults}
+            >
+              <Link href="/Products">show more</Link>
+            </Button>
+          )}
+        </Box>
       </Flex>
     </>
   );

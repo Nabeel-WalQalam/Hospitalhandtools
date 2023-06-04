@@ -50,16 +50,18 @@ export const HamburgerMobile = () => {
         onClick={onOpen}
         fontSize={"1.5rem"}
         fill={colorMode == "light" ? "#153A5B" : "white"}
+        display={["block", "block", "none"]}
       />
       <Drawer
+        display={["block", "block", "none"]}
         isOpen={isOpen}
         size="full"
         placement="left"
         onClose={onClose}
         // finalFocusRef={btnRef}
       >
-        <DrawerOverlay />
-        <DrawerContent padding={"0px"}>
+        <DrawerOverlay display={["block", "block", "none"]} />
+        <DrawerContent display={["block", "block", "none"]} padding={"0px"}>
           <DrawerCloseButton />
           <DrawerHeader>
             {" "}
@@ -104,6 +106,7 @@ export const HamburgerMobile = () => {
                               fontSize={["0.8rem", "1rem", "1.5rem", "2rem"]}
                               _hover={{ textDecoration: "underline" }}
                               textTransform={"uppercase"}
+                              onClick={() => onClose()}
                             >
                               PLASTIC SURGERY INSTRUMENTS
                             </Heading>
@@ -113,7 +116,7 @@ export const HamburgerMobile = () => {
                         </Flex>
                       </AccordionButton>
 
-                      <AccordionPanel pb={4}>
+                      <AccordionPanel onClick={() => onClose()} pb={4}>
                         <Box my={"1rem"}>
                           <Link
                             href={
@@ -340,6 +343,7 @@ export const HamburgerMobile = () => {
                               fontSize={["0.8rem", "1rem", "1.5rem", "2rem"]}
                               _hover={{ textDecoration: "underline" }}
                               textTransform={"uppercase"}
+                              onClick={() => onClose()}
                             >
                               Liposuction Cannula
                             </Heading>
@@ -349,7 +353,7 @@ export const HamburgerMobile = () => {
                         </Flex>
                       </AccordionButton>
 
-                      <AccordionPanel pb={4}>
+                      <AccordionPanel onClick={() => onClose()} pb={4}>
                         <Box my={"1rem"}>
                           <Link
                             href={
@@ -439,6 +443,7 @@ export const HamburgerMobile = () => {
                         >
                           <Link href="/instruments-by-procedures">
                             <Heading
+                              onClick={() => onClose()}
                               color={
                                 colorMode === "light" ? "#153A5B" : "white"
                               }
@@ -453,7 +458,7 @@ export const HamburgerMobile = () => {
                           <AccordionIcon />
                         </Flex>
                       </AccordionButton>
-                      <AccordionPanel pb={4}>
+                      <AccordionPanel onClick={() => onClose()} pb={4}>
                         <Box my={"1rem"}>
                           <Link
                             href={
@@ -498,6 +503,7 @@ export const HamburgerMobile = () => {
                         >
                           <Link href="/instruments-sets">
                             <Heading
+                              onClick={() => onClose()}
                               color={
                                 colorMode === "light" ? "#153A5B" : "white"
                               }
@@ -512,7 +518,7 @@ export const HamburgerMobile = () => {
                           <AccordionIcon />
                         </Flex>
                       </AccordionButton>
-                      <AccordionPanel py={4}>
+                      <AccordionPanel onClick={() => onClose()} py={4}>
                         <Flex justify={"center"} align="center">
                           <Link href={"/instruments-sets/Face-Surgery-Sets"}>
                             <Box

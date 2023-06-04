@@ -100,10 +100,10 @@ export default function Addcategory() {
 
   return (
     <>
-      <Box width={"100%"} height="100vh" bg={"gray.200"}>
-        <Box bg={"#153A5B"} p="0.4rem">
+      <Box width={"100%"} bg={"gray.200"}>
+        <Box bg={"gray.200"} p="0.4rem">
           <Center>
-            <Heading color={"white"}>Add Category</Heading>
+            <Heading color={"#153A5B"}>Add Category</Heading>
           </Center>
         </Box>
 

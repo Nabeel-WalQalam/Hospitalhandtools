@@ -32,14 +32,14 @@ import {
   TableContainer,
 } from "@chakra-ui/react";
 
-export default function allproducts({ Zones }) {
+export default function Allproducts({ Zones }) {
   console.log("products", Zones);
   return (
     <>
-      <Box bg={"gray.300"} height={"100vh"} width="100%">
-        <Box bg="#153A5B">
+      <Box width="100%">
+        <Box bg="gray.200">
           <Center>
-            <Heading color={"white"}>All Zones</Heading>
+            <Heading color={"#153A5B"}>All Zones</Heading>
           </Center>
         </Box>
         <Flex
@@ -92,7 +92,7 @@ export default function allproducts({ Zones }) {
                       </Td>
                       <Td>
                         <Link href={`/admin/editzone?id=${items._id}`}>
-                          <Button colorScheme={"green"}>Edit</Button>
+                          <Button colorScheme={"facebook"}>Edit</Button>
                         </Link>
                       </Td>
                     </Tr>

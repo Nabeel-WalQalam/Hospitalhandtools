@@ -100,13 +100,14 @@ const Index = () => {
             direction={"row"}
             // border={"1px"}
             gap={"1rem"}
+            wrap={"wrap"}
           >
             {images.map((image, index) => (
               <Box
                 key={index}
                 onClick={() => handleChange(index)}
                 cursor="pointer"
-                w={"100%"}
+                // w={"100%"}
               >
                 <Image
                   _hover={{

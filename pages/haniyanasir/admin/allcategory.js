@@ -14,6 +14,7 @@ import {
   Flex,
   Center,
   color,
+  Badge,
 } from "@chakra-ui/react";
 import dbConnect from "@/Middleware/connectDb";
 import Category from "@/models/Category";
@@ -22,25 +23,27 @@ import Image from "next/image";
 import Link from "next/link";
 
 export default function Allcategory({ products }) {
-  // console.log("products", products);
+  console.log("products", products);
   return (
     <>
-      <Box height={"100vh"} width="100%">
-        <Box bg="#153A5B">
+      <Box width="100%">
+        <Box bg="gray.200">
           <Center>
-            <Heading color={"white"}>All Categorys</Heading>
+            <Heading color={"#153A5B"}>All Categorys</Heading>
           </Center>
         </Box>
         <Flex
           // border={"1px"}
-          mt="2rem"
+          // mt="2rem"
           // w={"90%"}
-          width={"100%"}
+          // width={"100%"}
           justify="center"
           align="center"
-          gap={"15px"}
+          // gap={"15px"}
           mx="auto"
-          wrap={"wrap"}
+          // wrap={"wrap"}
+          // display="flex"
+          flexDirection="column"
         >
           {products.map((items) => {
             // console.log("items", items);
@@ -49,18 +52,30 @@ export default function Allcategory({ products }) {
               <Card
                 _hover={{ shadow: "xl", filter: "auto", brightness: "98%" }}
                 key={items._id}
-                maxW={["300px"]}
+                // maxW={["300px"]}
+                width="80%"
                 mx="1rem"
-                my="2rem"
+                my="1rem"
                 border={"1px"}
                 borderColor={"rgba(21, 58, 91, 0.3)"}
               >
-                <CardBody>
+                <CardBody direction="column">
                   <Stack mt="6" spacing="3">
-                    <Heading size="sm" color={"#153A5B"}>
+                    <Heading my="0.5rem" size="md" color={"#153A5B"}>
                       {items.mainCategory}
                     </Heading>
                   </Stack>
+                  <Flex gap="2rem" width="100%" wrap="wrap">
+                    {items.subCategory
+                      ? items.subCategory.map((subItems) => {
+                          return (
+                            <Box key={subItems.name}>
+                              <Badge fontSize="1rem">{subItems.name}</Badge>
+                            </Box>
+                          );
+                        })
+                      : "No Subcategory Added"}
+                  </Flex>
                 </CardBody>
 
                 <Divider />
@@ -76,8 +91,8 @@ export default function Allcategory({ products }) {
                           border: "1px solid #153A5B",
                           fill: "red",
                         }}
-                        variant="outline"
-                        color="#153A5B"
+                        variant="solid"
+                        colorScheme="facebook"
                       >
                         Edit Category
                       </Button>

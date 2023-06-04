@@ -27,18 +27,12 @@ import Link from "next/link";
 import BreadCrumb from "@/Components/Shared/BreadCrumb";
 import { useToast } from "@chakra-ui/react";
 
-import { AiFillHeart } from "react-icons/ai";
 import { Modalproduct } from "@/Components/ProductModal/Modalproduct";
 
 import secureLocalStorage from "react-secure-storage";
-import {
-  BsFillGrid3X3GapFill,
-  BsFillGridFill,
-  BsGrid,
-  BsListUl,
-} from "react-icons/bs";
+import { AiFillHeart } from "react-icons/ai";
+import { BsFillGrid3X3GapFill } from "react-icons/bs";
 import { FaListUl } from "react-icons/fa";
-import { RxCross2 } from "react-icons/rx";
 import { useSelector, useDispatch } from "react-redux";
 import { addProductWishList } from "@/store/wishListSlice";
 
@@ -104,7 +98,7 @@ export default function Index({ productss }) {
         {products.length != 0 ? (
           <>
             <Box bg={colorMode == "light" ? "gray.100" : "gray.900"} p="1rem">
-              <BreadCrumb pgaeTitle={"plastic-surgery-instruments"}>
+              <BreadCrumb pgaeTitle={"liposuction-cannula-and-accessories"}>
                 {Slug ? Slug : ""}
               </BreadCrumb>
             </Box>
@@ -118,10 +112,15 @@ export default function Index({ productss }) {
             </Box>
             <Box
               //  border={"1px"}
-              width={"90%"}
+              width={["100%", "90%"]}
               mx={"auto"}
             >
-              <Box width={"90%"} mx="auto" mt={"2rem"}>
+              <Box
+                display={["none", "none", "block"]}
+                width={"90%"}
+                mx="auto"
+                mt={"2rem"}
+              >
                 <Divider borderColor={"gray.400"} />
                 <Flex
                   direction={["column", "row"]}
@@ -177,7 +176,7 @@ export default function Index({ productss }) {
               </Box>
               <Flex
                 mt="1rem"
-                w={["100%", "90%"]}
+                w={["100%", "100%", "90%"]}
                 justify="center"
                 // gap={"20px"}
                 // align="center"
@@ -188,8 +187,8 @@ export default function Index({ productss }) {
               >
                 <Flex
                   direction={listStyle === "grid" ? "row" : "column"}
-                  width={["100%", "80%"]}
-                  // border={"1px"}
+                  width={"inherit"}
+                  wrap={"wrap"}
                 >
                   {isLoading && (
                     <Box
