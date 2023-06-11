@@ -88,7 +88,7 @@ const Hero = () => {
       <Box>
         <Index />
       </Box>
-      <Box my={"2rem"}>
+      <Box my={"3rem"}>
         <Blogs />
       </Box>
       {/* <Box>

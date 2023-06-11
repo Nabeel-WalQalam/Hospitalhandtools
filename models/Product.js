@@ -7,9 +7,9 @@ const productSchema = new mongoose.Schema({
   short_description: { type: String },
   long_description: { type: String },
   combination: [],
-  combination_set: { type: String },
+  combination_set: { type : [], },
   image: {
-    type: [String], // specify that image is an array of strings
+    type: [], // specify that image is an array of strings
   },
   options: {
     type: [],

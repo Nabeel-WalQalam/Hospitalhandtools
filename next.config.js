@@ -2,8 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["hospitalhandtools.nyc3.digitaloceanspaces.com"],
-    domains: ["adasinstrumentsonline.com"],
+    domains: ["res.cloudinary.com"],
   },
 };
 

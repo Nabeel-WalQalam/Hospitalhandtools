@@ -1,21 +1,24 @@
 // 404.js
 import Link from "next/link";
-import { Center, Heading, Box, Text, Button } from "@chakra-ui/react";
+import { Center, Heading, Box, Text, Button , Flex} from "@chakra-ui/react";
+import Image from "next/image";
 
 export default function FourOhFour() {
   return (
     <>
-      <Box
-        display={"flex"}
-        justifyContent="center"
-        alignContent={"center"}
+      <Flex
+        // display={"flex"}
+justify={'center'}
+align={'center'}
         flexDirection="column"
         textAlign="center"
-        py={10}
-        px={6}
-        height="70vh"
+        // py={10}
+        // px={6}
+        height="90vh"
       >
-        <Heading
+        <Image src={'/assets/404.jpg'} alt="not-found" width={450} height={100} />
+
+        {/* <Heading
           display="inline-block"
           as="h2"
           size="4xl"
@@ -29,7 +32,7 @@ export default function FourOhFour() {
         </Text>
         <Text color={"gray.500"} mb={6}>
           The page you're looking for does not seem to exist
-        </Text>
+        </Text> */}
         <Link href={"/"}>
           <Button
             _hover={{
@@ -41,11 +44,13 @@ export default function FourOhFour() {
             bg={"#153A5B"}
             color="white"
             variant="solid"
+            width={'100%'}
+            fontSize={'1.2rem'}
           >
-            Go to Home
+            Go Home
           </Button>
         </Link>
-      </Box>
+      </Flex>
     </>
   );
 }

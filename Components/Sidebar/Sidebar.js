@@ -61,6 +61,7 @@ const Sidebar = () => {
             px="2rem"
             gap="1.5rem"
             direction="column"
+            fontWeight={'normal'}
           >
             <Link href={"/haniyanasir/admin"}>
               <Button
@@ -72,6 +73,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 Home
               </Button>
@@ -85,6 +87,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Products
               </Button>
@@ -98,6 +101,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 Add Product
               </Button>
@@ -111,6 +115,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Category
               </Button>
@@ -124,6 +129,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 Add Category
               </Button>
@@ -137,6 +143,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Orders
               </Button>
@@ -150,6 +157,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Zone
               </Button>
@@ -163,6 +171,7 @@ const Sidebar = () => {
                 _hover={{ bg: "blue.600" }}
                 _active={{ bg: "blue.600", borderRadius: "9px" }}
                 _focus={{ bg: "blue.600", borderRadius: "9px" }}
+                fontWeight={'normal'}
               >
                 Add Zone
               </Button>
@@ -176,6 +185,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Coupens
               </Button>
@@ -190,6 +200,7 @@ const Sidebar = () => {
                 _hover={{ bg: "blue.600" }}
                 _active={{ bg: "blue.600", borderRadius: "9px" }}
                 _focus={{ bg: "blue.600", borderRadius: "9px" }}
+                fontWeight={'normal'}
               >
                 Add Coupen
               </Button>
@@ -203,6 +214,7 @@ const Sidebar = () => {
                 variant="none"
                 // textTransform="uppercase"
                 _hover={{ bg: "blue.600" }}
+                fontWeight={'normal'}
               >
                 All Attribute
               </Button>
@@ -217,6 +229,7 @@ const Sidebar = () => {
                 _hover={{ bg: "blue.600" }}
                 _active={{ bg: "blue.600", borderRadius: "9px" }}
                 _focus={{ bg: "blue.600", borderRadius: "9px" }}
+                fontWeight={'normal'}
               >
                 Add Attribute
               </Button>

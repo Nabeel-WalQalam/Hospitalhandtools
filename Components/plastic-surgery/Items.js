@@ -22,11 +22,6 @@ const Items = ({ categoryList, slug }) => {
         // borderColor="gray.300"
         wrap={"wrap"}
         py="3rem"
-        // bg="gray.100"
-        // w="280px"
-        // h="100%"
-        // id="categoryList"
-        // borderRadius={"8px"}
       >
         {categoryList
           ? categoryList[0].subCategory.map((items) => {
@@ -37,14 +32,11 @@ const Items = ({ categoryList, slug }) => {
                 <Flex
                   justify={"center"}
                   gap={"5rem"}
-                  // border={"1px"}
-                  // // width={["40%", "40%", "30%", "25%"]}
-                  // borderColor={"gray.400"}
-                  // borderRadius="8px"
-                  // m="1rem"
                   key={items.name}
                   as={motion.div}
                   whileHover={{ scale: 1.1 }}
+                  border={"1px"}
+                  borderColor={"gray.200"}
                 >
                   <Link href={`/${slug}/${url1}`}>
                     <div id="DIV_1">
@@ -69,10 +61,12 @@ const Items = ({ categoryList, slug }) => {
                         </header>
                         <div id="DIV_7">
                           <Text
+                            textAlign={"center"}
                             as={"h1"}
                             mt={"0.4rem"}
                             id="H1_8"
-                            color={colorMode === "light" ? "#153A5B" : "white"}
+                            bg={"#153A5B"}
+                            color={colorMode === "light" ? "white" : "white"}
                           >
                             {" "}
                             {items.name ? items.name : ""}

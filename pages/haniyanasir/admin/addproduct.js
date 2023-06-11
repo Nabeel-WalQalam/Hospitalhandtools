@@ -39,6 +39,7 @@ import { AddAttributes } from "@/Components/AddAttributes";
 import { Texteditor } from "@/Components/QuillEditor/TextEditor";
 import CloudinaryUploader from "@/Components/CloudinaryUploader";
 import crypto from "crypto";
+import { AiFillPicture } from "react-icons/ai";
 
 // import { Varinats } from "@/Components/Varinats";
 
@@ -78,8 +79,9 @@ export default function Addproduct() {
   const [ispost, setispost] = useState(false);
 
   const [images, setImages] = useState([]);
+  const [categoryImage, setCategoryImages] = useState([]);
 
-  console.log("images", images);
+  // console.log("images", images);
 
   const handleUpload = (imageUrl) => {
     setUploadedImages((prevImages) => [...prevImages, imageUrl]);
@@ -107,60 +109,34 @@ export default function Addproduct() {
   const [tagss, setTagss] = useState([]);
 
   const onSubmit = async (data) => {
-    console.log(uploadImages);
+    // console.log("send data", data);
     setdisableButton2(true);
-    // setdisableButton2(true);
-    // console.log(data, tags);
+
+    console.log(data, tags);
     // console.log(data.combinationList);
-    // console.log(shortDescription, longDescription);
-    // console.log(backOrder, priceType, variants);
-    const formData = new FormData();
-    if (uploadImages.length) {
-      for (let i = 0; i < uploadImages.length; i++) {
-        formData.append("files[]", uploadImages[i]);
-      }
-    }
+    console.log(shortDescription, longDescription);
+    console.log(backOrder, priceType, variants , images );
+   
 
-    console.log(data.combinationList);
-    if (variants === "yes") {
-      for (let i = 0; i < data.combinationList.length; i++) {
-        if (data.combinationList[i].image[0]) {
-          formData.append("variantimage[]", data.combinationList[i].image[0]);
-        } else {
-          formData.append("variantimage[]", null);
-        }
-      }
-      formData.append("options[]", JSON.stringify(data.combinationList));
-    }
-    if (priceType === "range") {
-      formData.append("minprice", data.minPrice);
-      formData.append("maxprice", data.maxPrice);
-    } else {
-      formData.append("fixedprice", data.fixedPrice);
-      formData.append("saleprice", data.salePrice);
-    }
-    formData.append("title", data.title);
-    formData.append("slug", data.slug);
-    formData.append("category", data.category);
-    formData.append("short_description", shortDescription);
-    formData.append("long_description", longDescription);
-
-    formData.append("combination_set", AttributeName);
-    // combination
-    formData.append("combination", JSON.stringify(combinations));
-    formData.append("model", data.model);
-    formData.append("quantity", data.quantity);
-    formData.append("weight", data.weight);
-    formData.append("backorder", backOrder);
-    formData.append("pricetype", priceType);
-    formData.append("variant", variants);
-    formData.append("tags[]", JSON.stringify(tags));
-    // console.log(data.combinationList[0].image[0]);
+    
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}/api/addProduct`,
       {
         method: "POST",
-        body: formData,
+        body: JSON.stringify({
+          data:data,
+          shortDes : shortDescription,
+          longDes : longDescription,
+          picture:images,
+          isBackOrder : backOrder,
+          pricetype : priceType,
+          variants : variants,
+          combination_set : AttributeName,
+          tags:tags,
+          combination:combinations
+
+
+        })
       }
     );
     const data2 = await response.json();
@@ -186,6 +162,7 @@ export default function Addproduct() {
       setfinalCombinations([]);
       setSelectedImages([]);
       setispost(true);
+      setImages([]);
       setdisableButton2(false);
       // Router.push("/admin");
     } else {
@@ -466,32 +443,31 @@ export default function Addproduct() {
     }
   }, [combinations]);
 
-  const handleImageUpload = async (event) => {
+  const handleImageUpload = (event, index) => {
+    setdisableButton2(true);
+    console.log("run", index);
     const file = event.target.files[0];
     const formData = new FormData();
     formData.append("file", file);
     formData.append("upload_preset", "mbqw8fjf"); // Replace with your Cloudinary upload preset
-
-    try {
-      const response = await fetch(
-        "https://api.cloudinary.com/v1_1/dexc7zdm4/image/upload",
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      const data = await response.json();
-      console.log("responce", data);
-
-      setImages((prevImages) => [
-        ...prevImages,
-        { id: data.public_id, url: data.secure_url },
-      ]);
-    } catch (error) {
-      console.error("Error uploading image: ", error);
-    }
+  
+    fetch("https://api.cloudinary.com/v1_1/dexc7zdm4/image/upload", {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setValue(`combinationList.${index}.pic`, data.url);
+        setCategoryImages((prevImages) => [...prevImages, data]);
+        setdisableButton2(false);
+      })
+      .catch((error) => {
+        console.error("Error uploading image: ", error);
+        setdisableButton2(false);
+      });
   };
   console.log("images", images);
+  console.log("list", combinationImage);
 
   const generateSHA1 = (data) => {
     const hash = crypto.createHash("sha1");
@@ -505,6 +481,7 @@ export default function Addproduct() {
   };
 
   const handleImageDelete = async (Public_id, signature2, id, deleteToken) => {
+    setdisableButton2(true);
     const timestamp = new Date().getTime();
     const Latestsignature = generateSHA1(
       generateSignature(Public_id, "cE_mxtg1AcfO-3q8A84vGy0v2Kg")
@@ -524,6 +501,10 @@ export default function Addproduct() {
       });
 
       setImages((prevImages) => prevImages.filter((image) => image.id !== id));
+      setCategoryImages((prevImages) =>
+        prevImages.filter((image) => image.id !== id)
+      );
+      setdisableButton2(false);
     } catch (error) {
       console.error("Error deleting image: ", error);
     }
@@ -1109,14 +1090,22 @@ export default function Addproduct() {
                                                   defaultValue={field.price}
                                                 />
 
-                                                {/* <label
-                                                  htmlFor={`quantity-${index}`}
+                                                <label
+                                                
+                                                  htmlFor={`image-${index}`}
                                                 >
-                                                  Image
-                                                </label>
+                                                  {/* image 📷 */}
+                                                  <AiFillPicture size={'3rem'} cursor={'pointer'}/>
+                                                
                                                 <Input
-                                                  width={"15%"}
+                                                  // width={"25%"}
                                                   type="file"
+                                                  // name="photos"
+                                                  onChangeCapture={
+                                                    (event)=>handleImageUpload(event , index)
+                                                  }
+                                                  cursor={'pointer'}
+                                                  display={'none'}
                                                   accept="image/png , image/jpeg, image/webp"
                                                   required={true}
                                                   id={`image-${index}`}
@@ -1124,26 +1113,7 @@ export default function Addproduct() {
                                                     `combinationList.${index}.image`
                                                   )}
                                                   defaultValue={field.image}
-                                                /> */}
-
-                                                <label
-                                                  className={`quantity-${index}`}
-                                                  // className="Plabel"
-                                                >
-                                                  + Add Images
-                                                  <br />
-                                                  <Input
-                                                    type="file"
-                                                    // name="images"
-                                                    onChange={onSelectFile}
-                                                    // multiple
-                                                    accept="image/png , image/jpeg, image/webp"
-                                                    id={`image-${index}`}
-                                                    {...register(
-                                                      `combinationList.${index}.image`
-                                                    )}
-                                                    defaultValue={field.image}
-                                                  />
+                                                />
                                                 </label>
                                               </Flex>
                                             );
@@ -1153,6 +1123,50 @@ export default function Addproduct() {
                                     ) : (
                                       "Select Attribute First"
                                     )}
+                                    <Flex
+                                      gap="1rem"
+                                      margin={"2rem"}
+                                      position={"relative"}
+                                    >
+                                      {categoryImage.length != 0
+                                        ? categoryImage.map((items) => (
+                                            <Box
+                                              border={"1px"}
+                                              // w={"100%"}
+                                              pos={"relative"}
+                                              left={"0px"}
+                                              key={items.id}
+                                            >
+                                              <Image
+                                                border={"1px"}
+                                                borderColor={"gray.300"}
+                                                width={"150px"}
+                                                height={"100px"}
+                                                src={items.url}
+                                                alt="images"
+                                              />
+                                              <CloseButton
+                                                // border={"1px"}
+                                                // borderColor={"gray.200"}
+                                                bg="gray.100"
+                                                // color={"blue"}
+                                                zIndex={"9999"}
+                                                position={"absolute"}
+                                                top={"0px"}
+                                                right="0rem"
+                                                onClick={() =>
+                                                  handleImageDelete(
+                                                    items.public_id,
+                                                    items.signature,
+                                                    items.id,
+                                                    items.delete_token
+                                                  )
+                                                }
+                                              />
+                                            </Box>
+                                          ))
+                                        : null}
+                                    </Flex>
                                   </Box>
                                 </TabPanel>
                               </TabPanels>

@@ -16,7 +16,10 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { useForm, useFieldArray } from "react-hook-form";
 import { useToast } from "@chakra-ui/react";
+import { AiFillPicture } from "react-icons/ai";
+import { useRouter } from "next/router";
 export default function Editcategory({ product }) {
+  const [imagePreviews, setImagePreviews] = useState([]);
   // console.log(product.subCategory);
 
   const {
@@ -30,6 +33,7 @@ export default function Editcategory({ product }) {
       subCategory: [product.subCategory.map((item) => item)],
     },
   });
+  const Router = useRouter();
   const { fields, append, remove } = useFieldArray({
     control,
     name: "subCategory",
@@ -38,40 +42,31 @@ export default function Editcategory({ product }) {
   const toast = useToast();
 
   const onSubmit = async (data) => {
-    // console.log(data);
+    // console.log("asdasd", data);
 
-    const formData = new FormData();
-
-    for (let i = 0; i < data.subCategory.length; i++) {
-      if (data.subCategory[i].image[0] instanceof File) {
-        // console.log("file", data.subCategory[i].image[0]);
-        // console.log("data", data.subCategory[i].name);
-        formData.append("files[]", data.subCategory[i].image[0]);
-        formData.append("sunHeading", data.subCategory[i].name);
-      } else {
-        formData.append("files2[]", data.subCategory[i].image);
-        formData.append("sunHeading2", data.subCategory[i].name);
-      }
-    }
-
-    formData.append("field1", data.mainCategory);
-    formData.append("id", product._id);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}/api/editCategory`,
       {
         method: "POST",
 
-        body: formData,
+        body: JSON.stringify({ data, key: product._id }),
       }
     );
     const data2 = await response.json();
 
-    console.log(data2);
     if (data2.success) {
       toast({
         title: "Update Category Successfully",
         status: "success",
         duration: 6000,
+        isClosable: true,
+      });
+      Router.push("/haniyanasir/admin/allcategory");
+    } else {
+      toast({
+        title: "error Occured",
+        status: "error",
+        duration: 5000,
         isClosable: true,
       });
     }
@@ -84,6 +79,52 @@ export default function Editcategory({ product }) {
       product.subCategory.map((item) => item)
     );
   }, [setValue]);
+
+  const handleImageUpload = async (e, index) => {
+    const file = e.target.files[0];
+
+    // Create a new FormData object
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("upload_preset", "mbqw8fjf");
+
+    try {
+      fetch("https://api.cloudinary.com/v1_1/dexc7zdm4/image/upload", {
+        method: "POST",
+        body: formData,
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          setImagePreviews((prevImageUrls) => {
+            const newImageUrls = [...prevImageUrls];
+            newImageUrls[index] = data.url;
+            return newImageUrls;
+          });
+
+          // Set the image URL to the React Hook Form field value
+          setValue(`subCategory.${index}.image`, "");
+          setValue(`subCategory.${index}.image`, data.url);
+        })
+        .catch((error) => {
+          console.error("Error uploading image: ", error);
+        });
+
+      // Get the uploaded image URL from the response
+
+      // Set the image URL to the corresponding index in the imageUrls state
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleImageDelete = (index) => {
+    setImagePreviews((prevPreviews) => {
+      const newPreviews = [...prevPreviews];
+      newPreviews[index] = null;
+      return newPreviews;
+    });
+    setValue(`subCategory.${index}.image`, "");
+  };
 
   return (
     <>
@@ -147,6 +188,8 @@ export default function Editcategory({ product }) {
                         my={"1rem"}
                         key={item.id}
                         align="center"
+                        border={"1px"}
+                        borderColor={"gray.200"}
 
                         // w={"100%"}
                       >
@@ -158,20 +201,66 @@ export default function Editcategory({ product }) {
                             required: true,
                           })}
                         />
-                        <Input
-                          borderColor="#153A5B"
-                          width={"30%"}
-                          type={"file"}
-                          {...register(`subCategory.${index}.image`)}
-                        />
+                        <Flex
+                          direction={"column-reverse"}
+                          justify={"center"}
+                          align={"center"}
+                        >
+                          <Text>Upload picture </Text>
+                          <label htmlFor={`subCategory.${index}.picture`}>
+                            {" "}
+                            <AiFillPicture fill="green" fontSize={"3rem"} />
+                          </label>
+                          <Input
+                            display={"none"}
+                            id={`subCategory.${index}.picture`}
+                            w={"30%"}
+                            type={"file"}
+                            onChangeCapture={(e) => handleImageUpload(e, index)}
+                            {...register(`subCategory.${index}.image`)}
+                          />
+                        </Flex>
 
-                        {/* <Image
-                          borderColor="#153A5B"
-                          src={product.subCategory[index].image}
-                          alt="pictures"
-                          width={60}
-                          height={100}
-                        /> */}
+                        <Box border="1px" borderColor={"gray.300"}>
+                          {imagePreviews[index] && (
+                            <>
+                              <Image
+                                src={imagePreviews[index]}
+                                alt="preview"
+                                width={100}
+                                height={100}
+                              />
+                              <Button
+                                width={"100%"}
+                                colorScheme="red"
+                                size="sm"
+                                borderRadius={"none"}
+                                onClick={() => handleImageDelete(index)}
+                              >
+                                Delete
+                              </Button>
+                            </>
+                          )}
+                          {product.subCategory[index] && (
+                            <>
+                              <Image
+                                src={product.subCategory[index].image}
+                                alt="preview"
+                                width={100}
+                                height={100}
+                              />
+                              <Button
+                                width={"100%"}
+                                colorScheme="red"
+                                size="sm"
+                                borderRadius={"none"}
+                                onClick={() => handleImageDelete(index)}
+                              >
+                                Delete
+                              </Button>
+                            </>
+                          )}
+                        </Box>
 
                         <Button
                           colorScheme={"red"}

@@ -14,6 +14,7 @@ import {
 import Link from "next/link";
 
 import BreadCrumb from "@/Components/Shared/BreadCrumb";
+import { NotFound } from "@/Components/ProductNotFound/NotFound";
 
 export default function Index({ categoryList }) {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -23,6 +24,8 @@ export default function Index({ categoryList }) {
         <BreadCrumb>Instruments-By-Procedures</BreadCrumb>
       </Box>
       <Box minH={"90vh"}>
+      {categoryList.length ? (
+        <>
         <Center bg="#153A5B" p={"1rem"}>
           <Heading
             textTransform={"uppercase"}
@@ -40,18 +43,15 @@ export default function Index({ categoryList }) {
             Go with the Best Preminum Quality of Instruments
           </Text>
         </Center>
-        {categoryList.length ? (
+        
           <PlasticSurgery
             categoryList={categoryList}
             slug={"Instruments-By-Procedures"}
           />
+          </>
         ) : (
           <>
-            <Flex justify="center" mt={"4rem"}>
-              <Text fontSize={"3rem"} fontWeight={"semibold"}>
-                Sorry ! No Product Found
-              </Text>
-            </Flex>
+            <NotFound text={' Sorry ! No Category Posted Yet'} />
           </>
         )}
       </Box>

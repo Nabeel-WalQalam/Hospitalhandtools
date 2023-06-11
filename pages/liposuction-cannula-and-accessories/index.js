@@ -53,8 +53,8 @@ export default function Index({ categoryList }) {
         ) : (
           <>
             <Flex justify="center" mt={"4rem"}>
-              <Text fontSize={"3rem"} fontWeight={"semibold"}>
-                Sorry ! No Product Found
+            <Text fontSize={"3rem"} color={'#153A5B'} fontWeight={"semibold"}>
+                Sorry ! No Category Added Yet
               </Text>
             </Flex>
           </>

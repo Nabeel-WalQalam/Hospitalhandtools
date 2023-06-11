@@ -130,8 +130,8 @@ export default function Index({ categoryList }) {
         ) : (
           <>
             <Flex justify="center" mt={"4rem"}>
-              <Text fontSize={"3rem"} fontWeight={"semibold"}>
-                Sorry ! No Product Found
+              <Text fontSize={"3rem"} color={'#153A5B'} fontWeight={"semibold"}>
+                Sorry ! No Category Added Yet
               </Text>
             </Flex>
           </>
@@ -150,6 +150,7 @@ export async function getServerSideProps(context) {
       mainCategory: "plastic surgery instruments",
     });
     const posts = await JSON.parse(JSON.stringify(res));
+    
     // console.log(posts);
     return {
       props: { categoryList: posts }, // will be passed to the page component as props

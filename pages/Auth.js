@@ -431,8 +431,8 @@ function Auth({ user }) {
 
       <Flex
         display={["none", "none", "flex", "flex"]}
-        h="90vh"
-        py={"3rem"}
+        height="100vh"
+        py={"10rem"}
         align={"center"}
         justify="center"
         bg={colorMode === "light" ? "facebook.100" : "facebook.200"}

@@ -243,7 +243,7 @@ const Blogs = () => {
     // </Flex>
     <>
       <Center>
-        <Heading as="h2" fontSize={["1rem", "2rem", "2.3rem"]} marginTop="5">
+        <Heading color={'#153A5B'} as="h2" fontSize={["1rem", "2rem", "2.3rem"]} marginTop="5">
           Stories by HospitalHandTools
         </Heading>
       </Center>
@@ -322,10 +322,11 @@ const Blogs = () => {
               }
               textDecoration="none"
               _hover={{ textDecoration: "none" }}
-              color="#153A5B"
+              
             >
+              <Text my={'0.2rem'} color={'#153A5B'}>
               5 Types of Surgical Instruments Every Operating Room
-            </Link>
+            </Text></Link>
           </Heading>
           <Text
             as="p"
@@ -333,6 +334,7 @@ const Blogs = () => {
             // px={"2rem"}
             color={useColorModeValue("gray.700", "gray.200")}
             fontSize="lg"
+            px={2}
           >
             Having the proper surgical instruments is crucial while carrying out
             surgical procedures. Having access to the correct tools can make all
