@@ -58,7 +58,7 @@ export default function AddAttribute() {
         duration: 5000,
         isClosable: true,
       });
-      Router.push("/admin/allAttribute");
+      Router.push("/haniyanasir/admin/allAttribute");
     } else {
       toast({
         title: result.msg,
@@ -78,10 +78,10 @@ export default function AddAttribute() {
         <Box my={"3rem"} ml="2rem">
           <form onSubmit={handleSubmit(onSubmit)}>
             <Box width="40%" marginInline={"auto"}>
-              <Text fontWeight={"semibold"} fontSize="1.6rem">
-                Select Attribute Name
+              <Text fontWeight={"semibold"} my={"0.5rem"} fontSize="1.6rem">
+                Attribute Name
               </Text>
-              <Select
+              {/* <Select
                 ref={select}
                 required
                 placeholder="Select Name"
@@ -90,7 +90,8 @@ export default function AddAttribute() {
                 <option value="size">Size</option>
                 <option value="type">Type</option>
                 <option value="color">Color</option>
-              </Select>
+              </Select> */}
+              <Input type="text" border={"1px"} ref={select} />
             </Box>
             <Flex direction={"column"}>
               {fields.map((item, index) => {
@@ -108,7 +109,7 @@ export default function AddAttribute() {
                     align="center"
                   >
                     <Text fontWeight={"medium"} fontSize="1.2rem">
-                      Enter Name of Attribute
+                      Value of Attribute
                     </Text>
                     <Input
                       _hover={{ border: "1px", borderColor: "#153A5B" }}

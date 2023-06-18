@@ -53,7 +53,7 @@ export default function AllAttribute({ data }) {
         duration: 5000,
         isClosable: true,
       });
-      Router.push("/admin/allAttribute");
+      Router.push("/haniyanasir/admin/allAttribute");
     } else {
       toast({
         title: result.msg,
@@ -65,8 +65,8 @@ export default function AllAttribute({ data }) {
   };
   return (
     <Box height={"100vh"} width={"100%"}>
-      <Center bg="#153A5B">
-        <Heading color={"white"}>All Attribute</Heading>
+      <Center bg="gray.200">
+        <Heading>All Attribute</Heading>
       </Center>
       <Box>
         {data.length ? (

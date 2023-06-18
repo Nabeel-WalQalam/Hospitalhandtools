@@ -30,7 +30,7 @@ import {
   SliderTrack,
   SliderFilledTrack,
   SliderThumb,
-  Image,
+  // Image,
   Modal,
   ModalOverlay,
   ModalContent,
@@ -98,6 +98,7 @@ import { MdCompareArrows } from "react-icons/md";
 // import Zoom from "../ImageZoom/Zoom";
 import { addProductWishList } from "@/store/wishListSlice";
 import { addProduct } from "@/store/compareSlice";
+import Image from "next/image";
 
 const ProductPage = ({ product }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -125,11 +126,12 @@ const ProductPage = ({ product }) => {
   const [FeatureProducts, setFeatureProducts] = useState([]);
   const [SelectedImage2, setSelectedImage2] = useState("");
   const [imageMap, setimageMap] = useState([]);
+  const [isHovered, setIsHovered] = useState(false);
 
   useEffect(() => {
     if (product.options) {
       const imageMap = product.options.reduce((acc, curr) => {
-        acc[curr.combination] = curr.weight;
+        acc[curr.combination] = curr.image;
         return acc;
       }, {});
       // console.log(imageMap);
@@ -160,9 +162,9 @@ const ProductPage = ({ product }) => {
   useEffect(() => {
     if (product.combination_set) {
       let data = product.combination_set;
-      let array = data.split(",");
+      // let array = data.join(" ").split(",");
       // setcartslug(array);
-      setcombinationSet(array);
+      setcombinationSet(data);
     }
   }, [product.combination_set]);
   // console.log("selected", cartslug);
@@ -207,12 +209,12 @@ const ProductPage = ({ product }) => {
     combinationIndex,
     combinationName
   ) => {
-    console.log(
-      combinationSetIndex,
-      combinationSetName,
-      combinationIndex,
-      combinationName
-    );
+    // console.log(
+    //   combinationSetIndex,
+    //   combinationSetName,
+    //   combinationIndex,
+    //   combinationName
+    // );
 
     const newSelectedItems = [...selectedItems];
     newSelectedItems[combinationSetIndex] = combinationName;
@@ -220,7 +222,7 @@ const ProductPage = ({ product }) => {
 
     const selectedCombination = newSelectedItems.join("-");
     const selectedImage = imageMap[selectedCombination];
-    console.log("image", selectedImage);
+    console.log("image", selectedCombination, newSelectedItems, imageMap);
     setSelectedImage2(selectedImage);
 
     const updatedItems = [...selectedItems];
@@ -320,17 +322,8 @@ const ProductPage = ({ product }) => {
     setIsModalOpen(false);
   };
 
-  // const images = [
-  //   "https://via.placeholder.com/150",
-  //   "https://via.placeholder.com/200",
-  //   "https://via.placeholder.com/250",
-  //   "https://via.placeholder.com/300",
-  //   "https://via.placeholder.com/350",
-  //   "https://via.placeholder.com/400",
-  // ];
-
   const [selectedImage, setSelectedImage] = useState(
-    product.image ? product.image[0] : "/assets/logo.svg"
+    product.image ? product.image[0].url : "/assets/logo.svg"
   );
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -338,14 +331,14 @@ const ProductPage = ({ product }) => {
     setSelectedImage2("");
     const newIndex =
       (currentIndex - 1 + product.image.length) % product.image.length;
-    setSelectedImage(product.image[newIndex]);
+    setSelectedImage(product.image[newIndex].url);
     setCurrentIndex(newIndex);
   };
 
   const handleNext = () => {
     setSelectedImage2("");
     const newIndex = (currentIndex + 1) % product.image.length;
-    setSelectedImage(product.image[newIndex]);
+    setSelectedImage(product.image[newIndex].url);
     setCurrentIndex(newIndex);
   };
 
@@ -374,6 +367,7 @@ const ProductPage = ({ product }) => {
     });
   };
 
+  // console.log("product", product);
   return (
     <>
       <Box
@@ -385,148 +379,305 @@ const ProductPage = ({ product }) => {
           justify={["center", "center", "center", "center"]}
           gap={["0px", "0px", "2rem", "3rem"]}
           mt={"2rem"}
+          // border={"1px"}
         >
           <Flex
             my={"1rem"}
             direction={"column"}
             // border={"1px"}
-            width={["100%", "90%", "90%", "40%"]}
+
+            width={["100%", "90%", "90%", "50%"]}
             marginInline={["auto", "auto", "unset", "unset"]}
           >
-            <Flex
-              justify={"center"}
-              // w={"100%"}
-              align="center"
-              border={"1px"}
-              height="450px"
-              // minW={"600px"}
-              borderColor={"gray.200"}
-              // width={"inherit"}
-              // my={[5, 5, 0, 0]}
-              // boxShadow="base"
-              // p={[0, 0, 5, 100]}
-              // borderRadius="8px"
-            >
-              {product.variants === "yes" && product.image ? (
-                // <ImageSlider slides={product.image} />
+            <Flex align={"center"} gap={"0.5rem"}>
+              {product.variants !== "yes" && product.image ? (
                 <>
                   <Flex
-                    direction={"row"}
-                    width={"inherit"}
-                    height={"inherit"}
-                    my={"2rem"}
+                    direction={"column"}
+                    border={"1px"}
+                    borderColor={"gray.300"}
+                    gap={"1rem"}
                     justify={"center"}
-                    gap={"3rem"}
+                    alignContent={"center"}
+                    alignItems={"center"}
                     align={"center"}
-                    // border="1px"
-                    // borderColor={"gray.200"}
+                    w="100px"
+                    height={"100%"}
+                    // mr={4}
                   >
-                    {/* <Box width={"inherit"} height={"inherit"}> */}
-                    <Flex
-                      direction={"column"}
-                      border={"1px"}
-                      borderColor={"gray.200"}
-                      gap={"1rem"}
-                      alignContent={"center"}
-                      alignItems={"center"}
-                      w="100px"
-                      // mr={4}
-                    >
-                      <IconButton
-                        icon={<RiArrowUpSLine />}
-                        isDisabled={currentIndex === 0}
-                        onClick={handlePrevious}
-                        aria-label="Previous"
-                        mb={2}
-                        fontSize={"2rem"}
-                        variant={"ghost"}
-                      />
+                    <IconButton
+                      icon={<RiArrowUpSLine />}
+                      isDisabled={currentIndex === 0}
+                      onClick={handlePrevious}
+                      aria-label="Previous"
+                      mb={2}
+                      fontSize={"2rem"}
+                      variant={"ghost"}
+                    />
 
-                      {product.image
-                        ? product.image.map((src, index) => (
-                            <Image
-                              key={index}
-                              src={src}
-                              alt={`Image ${index}`}
-                              w="50%"
-                              mb={2}
-                              border={"1px"}
-                              borderColor={"gray.200"}
-                              shadow={"base"}
-                              onClick={() => {
-                                setSelectedImage(src);
-                                setCurrentIndex(index);
-                              }}
-                              boxShadow={
-                                selectedImage === src
-                                  ? "0 0 0 2px #153A5B"
-                                  : "0 0 0 2px transparent"
-                              }
-                              _hover={{ boxShadow: "0 0 0 1px gray" }}
-                            />
-                          ))
-                        : ""}
-                      <IconButton
-                        icon={<RiArrowDownSLine />}
-                        isDisabled={currentIndex === product.image.length - 1}
-                        onClick={handleNext}
-                        aria-label="Next"
-                        mt={2}
-                        variant={"ghost"}
-                        fontSize={"2rem"}
-                      />
-                    </Flex>
-                    <Flex justify={"center"} align={"center"}>
-                      <Flex
-                        width={"inherit"}
-                        height={"inherit"}
-                        overflow={"hidden"}
-                      >
-                        <Box flex={1}>
+                    {product.image
+                      ? product.image.map((src, index) => (
                           <Image
-                            src={
-                              SelectedImage2 ? SelectedImage2 : selectedImage
+                            key={index}
+                            src={src.url}
+                            alt={`Image ${index}`}
+                            width={60}
+                            height={100}
+                            mb={2}
+                            border={"1px"}
+                            borderColor={"gray.200"}
+                            shadow={"base"}
+                            onClick={() => {
+                              setSelectedImage(src.url);
+                              setCurrentIndex(index);
+                            }}
+                            boxShadow={
+                              selectedImage === src
+                                ? "0 0 0 2px #153A5B"
+                                : "0 0 0 2px transparent"
                             }
-                            alt="Selected Image"
-                            w="100%"
-                            h="400px"
+                            _hover={{ boxShadow: "0 0 0 1px gray" }}
                           />
-                        </Box>
+                        ))
+                      : ""}
+                    <IconButton
+                      icon={<RiArrowDownSLine />}
+                      isDisabled={currentIndex === product.image.length - 1}
+                      onClick={handleNext}
+                      aria-label="Next"
+                      mt={2}
+                      variant={"ghost"}
+                      fontSize={"2rem"}
+                    />
+                  </Flex>
+                  <Flex
+                    justify={"center"}
+                    w={"100%"}
+                    align="center"
+                    border={"1px"}
+                    height="450px"
+                    // minW={"600px"}
+                    borderColor={"gray.200"}
+                    // width={"inherit"}
+                    // my={[5, 5, 0, 0]}
+                    // boxShadow="base"
+                    // p={[0, 0, 5, 100]}
+                    // borderRadius="8px"
+                  >
+                    {/* // <ImageSlider slides={product.image} /> */}
+
+                    <Flex
+                      direction={"row"}
+                      width={"inherit"}
+                      height={"inherit"}
+                      my={"2rem"}
+                      justify={"center"}
+                      gap={"3rem"}
+                      align={"center"}
+                      // border="1px"
+                      // borderColor={"gray.200"}
+                    >
+                      {/* <Box width={"inherit"} height={"inherit"}> */}
+
+                      <Flex
+                        justify={"center"}
+                        width={"inherit"}
+                        align={"center"}
+                      >
+                        <Flex
+                          width={"inherit"}
+                          height={"inherit"}
+                          overflow={"hidden"}
+                          justify={"center"}
+                          align={"center"}
+                        >
+                          <Flex
+                            justify={"center"}
+                            align={"center"}
+                            // border={"1px"}
+                            width={"inherit"}
+                            flex={1}
+                          >
+                            <Image
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                              style={{
+                                transform: isHovered
+                                  ? "scale(1.5)"
+                                  : "scale(1)",
+                                transition: "transform 0.3s ease-in-out",
+                              }}
+                              src={
+                                SelectedImage2 ? SelectedImage2 : selectedImage
+                              }
+                              alt="Selected Image"
+                              // w="inherit"
+                              width={450}
+                              height={100}
+                            />
+                          </Flex>
+                        </Flex>
                       </Flex>
                     </Flex>
                   </Flex>
                 </>
               ) : (
-                <Image
-                  src={"/assets/logo.svg"}
-                  alt="Logo"
-                  width={"inerit"}
-                  height={"inherit"}
-                />
+                <>
+                  <Flex
+                    direction={"column"}
+                    border={"1px"}
+                    borderColor={"gray.300"}
+                    gap={"1rem"}
+                    justify={"center"}
+                    alignContent={"center"}
+                    alignItems={"center"}
+                    align={"center"}
+                    w="100px"
+                    height={"100%"}
+                    // mr={4}
+                  >
+                    <IconButton
+                      icon={<RiArrowUpSLine />}
+                      isDisabled={currentIndex === 0}
+                      onClick={handlePrevious}
+                      aria-label="Previous"
+                      mb={2}
+                      fontSize={"2rem"}
+                      variant={"ghost"}
+                    />
+
+                    {product.image
+                      ? product.image.map((src, index) => (
+                          <Image
+                            key={index}
+                            src={src.url}
+                            alt={`Image ${index}`}
+                            width={60}
+                            height={100}
+                            mb={2}
+                            border={"1px"}
+                            borderColor={"facebook"}
+                            shadow={"base"}
+                            onClick={() => {
+                              setSelectedImage(src.url);
+                              setCurrentIndex(index);
+                            }}
+                            boxShadow={
+                              selectedImage === src
+                                ? "0 0 0 2px #153A5B"
+                                : "0 0 0 2px transparent"
+                            }
+                            _hover={{ boxShadow: "0 0 0 1px gray" }}
+                          />
+                        ))
+                      : ""}
+                    <IconButton
+                      icon={<RiArrowDownSLine />}
+                      isDisabled={currentIndex === product.image.length - 1}
+                      onClick={handleNext}
+                      aria-label="Next"
+                      mt={2}
+                      variant={"ghost"}
+                      fontSize={"2rem"}
+                    />
+                  </Flex>
+                  <Flex
+                    justify={"center"}
+                    w={"100%"}
+                    align="center"
+                    border={"1px"}
+                    height="450px"
+                    // minW={"600px"}
+                    borderColor={"gray.200"}
+                    // width={"inherit"}
+                    // my={[5, 5, 0, 0]}
+                    // boxShadow="base"
+                    // p={[0, 0, 5, 100]}
+                    // borderRadius="8px"
+                  >
+                    {/* // <ImageSlider slides={product.image} /> */}
+
+                    <Flex
+                      direction={"row"}
+                      width={"inherit"}
+                      height={"inherit"}
+                      my={"2rem"}
+                      justify={"center"}
+                      gap={"3rem"}
+                      align={"center"}
+                      // border="1px"
+                      // borderColor={"gray.200"}
+                    >
+                      {/* <Box width={"inherit"} height={"inherit"}> */}
+
+                      <Flex
+                        justify={"center"}
+                        width={"inherit"}
+                        align={"center"}
+                      >
+                        <Flex
+                          width={"inherit"}
+                          height={"inherit"}
+                          overflow={"hidden"}
+                          justify={"center"}
+                          align={"center"}
+                        >
+                          <Flex
+                            justify={"center"}
+                            align={"center"}
+                            // border={"1px"}
+                            width={"inherit"}
+                            flex={1}
+                          >
+                            <Image
+                              onMouseEnter={() => setIsHovered(true)}
+                              onMouseLeave={() => setIsHovered(false)}
+                              style={{
+                                transform: isHovered
+                                  ? "scale(1.5)"
+                                  : "scale(1)",
+                                transition: "transform 0.3s ease-in-out",
+                              }}
+                              src={
+                                SelectedImage2 ? SelectedImage2 : selectedImage
+                              }
+                              alt="Selected Image"
+                              // w="inherit"
+                              width={450}
+                              height={100}
+                            />
+                          </Flex>
+                        </Flex>
+                      </Flex>
+                    </Flex>
+                  </Flex>
+                </>
               )}
             </Flex>
-            <HStack
-              display={["none", "none", "flex", "flex"]}
-              mt={"1rem"}
-              justify="center"
-              align={"center"}
-            >
-              {/* <Text>TAGS : </Text> */}
-              {product.tags.map((tags) => {
-                return (
-                  <Tag
-                    key={tags}
-                    bg={"#153A5B"}
-                    color="white"
-                    px={"1rem"}
-                    py={"0.3rem"}
-                    fontWeight="normal"
-                  >
-                    {tags}
-                  </Tag>
-                );
-              })}
-            </HStack>
+            <Box>
+              <HStack
+                display={["none", "none", "flex", "flex"]}
+                mt={"1rem"}
+                justify="center"
+                align={"center"}
+              >
+                {/* <Text>TAGS : </Text> */}
+                {product.tags.map((tags) => {
+                  return (
+                    <Tag
+                      key={tags}
+                      bg={"#153A5B"}
+                      color="white"
+                      px={"1rem"}
+                      py={"0.3rem"}
+                      fontWeight="normal"
+                    >
+                      {tags}
+                    </Tag>
+                  );
+                })}
+              </HStack>
+            </Box>
           </Flex>
 
           <Flex
@@ -658,7 +809,7 @@ const ProductPage = ({ product }) => {
                                 (items, Index2) => {
                                   return (
                                     <Badge
-                                      mt={"0.5rem"}
+                                      // mt={"0.5rem"}
                                       cursor={"pointer"}
                                       border={"1px"}
                                       _hover={{
@@ -672,7 +823,7 @@ const ProductPage = ({ product }) => {
                                         "1.5rem",
                                       ]}
                                       mx={"0.3rem"}
-                                      px={"0.5rem"}
+                                      px={"1rem"}
                                       onClick={(e) =>
                                         handleOptions(
                                           e,
@@ -684,11 +835,9 @@ const ProductPage = ({ product }) => {
                                       }
                                       key={Index2 + items}
                                       variant={getBadgeVariant(Index, items)}
-                                      color={
-                                        colorMode == "light"
-                                          ? "gray.900"
-                                          : "white"
-                                      }
+                                      // color={
+                                      //   colorMode == "light" ? "white" : "black"
+                                      // }
                                     >
                                       {items}
                                     </Badge>
@@ -764,7 +913,7 @@ const ProductPage = ({ product }) => {
                   " "
                 ) : !isCartEnabled2 ? (
                   <>
-                    <Text color={"red.200"}>Select all options*</Text>
+                    <Text color={"red.400"}>Select all options*</Text>
                   </>
                 ) : (
                   ""
@@ -908,7 +1057,7 @@ const ProductPage = ({ product }) => {
                 Product Description
               </Tab>
             </TabList>
-            <TabPanels w={"100%"} bg={"gray.200"}>
+            <TabPanels w={"100%"} bg={"#F8F8F8"}>
               <TabPanel>
                 {product.long_description
                   ? ReactHtmlParser(product.long_description)
@@ -917,11 +1066,22 @@ const ProductPage = ({ product }) => {
             </TabPanels>
           </Tabs>
         </Flex>
-        <Flex width={"95%"} mx={"auto"} direction={"column"} mt={"5rem"}>
-          <Text ml={"5rem"} fontWeight={"semibold"} fontSize={"1.2rem"}>
+        <Divider width={"80%"} mx={"auto"} borderColor={"#153A5B"} />
+
+        {/* <Divider width={"80%"} mx={"auto"} borderColor={"#153A5B"} my="2rem" /> */}
+        <Flex
+          border={"1px"}
+          borderColor={"gray.300"}
+          width={"95%"}
+          mx={"auto"}
+          direction={"column"}
+          p="1rem"
+          mt={"5rem"}
+        >
+          <Text fontWeight={"semibold"} color={"#153A5B"} fontSize={"1.5rem"}>
             PEOPLE ALSO BOUGHT
           </Text>
-          <Divider w={"10%"} ml={"5rem"} borderColor={"gray.800"} />
+          <Divider w={"18%"} borderColor={"gray.800"} />
 
           {FeatureProducts.length ? (
             <>

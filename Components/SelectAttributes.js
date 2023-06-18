@@ -6,7 +6,7 @@ import makeAnimated from "react-select/animated";
 import { Box } from "@chakra-ui/react";
 
 const animatedComponents = makeAnimated();
-export const AddAttributes = ({ data, setSizeList }) => {
+export const SelectAttributes = ({ data, onAttributeChange, index }) => {
   // console.log("data", data);
   const [list, setlist] = useState([]);
   const [combination, setcombination] = useState([]);
@@ -23,17 +23,19 @@ export const AddAttributes = ({ data, setSizeList }) => {
 
   const handleSelectChange = (selectedOptions) => {
     setSelectedOptions(selectedOptions);
+    const selectedLabels = selectedOptions.map((option) => option.label);
+    onAttributeChange(index, selectedLabels);
   };
 
-  useEffect(() => {
-    if (selectedOptions) {
-      let tempAr = [];
-      selectedOptions.map((items) => {
-        tempAr.push(items.label);
-      });
-      setSizeList(tempAr);
-    }
-  }, [selectedOptions]);
+  // useEffect(() => {
+  //   if (selectedOptions) {
+  //     let tempAr = [];
+  //     selectedOptions.map((items) => {
+  //       tempAr.push(items.label);
+  //     });
+  //     setSizeList(tempAr);
+  //   }
+  // }, [selectedOptions]);
 
   // console.log("selected options", selectedOptions);
 

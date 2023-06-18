@@ -23,7 +23,7 @@ import Link from "next/link";
 import { ProductsTable } from "@/Components/Table/ProductsTable";
 
 export default function Allproducts({ products }) {
-  console.log("products", products);
+  // console.log("products", products);
   return (
     <>
       <Box height={"100vh"} width="100%">

@@ -102,43 +102,46 @@ const JoinOurTeam = () => {
       <Flex
         justify={"center"}
         align={"center"}
-        border={"1px"}
+        // border={"1px"}
         width={"100%"}
         height={"100vh"}
         position={"relative"}
       >
-        <Flex justify={"center"} my={"5rem"} align={"center"}>
+        <Flex width={"60%"} justify={"center"} my={"5rem"} align={"center"}>
           <Stack
             bg={"gray.50"}
             rounded={"xl"}
             p={{ base: 4, sm: 6, md: 8 }}
-            spacing={{ base: 8 }}
-            maxW={{ lg: "lg" }}
+            // spacing={{ base: 8 }}
+            border={"1px"}
+            borderColor={"gray.300"}
+            width={"100%"}
           >
             <Stack spacing={4}>
               <Heading
-                color={"gray.800"}
-                lineHeight={1.1}
+                color={"#153A5B"}
+                // lineHeight={1.1}
                 fontSize={{ base: "2xl", sm: "3xl", md: "4xl" }}
               >
                 Log In
-                <Text
+                {/* <Text
                   as={"span"}
                   bgGradient="linear(to-r, red.400,pink.400)"
                   bgClip="text"
                 >
                   !
-                </Text>
+                </Text> */}
               </Heading>
-              <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
+              {/* <Text color={"gray.500"} fontSize={{ base: "sm", sm: "md" }}>
                 __________________________________________________________________
-              </Text>
+              </Text> */}
             </Stack>
 
             <Box as={"form"} mt={10}>
               <Stack spacing={4}>
                 <Input
                   ref={email}
+                  width={"100%"}
                   placeholder="email"
                   type="email"
                   bg={"gray.100"}

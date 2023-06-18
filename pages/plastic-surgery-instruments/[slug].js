@@ -54,7 +54,7 @@ export default function Index({ productss }) {
 
   const handleSort = async () => {
     setIsLoading(true);
-    console.log("sortType", sortType.current.value);
+    // console.log("sortType", sortType.current.value);
     if (!sortType.current.value) {
       setproducts(productss);
       setIsLoading(false);
@@ -75,7 +75,7 @@ export default function Index({ productss }) {
       }
     );
     const data2 = await responce.json();
-    console.log(data2);
+    // console.log(data2);
     if (data2.success) {
       setproducts(data2.message);
       setIsLoading(false);
@@ -232,14 +232,19 @@ export default function Index({ productss }) {
                             <Box
                               position={"relative"}
                               width={listStyle === "grid" ? "none" : "270px"}
-                              height={"200px"}
+                              height={"250px"}
                             >
                               {items.image ? (
                                 <Image
-                                  src={items.image[0]}
+                                  src={
+                                    items.image
+                                      ? items.image[0].url
+                                      : "/assets/noProduct.png"
+                                  }
                                   alt={items.title}
-                                  width={250}
-                                  height={200}
+                                  // width={200}
+                                  // height={200}
+                                  layout="fill"
                                   priority
                                 />
                               ) : (
@@ -377,7 +382,7 @@ export default function Index({ productss }) {
           //     </Button>
           //   </Link>
           // </Box>
-          <NotFound text={'Sorry Product Not Listed'}/>
+          <NotFound text={"Sorry Product Not Listed"} />
         )}
       </Box>
     </>

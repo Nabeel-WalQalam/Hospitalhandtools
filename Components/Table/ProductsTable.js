@@ -51,7 +51,7 @@ export const ProductsTable = ({ products }) => {
 
       Router.push(
         {
-          pathname: "/admin/allproducts",
+          pathname: "/haniyanasir/admin/allproducts",
         },
         undefined,
         { shallow: true }
@@ -76,7 +76,7 @@ export const ProductsTable = ({ products }) => {
         Headers: "Edit",
         accessor: "_id",
         Cell: ({ row }) => (
-          <Link href={`/admin/editproduct?id=${row.original._id}`}>
+          <Link href={`/haniyanasir/admin/editproduct?id=${row.original._id}`}>
             <Button colorScheme={"purple"}>Edit</Button>
           </Link>
         ),

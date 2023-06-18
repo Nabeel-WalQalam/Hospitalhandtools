@@ -70,9 +70,9 @@ export const AddToCartProduct = ({ variants, text, product }) => {
   useEffect(() => {
     if (product.combination_set) {
       let data = product.combination_set;
-      let array = data.split(",");
+      // let array = data.split(",");
       // setcartslug(array);
-      setcombinationSet(array);
+      setcombinationSet(data);
     }
   }, [product.combination_set]);
 

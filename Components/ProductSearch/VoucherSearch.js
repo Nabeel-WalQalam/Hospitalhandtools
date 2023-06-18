@@ -166,6 +166,7 @@ function VoucherSearch() {
             const category = result.category.replace(/\s+/g, "-");
             const slug = result.slug.replace(/\s+/g, "-");
             const tite = result.title.replace(/\s+/g, "-");
+            console.log("result", result);
 
             return (
               <Link
@@ -182,7 +183,9 @@ function VoucherSearch() {
                     pos={"relative"}
                   >
                     <Image
-                      src={result.image ? result.image : "/assets/150.png"}
+                      src={
+                        result.image ? result.image[0].url : "/assets/150.png"
+                      }
                       fill="fill"
                       objectFit="contain"
                       // alt={result.title}
@@ -229,21 +232,10 @@ function VoucherSearch() {
 
                 textOverflow={"hidden"}
                 overflow="hidden"
-                // color={colorMode === "light" ? "#153A5B" : "#153A5B"}
                 bg={colorMode === "light" ? "#153A5B" : "white"}
                 color={colorMode == "light" ? "white" : "#153A5B"}
                 position={"relative"}
                 height={"100%"}
-                // _hover={{
-                //   bg: "#153A5B",
-                //   color: "white",
-                //   border: "1px",
-                //   borderColor: "white",
-                // }}
-                // variant={"filled"}
-                // as={Button}
-                // rightIcon={<FaArrowDown />}
-
                 _hover={{
                   bg: colorMode == "light" ? "white" : "#153A5B",
                   color: colorMode === "light" ? "#153A5B" : "white",
@@ -362,6 +354,8 @@ function VoucherSearch() {
           p={2}
           width={"100%"}
           display={searchQuery.length ? "block" : "none"}
+          borderRadius={"10px"}
+          // borderTopLeftRadius={"10px"}
         >
           {renderSearchResults()}
 

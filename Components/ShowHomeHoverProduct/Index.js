@@ -104,7 +104,7 @@ const Index = ({ product }) => {
             {/* <Box>{product._id}</Box> */}
             <Box>
               <Image
-                src={product.image ? product.image : "/assets/logo.svg"}
+                src={product.image ? product.image[0].url : "/assets/logo.svg"}
                 alt="product-1"
                 fill={"auto"}
               />

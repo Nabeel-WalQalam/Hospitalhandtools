@@ -11,6 +11,7 @@ import {
   Select,
   FormLabel,
   Divider,
+  FormControl,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
@@ -129,9 +130,9 @@ export default function Editcategory({ product }) {
   return (
     <>
       <Box width={"100%"} height="100vh" bg={"gray.200"}>
-        <Box bg={"#153A5B"} p="0.4rem">
+        <Box bg={"gray.300"} p="0.4rem">
           <Center>
-            <Heading color={"white"}>Edit Category</Heading>
+            <Heading>Edit Category</Heading>
           </Center>
         </Box>
 
@@ -174,51 +175,59 @@ export default function Editcategory({ product }) {
                     </option>
                   </Select>
                 </Box>
-                <Box
+                <Flex
+                  direction={"column"}
                   my={"1rem"}
-                  w="100%"
-                  border={"1px"}
-                  p="1rem"
-                  borderColor={"gray.300"}
+                  // w="100%"
+                  // border={"1px"}
+                  // p="1rem"
+                  // borderColor={"gray.300"}
                 >
                   {fields.map((item, index) => {
                     return (
                       <Flex
-                        justify={"space-evenly"}
+                        // justify={"space-evenly"}
+                        justify={"center"}
                         my={"1rem"}
                         key={item.id}
+                        gap={"2rem"}
+                        wrap={"wrap"}
                         align="center"
                         border={"1px"}
                         borderColor={"gray.200"}
-
                         // w={"100%"}
                       >
-                        <Input
-                          borderColor="#153A5B"
-                          width={"30%"}
-                          placeholder="name "
-                          {...register(`subCategory.${index}.name`, {
-                            required: true,
-                          })}
-                        />
-                        <Flex
-                          direction={"column-reverse"}
-                          justify={"center"}
-                          align={"center"}
-                        >
-                          <Text>Upload picture </Text>
-                          <label htmlFor={`subCategory.${index}.picture`}>
-                            {" "}
-                            <AiFillPicture fill="green" fontSize={"3rem"} />
-                          </label>
-                          <Input
-                            display={"none"}
-                            id={`subCategory.${index}.picture`}
-                            w={"30%"}
-                            type={"file"}
-                            onChangeCapture={(e) => handleImageUpload(e, index)}
-                            {...register(`subCategory.${index}.image`)}
-                          />
+                        <Flex gap={"5rem"} width={"50%"}>
+                          <FormControl>
+                            <FormLabel>Category Name</FormLabel>
+                            <Input
+                              borderColor="#153A5B"
+                              // width={"30%"}
+                              placeholder="name "
+                              {...register(`subCategory.${index}.name`, {
+                                required: true,
+                              })}
+                            />
+                          </FormControl>
+
+                          <FormControl>
+                            <FormLabel>Picture</FormLabel>
+
+                            <label htmlFor={`subCategory.${index}.picture`}>
+                              {" "}
+                              <AiFillPicture fill="green" fontSize={"3rem"} />
+                            </label>
+                            <Input
+                              display={"none"}
+                              id={`subCategory.${index}.picture`}
+                              // w={"30%"}
+                              type={"file"}
+                              onChangeCapture={(e) =>
+                                handleImageUpload(e, index)
+                              }
+                              {...register(`subCategory.${index}.image`)}
+                            />
+                          </FormControl>
                         </Flex>
 
                         <Box border="1px" borderColor={"gray.300"}>
@@ -227,11 +236,11 @@ export default function Editcategory({ product }) {
                               <Image
                                 src={imagePreviews[index]}
                                 alt="preview"
-                                width={100}
+                                width={150}
                                 height={100}
                               />
                               <Button
-                                width={"100%"}
+                                // width={"100%"}
                                 colorScheme="red"
                                 size="sm"
                                 borderRadius={"none"}
@@ -301,7 +310,7 @@ export default function Editcategory({ product }) {
                       Reset
                     </Button>
                   </Flex>
-                </Box>
+                </Flex>
                 <Button variant={"outline"} colorScheme="purple" type="submit">
                   Submit
                 </Button>

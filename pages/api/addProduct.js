@@ -29,25 +29,46 @@ import Product from "../../models/Product";
 export default async function handler(req, res) {
   await connectDb();
   if (req.method == "POST") {
-
-
     // console.log(JSON.parse(req.body));
     const Data = JSON.parse(req.body);
     // console.log(Data)
-    const {combinationList , title , quantity , fixedPrice , salePrice , model ,category, slug, weight , minPrice , maxPrice} = Data.data;
-    const {shortDes , longDes, picture , isBackOrder, pricetype ,variants , combination_set , tags, combination} = Data;
+    const {
+      combinationList,
+      title,
+      quantity,
+      fixedPrice,
+      salePrice,
+      model,
+      category,
+      slug,
+      weight,
+      minPrice,
+      maxPrice,
+    } = Data.data;
+    const {
+      shortDes,
+      longDes,
+      picture,
+      isBackOrder,
+      pricetype,
+      variants,
+      combination_set,
+      tags,
+      combination,
+    } = Data;
 
-
-    if(title == ''){
-      return res.status(200).json({ success: false , msg:"please enter product title " });
+    if (title == "") {
+      return res
+        .status(200)
+        .json({ success: false, msg: "please enter product title " });
     }
-    if(picture.length == 0){
-      return res.status(200).json({ success: false , msg:"please add product image " });
+    if (picture.length == 0) {
+      return res
+        .status(200)
+        .json({ success: false, msg: "please add product image " });
     }
-
 
     // console.log(combination_set)
-
 
     try {
       const Products = new Product({
@@ -55,13 +76,10 @@ export default async function handler(req, res) {
         slug: slug,
         short_description: shortDes,
         long_description: longDes,
-        combination_set: combination_set.length != 0 ? combination_set : null,
-        combination:
-          variants === "yes"
-            ? combination
-            : null,
+        combination_set: variants === "yes" ? combination_set : null,
+        combination: variants === "yes" ? combination : null,
         image: picture,
-        options: combinationList.length != 0 ? combinationList : null,
+        options: variants === "yes" ? combinationList : null,
         model: model,
         quantity: quantity,
         tags: tags,
@@ -69,18 +87,10 @@ export default async function handler(req, res) {
         backOrder: isBackOrder,
         priceType: pricetype,
         variants: variants,
-        minPrice: minPrice
-          ? minPrice
-          : null,
-        maxPrice: maxPrice
-          ? maxPrice
-          : null,
-        fixedPrice: fixedPrice
-          ? fixedPrice
-          : null,
-        salePrice: salePrice
-          ? salePrice
-          : null,
+        minPrice: minPrice ? minPrice : null,
+        maxPrice: maxPrice ? maxPrice : null,
+        fixedPrice: fixedPrice ? fixedPrice : null,
+        salePrice: salePrice ? salePrice : null,
         category: category,
       });
 
@@ -88,15 +98,8 @@ export default async function handler(req, res) {
       return res.status(200).json({ success: true });
     } catch (error) {
       // console.log(error)
-      return res.status(200).json({ success: false , error });
+      return res.status(200).json({ success: false, error });
     }
-
-
-
-
-
-
-
 
     // const {} = req.body;
     // const newObject = {
@@ -299,43 +302,43 @@ export default async function handler(req, res) {
     //                     // newObject.images
     //                   );
 
-                      // try {
-                      //   const Products = new Product({
-                      //     title: req.body.title,
-                      //     slug: req.body.slug,
-                      //     short_description: req.body.short_description,
-                      //     long_description: req.body.long_description,
-                      //     combination_set: req.body.combination_set,
-                      //     combination:
-                      //       req.body.variant === "yes"
-                      //         ? req.body.combination
-                      //         : null,
-                      //     image: newObject.images,
-                      //     options: optionData ? optionData : null,
-                      //     model: req.body.model,
-                      //     quantity: req.body.quantity,
-                      //     tags: JSON.parse(req.body.tags),
-                      //     weight: req.body.weight,
-                      //     backOrder: req.body.backorder,
-                      //     priceType: req.body.pricetype,
-                      //     variants: req.body.variant,
-                      //     minPrice: req.body.minprice
-                      //       ? req.body.minprice
-                      //       : null,
-                      //     maxPrice: req.body.maxprice
-                      //       ? req.body.maxprice
-                      //       : null,
-                      //     fixedPrice: req.body.fixedprice
-                      //       ? req.body.fixedprice
-                      //       : null,
-                      //     salePrice: req.body.saleprice
-                      //       ? req.body.saleprice
-                      //       : null,
-                      //     category: req.body.category,
-                      //   });
+    // try {
+    //   const Products = new Product({
+    //     title: req.body.title,
+    //     slug: req.body.slug,
+    //     short_description: req.body.short_description,
+    //     long_description: req.body.long_description,
+    //     combination_set: req.body.combination_set,
+    //     combination:
+    //       req.body.variant === "yes"
+    //         ? req.body.combination
+    //         : null,
+    //     image: newObject.images,
+    //     options: optionData ? optionData : null,
+    //     model: req.body.model,
+    //     quantity: req.body.quantity,
+    //     tags: JSON.parse(req.body.tags),
+    //     weight: req.body.weight,
+    //     backOrder: req.body.backorder,
+    //     priceType: req.body.pricetype,
+    //     variants: req.body.variant,
+    //     minPrice: req.body.minprice
+    //       ? req.body.minprice
+    //       : null,
+    //     maxPrice: req.body.maxprice
+    //       ? req.body.maxprice
+    //       : null,
+    //     fixedPrice: req.body.fixedprice
+    //       ? req.body.fixedprice
+    //       : null,
+    //     salePrice: req.body.saleprice
+    //       ? req.body.saleprice
+    //       : null,
+    //     category: req.body.category,
+    //   });
 
-                      //   Products.save();
-                      //   return res.status(200).json({ success: true });
+    //   Products.save();
+    //   return res.status(200).json({ success: true });
     //                   } catch (error) {
     //                     console.log(error);
     //                     return res.status(400).json({

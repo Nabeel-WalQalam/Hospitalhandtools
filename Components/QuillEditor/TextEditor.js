@@ -3,7 +3,7 @@ import dynamic from "next/dynamic";
 const ReactQuill = dynamic(() => import("react-quill"), { ssr: false });
 import "react-quill/dist/quill.snow.css";
 
-export const Texteditor = ({ setText, isposted }) => {
+export const Texteditor = ({ setText, isposted, editText }) => {
   const [value, setValue] = useState("");
   // console.log("quill", value);
 
@@ -12,8 +12,12 @@ export const Texteditor = ({ setText, isposted }) => {
   }, [value]);
 
   useEffect(() => {
-    setValue("");
-    setText("");
+    if (isposted) {
+      setValue("");
+      setText("");
+    } else {
+      setValue(editText);
+    }
   }, [isposted]);
 
   const toolbarOptions = [

@@ -34,7 +34,7 @@ export const Modalproduct = ({ product }) => {
   const [adding, setadding] = useState(false);
   const dispatch = useDispatch();
 
-  // console.log("field", Query);
+  console.log("products", product);
 
   const handleOnClose = async () => {
     // Router.push(`/${product.category}/${product.slug}`);
@@ -69,9 +69,9 @@ export const Modalproduct = ({ product }) => {
   useEffect(() => {
     if (product.combination_set) {
       let data = product.combination_set;
-      let array = data.split(",");
+      // let array = data.split(",");
       // setcartslug(array);
-      setcombinationSet(array);
+      setcombinationSet(data);
     }
   }, [product.combination_set]);
 

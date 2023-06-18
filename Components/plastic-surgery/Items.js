@@ -56,7 +56,7 @@ const Items = ({ categoryList, slug }) => {
                                 : "/assets/dummy.png"
                             }
                             alt={items.name}
-                            fill="auto"
+                            layout="fill"
                           />
                         </header>
                         <div id="DIV_7">
