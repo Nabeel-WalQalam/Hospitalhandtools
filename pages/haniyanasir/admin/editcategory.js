@@ -42,6 +42,8 @@ export default function Editcategory({ product }) {
   // console.log(product);
   const toast = useToast();
 
+  console.log("category", imagePreviews);
+
   const onSubmit = async (data) => {
     // console.log("asdasd", data);
 

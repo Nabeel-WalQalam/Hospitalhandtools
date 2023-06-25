@@ -18,18 +18,16 @@ import {
 import dbConnect from "@/Middleware/connectDb";
 import Product from "@/models/Product";
 import { useRouter } from "next/router";
-import Image from "next/image";
-import Link from "next/link";
 import { ProductsTable } from "@/Components/Table/ProductsTable";
 
 export default function Allproducts({ products }) {
   // console.log("products", products);
   return (
     <>
-      <Box height={"100vh"} width="100%">
-        <Box bg="#153A5B">
+      <Box width="100%">
+        <Box bg="gray.200">
           <Center>
-            <Heading color={"white"}>All Products</Heading>
+            <Heading color={"#153A5B"}>All Products</Heading>
           </Center>
         </Box>
         <Box>
