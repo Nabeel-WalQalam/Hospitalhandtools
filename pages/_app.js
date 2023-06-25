@@ -1,6 +1,7 @@
 import Footer from "@/Components/Footer/Footer";
 import Navbar from "@/Components/Navbar/Navbar";
 import Sidebar from "@/Components/Sidebar/Sidebar";
+import dynamic from "next/dynamic";
 import "../styles/globals.css";
 import {
   ChakraProvider,
@@ -23,8 +24,14 @@ import { Provider } from "react-redux";
 import { getUserData } from "../store";
 import Message from "@/Components/Contact/Message";
 import Index from "@/Components/SubNavbar/Index";
-import TawkTo from "@/Components/Chat/Tawk";
+// import TawkTo from "@/Components/Chat/Tawk";
 import Head from "next/head";
+import Script from "next/script";
+import { Loader } from "@/Components/Spinner/Loader";
+
+const TawkTo = dynamic(() => import("@/Components/Chat/Tawk"), {
+  ssr: false,
+});
 
 const lato = Lato({
   subsets: ["latin"],
@@ -48,16 +55,6 @@ export default function App({ Component, pageProps }) {
   useEffect(() => {
     store.dispatch(getUserData());
   }, []);
-
-  // useEffect(() => {
-  //   if (user.user) {
-  //     if (user.user.role === "admin" && user.active) {
-  //       router.push("/admin");
-  //     }
-  //   }
-  // }, [user]);
-
-  // console.log(router.pathname);
 
   useEffect(() => {
     let token = localStorage.getItem("token");
@@ -107,47 +104,20 @@ export default function App({ Component, pageProps }) {
     });
   }, [router.query]);
 
-  useEffect(() => {
-    console.log("render only once");
-  }, []);
-
   return Loading ? (
     <>
-      <Head>
-        <script
-          src="https://upload-widget.cloudinary.com/global/all.js"
-          type="text/javascript"
-        ></script>
-      </Head>
-      <Flex
-        justify={"center"}
-        align={"center"}
-        direction={"column"}
-        border={"1px"}
-        height={"100vh"}
-      >
-        <Box>
-          <Spinner
-            color="#153A5B"
-            size={"xl"}
-            width={"100px"}
-            height={"100px"}
-            thickness="5px"
-          />
-        </Box>
-        <Text
-          my={"1rem"}
-          fontWeight={"bold"}
-          color={"#153A5B"}
-          fontSize={"2rem"}
-        >
-          Hospital Hand Tool
-        </Text>
-      </Flex>
+      <Loader />
     </>
   ) : (
     // <main className={lato.className}>
+
     <Provider store={store}>
+      <Head>
+        <Script
+          src="https://upload-widget.cloudinary.com/global/all.js"
+          type="text/javascript"
+        ></Script>
+      </Head>
       <ColorModeProvider
         options={{
           initialColorMode: "light",

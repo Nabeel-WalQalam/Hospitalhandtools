@@ -8,84 +8,29 @@ import {
   Input,
   Select,
   FormLabel,
-  Divider,
   Radio,
   RadioGroup,
   Stack,
-  Textarea,
-  Tabs,
-  TabList,
-  TabPanels,
-  Tab,
-  TabPanel,
   InputGroup,
   InputLeftAddon,
-  VStack,
-  Image,
-  IconButton,
-  CloseButton,
 } from "@chakra-ui/react";
-import { DeleteIcon } from "@chakra-ui/icons";
+
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import React, { useState, useEffect, useRef } from "react";
 import { useForm, useFieldArray, Controller } from "react-hook-form";
-// import Image from "next/image";
-import { Upload } from "react-feather";
-import { CloudinaryContext, Image as CloudinaryImage } from "cloudinary-react";
-import Head from "next/head";
 
-import { AddAttributes } from "@/Components/SelectAttributes";
 import { Texteditor } from "@/Components/QuillEditor/TextEditor";
 import CloudinaryUploader from "@/Components/CloudinaryUploader";
 
-import { AiFillPicture } from "react-icons/ai";
 import dbConnect from "@/Middleware/connectDb";
 import Attribute from "@/models/Attribute";
 import { Tags } from "@/Components/ProductsTag/Tags";
 import { Variant } from "@/Components/ProductVariant/Variant";
+import Product from "@/models/Product";
 
-// import { Varinats } from "@/Components/Varinats";
-
-export default function Addproduct({ attrubutes }) {
-  const [disableButton2, setdisableButton2] = useState(false);
-  const [selectedImages, setSelectedImages] = useState([]);
-  const [uploadImages, setuploadImages] = useState([]);
-  const Router = useRouter();
-  const [tags, setTags] = useState([]);
-  const toast = useToast();
-  const [getCategory, setgetCategory] = useState("");
-  const [filterCategory, setfilterCategory] = useState([]);
-  const selectAttribute = useRef();
-  const [disableButton, setdisableButton] = useState(false);
-  const [allAttribute, setallAttribute] = useState([]);
-
-  //set attibute data in Api reques
-
-  const [AttributeName, setAttributeName] = useState([]);
-  const [sizeAttribute, setsizeAttribute] = useState([]);
-  const [typeAttribute, settypeAttribute] = useState([]);
-  const [colorAttribute, setcolorAttribute] = useState([]);
-  const [combinations, setCombinations] = useState([]);
-  const [weight, setweight] = useState("");
-  const [listWeight, setlistWeight] = useState([]);
-  const [getSizeList, setgetSizeList] = useState([]);
-  const [getTypeList, setgetTypeList] = useState([]);
-  const [getColorList, setgetColorList] = useState([]);
-  const [CombinationList, setCombinationList] = useState([]);
-  const [combinationImage, setcombinationImage] = useState([]);
-  const [combinationimageselected, setcombinationimageselected] = useState([]);
-  const [backOrder, setbackOrder] = useState("true");
-  const [priceType, setpriceType] = useState("fixed");
-  const [variants, setvariants] = useState("no");
-  const [shortDescription, setshortDescription] = useState("");
-  const [longDescription, setlongDescription] = useState("");
-  const [ispost, setispost] = useState(false);
-
-  const [images, setImages] = useState([]);
-
-  // console.log("images", images);
-
+export default function Addproduct({ attrubutes, product }) {
+  // console.log(product);
   const {
     register,
     handleSubmit,
@@ -94,28 +39,52 @@ export default function Addproduct({ attrubutes }) {
 
     formState: { errors },
     setValue,
+    getValues,
   } = useForm({
     defaultValues: {
       combinationList: [
-        {
-          combination: "",
-          weight: "",
-          price: "",
-          image: "",
-        },
+        product && product.options && product.options.map((item) => item),
       ],
     },
   });
 
-  // const { fields, append, remove, update } = useFieldArray({
-  //   control,
-  //   name: "combinationList",
-  // });
+  const [disableButton2, setdisableButton2] = useState(false);
+  const [selectedImages, setSelectedImages] = useState([]);
+  const Router = useRouter();
+  const [tags, setTags] = useState([]);
+  const toast = useToast();
+  const [getCategory, setgetCategory] = useState(
+    product ? product.category : ""
+  );
+  const [filterCategory, setfilterCategory] = useState([]);
+
+  const [AttributeName, setAttributeName] = useState([
+    product && product.combination_set,
+  ]);
+  const [combinations, setCombinations] = useState([]);
+  const [CombinationList, setCombinationList] = useState([
+    product && product.combination,
+  ]);
+  const [backOrder, setbackOrder] = useState("true");
+  const [priceType, setpriceType] = useState(
+    product ? product.priceType : "fixed"
+  );
+  const [variants, setvariants] = useState(product ? product.variants : "no");
+  const [shortDescription, setshortDescription] = useState(
+    product && product.short_description
+  );
+  const [longDescription, setlongDescription] = useState(
+    product && product.long_description
+  );
+  const [ispost, setispost] = useState(false);
+
+  const [images, setImages] = useState([]);
 
   const onSubmit = async (data) => {
     console.log(
       "send data",
       data,
+      variants,
       backOrder,
       priceType,
       images,
@@ -125,111 +94,77 @@ export default function Addproduct({ attrubutes }) {
       CombinationList,
       AttributeName
     );
-    setdisableButton2(true);
 
-    const response = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/addProduct`,
-      {
-        method: "POST",
-        body: JSON.stringify({
-          data: data,
-          shortDes: shortDescription,
-          longDes: longDescription,
-          picture: images,
-          isBackOrder: backOrder,
-          pricetype: priceType,
-          variants: variants,
-          combination_set: AttributeName,
-          tags: tags,
-          combination: CombinationList,
-        }),
-      }
-    );
-    const data2 = await response.json();
+    // setdisableButton2(true);
 
-    if (data2.success == true) {
-      toast({
-        title: "Product Publish.",
-        description: "Item have been registerd ",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      reset();
-      setTags([]);
-      setshortDescription("");
-      setlongDescription("");
-      setCombinations([]);
-      setAttributeName([]);
-      setsizeAttribute([]);
-      setallAttribute([]);
-      settypeAttribute([]);
-      setcolorAttribute([]);
+    // const response = await fetch(
+    //   `${process.env.NEXT_PUBLIC_HOST}/api/addProduct`,
+    //   {
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //       data: data,
+    //       shortDes: shortDescription,
+    //       longDes: longDescription,
+    //       picture: images,
+    //       isBackOrder: backOrder,
+    //       pricetype: priceType,
+    //       variants: variants,
+    //       combination_set: AttributeName,
+    //       tags: tags,
+    //       combination: CombinationList,
+    //     }),
+    //   }
+    // );
+    // const data2 = await response.json();
 
-      setSelectedImages([]);
-      setispost(true);
-      setImages([]);
-      setdisableButton2(false);
-      // Router.push("/admin");
-    } else {
-      toast({
-        title: "error",
-        description: data2.msg,
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
-      reset();
-      setTags([]);
-      setshortDescription("");
-      setlongDescription("");
-      setCombinations([]);
-      setAttributeName([]);
-      setsizeAttribute([]);
-      setallAttribute([]);
-      settypeAttribute([]);
-      setcolorAttribute([]);
+    // if (data2.success == true) {
+    //   toast({
+    //     title: "Product Publish.",
+    //     description: "Item have been registerd ",
+    //     status: "success",
+    //     duration: 5000,
+    //     isClosable: true,
+    //   });
+    //   reset();
+    //   setTags([]);
+    //   setshortDescription("");
+    //   setlongDescription("");
+    //   setCombinations([]);
+    //   setAttributeName([]);
+    //   setsizeAttribute([]);
+    //   setallAttribute([]);
+    //   settypeAttribute([]);
+    //   setcolorAttribute([]);
 
-      setSelectedImages([]);
-      setispost(true);
-      setdisableButton2(false);
-    }
+    //   setSelectedImages([]);
+    //   setispost(true);
+    //   setImages([]);
+    //   setdisableButton2(false);
+    //   // Router.push("/admin");
+    // } else {
+    //   toast({
+    //     title: "error",
+    //     description: data2.msg,
+    //     status: "error",
+    //     duration: 5000,
+    //     isClosable: true,
+    //   });
+    //   reset();
+    //   setTags([]);
+    //   setshortDescription("");
+    //   setlongDescription("");
+    //   setCombinations([]);
+    //   setAttributeName([]);
+    //   setsizeAttribute([]);
+    //   setallAttribute([]);
+    //   settypeAttribute([]);
+    //   setcolorAttribute([]);
+
+    //   setSelectedImages([]);
+    //   setispost(true);
+    //   setdisableButton2(false);
+    // }
   };
-
-  // const updateFields = () => {
-  //   finalCombinations.forEach((combination, index) => {
-  //     setValue(
-  //       `combinationList[${index}].combination`,
-  //       combination.combination
-  //     );
-  //     setValue(`combinationList[${index}].weight`, combination.weight);
-  //     setValue(`combinationList[${index}].price`, combination.price);
-  //   });
-  // };
-
-  const onSelectFile = (event) => {
-    const selectedFiles = event.target.files;
-    setuploadImages((previousImages) =>
-      previousImages.concat(event.target.files[0])
-    );
-    // console.log(selectedFiles);
-    const selectedFilesArray = Array.from(selectedFiles);
-
-    const imagesArray = selectedFilesArray.map((file) => {
-      return URL.createObjectURL(file);
-    });
-
-    setSelectedImages((previousImages) => previousImages.concat(imagesArray));
-
-    // FOR BUG IN CHROME
-    // event.target.value = "";
-  };
-
-  function deleteHandler(image, index2) {
-    setSelectedImages(selectedImages.filter((e) => e !== image));
-    setuploadImages(uploadImages.filter((e, index) => index !== index2));
-    URL.revokeObjectURL(image);
-  }
 
   const handleCategory = (e) => {
     // console.log(e.target.value);
@@ -262,91 +197,39 @@ export default function Addproduct({ attrubutes }) {
     getAllSubCategory();
   }, [getCategory]);
 
-  const handleAttribute = async () => {
-    setdisableButton(true);
+  useEffect(() => {
+    if (product) {
+      setValue("title", product.title);
+      setValue("model", product.model);
+      setValue("weight", product.weight);
+      setValue("quantity", product.quantity);
+      setValue("minPrice", product.minPrice);
+      setValue("fixedPrice", product.fixedPrice);
+      setValue("maxPrice", product.maxPrice);
+      setValue("category", product.category);
+      setValue("slug", product.slug);
+      setTags(product.tags);
+      setValue("combinationList", product.options);
+      setImages(product.image);
+      setbackOrder(product.backOrder ? "true" : "false");
+      setvariants(product.variants);
+      setshortDescription(product.short_description);
+      setlongDescription(product.long_description);
 
-    const responce = await fetch(
-      `${process.env.NEXT_PUBLIC_HOST}/api/getAttributes`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-        body: JSON.stringify({
-          id: selectAttribute.current.value,
-        }),
-      }
-    );
-
-    let result = await responce.json();
-    // console.log(result);
-    if (result.success) {
-      setdisableButton(false);
-      toast({
-        title: "Attribute Successfully Added",
-        status: "success",
-        duration: 5000,
-        isClosable: true,
-      });
-      // setAttributeName((prev) => [...prev, result.msg.name]);
-
-      if (result.msg.name == "size") {
-        setsizeAttribute(result.msg.values);
-        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
-        setAttributeName((prev) => [...prev, result.msg.name]);
-      } else if (result.msg.name == "type") {
-        settypeAttribute(result.msg.values);
-        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
-        setAttributeName((prev) => [...prev, result.msg.name]);
-      } else if (result.msg.name == "color") {
-        setcolorAttribute(result.msg.values);
-        setallAttribute((oldValues) => [...oldValues, result.msg.values]);
-        setAttributeName((prev) => [...prev, result.msg.name]);
-      }
-
-      // setAttributeName((oldValues) => [...oldValues, result.msg.name]);
+      // product.options &&
+      //   setValue(
+      //     "combinationList",
+      //     product.options.map((item, INDEX) => item)
+      //   );
     } else {
-      setdisableButton(false);
-      toast({
-        title: "Attribute Not added please add one",
-        status: "error",
-        duration: 5000,
-        isClosable: true,
-      });
+      reset();
     }
-  };
-
-  // console.log("size", combinations);
-  // console.log(typeAttribute);
-  // console.log(backOrder);
-
-  const handleAddButton = (e, index) => {
-    // console.log(i);
-    let flag = false;
-    if (listWeight.length) {
-      const newArr = [...listWeight];
-
-      newArr.map((items) => {
-        if (items.index == index) {
-          flag = true;
-          // console.log("find", items);
-          items.weight = weight;
-
-          // console.log("newList", newArr);
-          return setlistWeight(newArr);
-        }
-      });
-      if (!flag) {
-        return setlistWeight((prev) => [...prev, { weight, index }]);
-      }
-    } else {
-      // console.log("new added");
-      setlistWeight((prev) => [...prev, { weight, index }]);
+  }, []);
+  useEffect(() => {
+    if (!product) {
+      reset();
     }
-  };
-
-  // console.log("images", images);
-  // console.log("list", combinationImage);
+  }, []);
 
   return (
     <>
@@ -406,19 +289,10 @@ export default function Addproduct({ attrubutes }) {
 
                       <Box my="3rem" w={"100%"}>
                         <FormLabel>Product Short Description</FormLabel>
-                        {/* <Textarea
-                          height={"200px"}
-                          type="text"
-                          placeholder="Product Short Description"
-                          {...register("short_description", {
-                            required: true,
-                            maxLength: 1000,
-                          })}
-                          // my="1rem"
-                        /> */}
                         <Texteditor
                           isposted={ispost}
                           setText={setshortDescription}
+                          editText={shortDescription}
                         />
                       </Box>
                       <Flex
@@ -532,19 +406,11 @@ export default function Addproduct({ attrubutes }) {
 
                       <Box my="1rem" height={"400px"} w={"100%"}>
                         <FormLabel>Product Long Description</FormLabel>
-                        {/* <Textarea
-                          height={"300px"}
-                          type="text"
-                          placeholder="Product Long Description"
-                          {...register("long_description", {
-                            required: true,
-                            maxLength: 1000,
-                          })}
-                          // my="1rem"
-                        /> */}
+
                         <Texteditor
                           isposted={ispost}
                           setText={setlongDescription}
+                          editText={longDescription}
                         />
                       </Box>
                     </Box>
@@ -597,12 +463,12 @@ export default function Addproduct({ attrubutes }) {
                       <Box my="1rem">
                         <FormLabel>Product Sub-category</FormLabel>
                         <Select
+                          placeholder="Select Sub Category"
                           w={"100%"}
                           {...register("slug", {
                             // required: true,
                           })}
                         >
-                          <option value="">Select Product Sub-category</option>
                           filterCategory ?
                           {filterCategory.map((items) => {
                             return (
@@ -638,6 +504,13 @@ export default function Addproduct({ attrubutes }) {
                     setValue={setValue}
                     reset={reset}
                     setCombination={setCombinationList}
+                    productCombination={product ? product.options : null}
+                    productAttributes={
+                      product == null ? null : product.combination_set
+                    }
+                    productAttributesValue={
+                      product == null ? null : product.combination
+                    }
                     setAttriName={setAttributeName}
                     loading={disableButton2}
                     // errors={errors}
@@ -682,14 +555,30 @@ export default function Addproduct({ attrubutes }) {
 export async function getServerSideProps(context) {
   await dbConnect();
 
-  try {
-    const res = await Attribute.find({});
-    const posts = await JSON.parse(JSON.stringify(res));
-    // console.log(posts);
-    return {
-      props: { attrubutes: posts }, // will be passed to the page component as props
-    };
-  } catch (error) {
-    console.log(error);
+  if (context.query.id) {
+    const key = context.query.id;
+    try {
+      const res = await Attribute.find({});
+      const posts = await JSON.parse(JSON.stringify(res));
+      const res2 = await Product.findById({ _id: key });
+      const singleProduct = await JSON.parse(JSON.stringify(res2));
+
+      return {
+        props: { attrubutes: posts, product: singleProduct }, // will be passed to the page component as props
+      };
+    } catch (error) {
+      console.log(error);
+    }
+  } else {
+    try {
+      const res = await Attribute.find({});
+      const posts = await JSON.parse(JSON.stringify(res));
+
+      return {
+        props: { attrubutes: posts, product: null }, // will be passed to the page component as props
+      };
+    } catch (error) {
+      console.log(error);
+    }
   }
 }

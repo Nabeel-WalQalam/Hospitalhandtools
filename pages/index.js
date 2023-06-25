@@ -16,7 +16,7 @@ export default function Home() {
           content="High-Quality Surgical Instruments for Healthcare Professionals: HospitalHandTools provides a variety of high-quality surgical equipment for healthcare professionals. Our tools, which range from scalpels to forceps, are made with precision, durability, and safety in mind."
         />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        {/* <link rel="icon" href="/favicon.ico" /> */}
+
         <meta
           name="keywords"
           content="

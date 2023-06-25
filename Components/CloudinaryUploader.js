@@ -56,7 +56,9 @@ const CloudinaryUploader = ({ setImages2, images, loading }) => {
         }),
       });
 
-      setImages2((prevImages) => prevImages.filter((image) => image.id !== id));
+      setImages2((prevImages) =>
+        prevImages.filter((image) => image.asset_id !== id)
+      );
       // setCategoryImages((prevImages) =>
       //   prevImages.filter((image) => image.id !== id)
       // );
@@ -94,7 +96,7 @@ const CloudinaryUploader = ({ setImages2, images, loading }) => {
       <Flex gap="1rem" margin={"2rem"}>
         {images.length != 0
           ? images.map((items) => (
-              <Box position={"relative"} key={items.id}>
+              <Box position={"relative"} key={items.asset_id}>
                 <Image
                   border={"1px"}
                   borderColor={"gray.300"}
@@ -116,7 +118,7 @@ const CloudinaryUploader = ({ setImages2, images, loading }) => {
                     handleImageDelete(
                       items.public_id,
                       items.signature,
-                      items.id,
+                      items.asset_id,
                       items.delete_token,
                       null
                     )

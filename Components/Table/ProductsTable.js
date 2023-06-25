@@ -1,4 +1,4 @@
-import { Box } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import React, { useMemo, useState } from "react";
 import { useTable, useGlobalFilter } from "react-table";
 import GlobalFilter from "./GlobalFilter";
@@ -27,7 +27,7 @@ export const ProductsTable = ({ products }) => {
   const data = useMemo(() => products, []);
 
   const handleDelete = async (e, id) => {
-    console.log(id);
+    // console.log(id);
     const response = await fetch(
       `${process.env.NEXT_PUBLIC_HOST}/api/deleteProduct`,
       {
@@ -73,29 +73,41 @@ export const ProductsTable = ({ products }) => {
       ...columns,
       {
         id: "Edit",
-        Headers: "Edit",
+        Headers: "Action",
         accessor: "_id",
         Cell: ({ row }) => (
-          <Link href={`/haniyanasir/admin/editproduct?id=${row.original._id}`}>
-            <Button colorScheme={"purple"}>Edit</Button>
-          </Link>
+          <>
+            <Flex gap={"1rem"}>
+              <Link
+                href={`/haniyanasir/admin/addproduct?id=${row.original._id}`}
+              >
+                <Button colorScheme={"purple"}>Edit</Button>
+              </Link>
+              <Button
+                onClick={(e) => handleDelete(e, row.original._id)}
+                colorScheme={"red"}
+              >
+                Delete
+              </Button>
+            </Flex>
+          </>
         ),
       },
-      {
-        id: "Delete",
-        Headers: "Delete",
-        accessor: "_id",
-        Cell: ({ row }) => (
-          // <Link href={`/admin/orderdetail?id=${row.original._id}`}>
-          <Button
-            onClick={(e) => handleDelete(e, row.original._id)}
-            colorScheme={"red"}
-          >
-            Delete
-          </Button>
-          // </Link>
-        ),
-      },
+      // {
+      //   id: "Delete",
+      //   Headers: "Delete",
+      //   accessor: "_id",
+      //   Cell: ({ row }) => (
+      //     // <Link href={`/admin/orderdetail?id=${row.original._id}`}>
+      //     <Button
+      //       onClick={(e) => handleDelete(e, row.original._id)}
+      //       colorScheme={"red"}
+      //     >
+      //       Delete
+      //     </Button>
+      //     // </Link>
+      //   ),
+      // },
     ]);
   };
 
@@ -130,8 +142,8 @@ export const ProductsTable = ({ products }) => {
             <Tr {...headerGroup.getHeaderGroupProps()}>
               {headerGroup.headers.map((column) => (
                 <Th
-                  color={"white"}
-                  fontSize="1.2rem"
+                  // color={"white"}
+                  // fontSize="1.2rem"
                   {...column.getHeaderProps()}
                 >
                   {column.render("Headers")}
@@ -140,7 +152,7 @@ export const ProductsTable = ({ products }) => {
             </Tr>
           ))}
         </Thead>
-        <Tbody {...getTableBodyProps()}>
+        <Tbody border={"1px"} {...getTableBodyProps()}>
           {rows.map((row) => {
             prepareRow(row);
             return (

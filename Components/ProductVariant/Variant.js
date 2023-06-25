@@ -41,14 +41,23 @@ export const Variant = ({
   setCombination,
   setAttriName,
   loading,
+  //for edit product
+  productCombination,
+  productAttributes,
+  productAttributesValue,
 }) => {
   const selectAttribute = useRef();
   const [combinationList, setCombinationList] = useState([]);
   const [attributeValue, setattributeValue] = useState([]);
-  const [finalCombination, setfinalCombination] = useState([]);
+  const [finalCombination, setfinalCombination] = useState(
+    productCombination ? productCombination : []
+  );
   const [categoryImage, setCategoryImages] = useState([]);
   const [disableButton2, setdisableButton2] = useState(false);
   const toast = useToast();
+
+  // console.log("final", finalCombination);
+
   const handleGetValue = () => {
     if (selectAttribute.current.value != "") {
       let filterAttributeValue;
@@ -116,9 +125,10 @@ export const Variant = ({
       return updatedCombinationList;
     });
   }
-  // console.log(combinationList);
+  // console.log("combination List", combinationList);
 
   const handleFilter = (id, index) => {
+    console.log(id, index);
     const filterArray = attributeValue.filter((items) => {
       return items._id != id;
     });
@@ -148,6 +158,7 @@ export const Variant = ({
 
     generateCombinations(combinationList, 0, [], "", "", "", combinations);
     // const combinations = generateCombinations(combinationList);
+    // console.log("after combination", combinations);
     setfinalCombination(combinations);
     setdisableButton2(false);
 
@@ -238,6 +249,9 @@ export const Variant = ({
   };
 
   const updateFields = () => {
+    // console.log("finalcombination set", finalCombination);
+    setValue("combinationList", []);
+
     finalCombination.forEach((combination, index) => {
       setValue(
         `combinationList[${index}].combination`,
@@ -254,12 +268,65 @@ export const Variant = ({
   }, [finalCombination]);
 
   useEffect(() => {
-    setCombinationList([]);
-    setfinalCombination([]);
-    setCategoryImages([]);
-    setattributeValue([]);
-    reset();
+    if (productAttributes) {
+      // const array = productAttributes.map((items) => {
+      //   return attrubutes.filter((list) => {
+      //     return list.name == items;
+      //   });
+      // });
+
+      const filteredArray1 = attrubutes.filter((subArray) => {
+        const propertyName = subArray.name;
+        return productAttributes.includes(propertyName);
+      });
+
+      // console.log("filter array", filteredArray1);
+      setattributeValue(filteredArray1);
+
+      // for (let i = 0; i < productAttributes.length; i++) {
+      //   if(productAttributes[i])
+
+      // }
+
+      // console.log("attribute items", array, productAttributesValue);
+      // setattributeValue(array);
+    }
+    // if (productAttributesValue) {
+    // }
+  }, [productCombination, productAttributes]);
+
+  // useEffect(() => {
+  //   if (productCombination) {
+  //     setfinalCombination(productCombination);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+    if (productCombination == null) {
+      setCombinationList([]);
+      setfinalCombination([]);
+      setCategoryImages([]);
+      setattributeValue([]);
+      reset();
+    }
   }, [loading]);
+
+  useEffect(() => {
+    if (productCombination) {
+      let temp = [];
+      productCombination.map((images, index) => {
+        if (images.image) {
+          temp.push(images.image);
+        } else {
+          temp.push("");
+        }
+      });
+      console.log("temp", temp);
+      setCategoryImages(temp);
+    }
+  }, []);
+
+  // console.log("data", attributeValue, productAttributes);
 
   return (
     <React.Fragment>
@@ -344,11 +411,12 @@ export const Variant = ({
                     >
                       {attributeValue &&
                         attributeValue.map((items, index) => {
+                          // console.log("items", items);
                           return (
                             <Flex
                               width={"100%"}
                               justify={"center"}
-                              key={items._id}
+                              key={index}
                               gap="1rem"
                             >
                               <Text
@@ -362,6 +430,12 @@ export const Variant = ({
                                 data={items.values}
                                 onAttributeChange={handleAttributeChange}
                                 index={index}
+                                setProductData={
+                                  productAttributesValue
+                                    ? productAttributesValue[index]
+                                    : null
+                                }
+                                combinationList={combinationList[index]}
                               />
                               <Button
                                 colorScheme="red"
@@ -391,7 +465,6 @@ export const Variant = ({
                     <Box width={"100%"}>
                       {finalCombination ? (
                         <>
-                          {/* <Text>All Combination</Text> */}
                           {finalCombination.map((field, index) => {
                             // console.log(field);
                             return (
@@ -403,9 +476,6 @@ export const Variant = ({
                                 align={"center"}
                               >
                                 <Flex gap={"4rem"}>
-                                  {/* <label htmlFor={`combination-${index}`}>
-                                  Combination
-                                </label> */}
                                   <FormControl>
                                     <FormLabel>Name</FormLabel>
                                     <Input
@@ -416,10 +486,7 @@ export const Variant = ({
                                         border: "1px",
                                         borderColor: "gray.300",
                                       }}
-                                      // width={"20%"}
-                                      // type="text"
-                                      // id={`combination-${index}`}
-                                      defaultValue={field.combination}
+                                      // defaultValue={field.combination}
                                       {...register(
                                         `combinationList.${index}.combination`
                                       )}
@@ -433,7 +500,7 @@ export const Variant = ({
                                         {...register(
                                           `combinationList.${index}.weight`
                                         )}
-                                        defaultValue={field.weight}
+                                        // defaultValue={field.weight}
                                       />
                                       <NumberInputStepper>
                                         <NumberIncrementStepper />
@@ -441,20 +508,6 @@ export const Variant = ({
                                       </NumberInputStepper>
                                     </NumberInput>
                                   </FormControl>
-
-                                  {/* <label htmlFor={`weight-${index}`}>
-                                  Weight
-                                </label>
-                                <Input
-                                  // width={"20%"}
-                                  type="number"
-                                  step={0.1}
-                                  id={`weight-${index}`}
-                                  {...register(
-                                    `combinationList.${index}.weight`
-                                  )}
-                                  defaultValue={field.weight}
-                                /> */}
 
                                   <FormControl>
                                     <FormLabel>Amount</FormLabel>
@@ -463,7 +516,7 @@ export const Variant = ({
                                         {...register(
                                           `combinationList.${index}.price`
                                         )}
-                                        defaultValue={field.price}
+                                        // defaultValue={field.price}
                                       />
                                       <NumberInputStepper>
                                         <NumberIncrementStepper />
@@ -472,20 +525,7 @@ export const Variant = ({
                                     </NumberInput>
                                   </FormControl>
 
-                                  {/* <label htmlFor={`price-${index}`}>Price</label> */}
-                                  {/* <Input
-                                  // width={"20%"}
-                                  type="number"
-                                  step={0.01}
-                                  id={`price-${index}`}
-                                  {...register(
-                                    `combinationList.${index}.price`
-                                  )}
-                                  defaultValue={field.price}
-                                /> */}
-
                                   <label htmlFor={`image-${index}`}>
-                                    {/* image 📷 */}
                                     <FormControl position={"relative"}>
                                       <FormLabel>picture</FormLabel>
                                       <BiImageAdd
@@ -504,12 +544,12 @@ export const Variant = ({
                                       cursor={"pointer"}
                                       display={"none"}
                                       accept="image/png , image/jpeg, image/webp"
-                                      required={true}
+                                      // required={true}
                                       id={`image-${index}`}
                                       {...register(
                                         `combinationList.${index}.image`
                                       )}
-                                      defaultValue={field.image}
+                                      // defaultValue={field.image}
                                     />
                                   </label>
                                 </Flex>
@@ -520,38 +560,61 @@ export const Variant = ({
                                   position={"relative"}
                                 >
                                   {categoryImage[index] && (
-                                    <Box
-                                      border={"1px"}
-                                      // w={"100%"}
-                                      borderColor={"gray.200"}
-                                      // pos={"absolute"}
-                                      // right={"-2rem"}
-                                      // top={"0rem"}
-                                      key={index}
-                                    >
-                                      <Image
+                                    <>
+                                      <Box
                                         border={"1px"}
-                                        borderColor={"gray.300"}
-                                        width={"100px"}
-                                        height={"100px"}
-                                        src={categoryImage[index]}
-                                        alt="images"
-                                      />
-                                      <CloseButton
-                                        // border={"1px"}
-                                        // borderColor={"gray.200"}
-                                        bg="red.400"
-                                        borderRadius={"40px"}
-                                        // colorScheme="red"
-                                        // color={"blue"}
-                                        zIndex={"9999"}
-                                        position={"absolute"}
-                                        top={"-1rem"}
-                                        right="-1rem"
-                                        onClick={() => handleImageDel(index)}
-                                      />
-                                    </Box>
+                                        // w={"100%"}
+                                        borderColor={"gray.200"}
+                                        // pos={"absolute"}
+                                        // right={"-2rem"}
+                                        // top={"0rem"}
+                                        key={index}
+                                      >
+                                        <Image
+                                          border={"1px"}
+                                          borderColor={"gray.300"}
+                                          width={"100px"}
+                                          height={"100px"}
+                                          src={categoryImage[index]}
+                                          alt="images"
+                                        />
+                                        <CloseButton
+                                          // border={"1px"}
+                                          // borderColor={"gray.200"}
+                                          bg="red.400"
+                                          borderRadius={"40px"}
+                                          // colorScheme="red"
+                                          // color={"blue"}
+                                          zIndex={"9999"}
+                                          position={"absolute"}
+                                          top={"-1rem"}
+                                          right="-1rem"
+                                          onClick={() => handleImageDel(index)}
+                                        />
+                                      </Box>
+                                    </>
                                   )}
+                                  {/* {productCombination[index] && (
+                                    <>
+                                      <Flex direction={"column"}>
+                                        <Image
+                                          src={productCombination[index].image}
+                                          alt="preview"
+                                          width={100}
+                                          height={100}
+                                        />
+                                        <Button
+                                          width={"100%"}
+                                          colorScheme="red"
+                                          size="sm"
+                                          borderRadius={"none"}
+                                          onClick={() => handleImageDel(index)}
+                                        >
+                                          Delete
+                                        </Button>
+                                      </Flex>
+                                    </>
+                                  )} */}
                                 </Flex>
                               </Flex>
                             );
