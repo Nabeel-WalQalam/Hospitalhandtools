@@ -10,7 +10,7 @@ import {
   useDisclosure,
   useColorMode,
 } from "@chakra-ui/react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, Fragment } from "react";
 import { useRouter } from "next/router";
 import LoadingBar from "react-top-loading-bar";
 import { setUser } from "@/store/userSlice";
@@ -26,6 +26,7 @@ import Head from "next/head";
 import Script from "next/script";
 import { Loader } from "@/Components/Spinner/Loader";
 import { SubFooter } from "@/Components/Footer/SubFooter";
+import { Analytics } from "@vercel/analytics/react";
 
 // const TawkTo = dynamic(() => import("@/Components/Chat/Tawk"), {
 //   ssr: false,
@@ -154,7 +155,7 @@ export default function App({ Component, pageProps }) {
               </>
             )
           ) : (
-            <>
+            <Fragment>
               <LoadingBar
                 color="#153A5B"
                 height="5px"
@@ -166,12 +167,13 @@ export default function App({ Component, pageProps }) {
               {<Navbar isOpen={isOpen} onToggle={onToggle} />}
               <Index />
               <Component {...pageProps} />
+              <Analytics />
               {/* <Box display={["none", "none", "block"]}>
                 <TawkTo />
               </Box> */}
               <SubFooter />
               <Footer />
-            </>
+            </Fragment>
           )}
         </ChakraProvider>
       </ColorModeProvider>
