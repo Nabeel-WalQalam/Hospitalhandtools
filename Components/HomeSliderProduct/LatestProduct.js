@@ -1,20 +1,3 @@
-import { useState } from "react";
-import {
-  Box,
-  Button,
-  Flex,
-  Text,
-  Heading,
-  Center,
-  Image,
-} from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import Slider from "react-slick";
-import {
-  MdOutlineArrowBackIos,
-  MdOutlineArrowForwardIos,
-} from "react-icons/md";
-// import Image from "next/image";
 import Index from "../ShowHomeHoverProduct/Index";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -22,231 +5,676 @@ import "react-multi-carousel/lib/styles.css";
 
 const products = [
   {
-    backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
+    _id: {
+      $oid: "6486edb77b25b39903162394",
+    },
+    title: "Fiber Optic Cable, length 225cm, 6mm, Silicon",
+    slug: "Fiber Optic Instruments",
+    category: "plastic surgery instruments",
     short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
+      '<p><span style="background-color: rgb(248, 248, 248); color: rgb(51, 51, 51);">Fiber Optic Cable, length 225cm, 6mm, Silicon Coated Autoclaveable</span></p>',
+    long_description:
+      '<p><span style="background-color: rgb(248, 248, 248); color: rgb(51, 51, 51);">Fiber Optic Cable, length 225cm, 6mm, Silicon Coated Autoclaveable</span></p><p><br></p>',
+    combination: null,
+    combination_set: null,
+    image: [
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "f8f0ab5d641128b6556e83da04d1c4a7",
+        public_id: "products/zvdbyawe2lrxnrxuoao1",
+        version: 1686564276,
+        version_id: "91b8dd0d43529c2f747d3af594407209",
+        signature: "21d4d646da45eb4e28a3b1ec29e42e2bb03e1aaf",
+        width: 550,
+        height: 550,
+        format: "jpg",
+        resource_type: "image",
+        created_at: "2023-06-12T10:04:36Z",
+        tags: [],
+        bytes: 22897,
+        type: "upload",
+        etag: "48ea07c7119ed6942b19ff82a710c84e",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "PP-210.06-550x550",
+        delete_token:
+          "cd22dcf74c6d2f10d54f5019c42d269dd6b555242739d3a1969bf310fa9788c1989c49c7717fbc1e240f6b76b76ccd6c01380f71624797244b35d8b1490860a1936fed42b5cc0d6710bbb9c4248e91166719bd74e892fcfe6334ed028fdfe4562105abb1466e70c6a2a768e282692ce3b4614f60f4be0cc82729e9ffea1c08c17b6fc2a801391778e7cab1ca71850ead",
+        path: "v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
+      },
+    ],
+    options: null,
+    backOrder: true,
+    priceType: "fixed",
     variants: "no",
-    weight: "0.12",
-
-    _id: "1",
+    minPrice: null,
+    maxPrice: null,
+    fixedPrice: 270,
+    salePrice: 250,
+    model: "AP-210.06",
+    quantity: 0,
+    tags: ["fiber optic cable", "fiber", "cable"],
+    weight: "0.99",
+    __v: 0,
   },
   {
-    backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
+    _id: {
+      $oid: "648733c3bb006a6e174673cd",
+    },
+    title: "Adson Brown Forceps Tungsten Carbide",
+    slug: "Fiber Optic Instruments",
+    category: "plastic surgery instruments",
     short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
+      '<p><span style="color: rgb(119, 119, 119);">Adson Brown forceps with side-grasping teeth for secure, atraumatic grasping of soft tissue or cartilage and tungsten carbide tips provide maximum control for the user and increase the length of time and the instrument will remain sharp.</span></p>',
+    long_description:
+      '<p><span style="color: rgb(119, 119, 119);">Adson Brown forceps with side-grasping teeth for secure, atraumatic grasping of soft tissue or cartilage and tungsten carbide tips provide maximum control for the user and increase the length of time and the instrument will remain sharp.</span></p>',
+    combination: null,
+    combination_set: null,
+    image: [
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "34a08101b0100dfa6fc99f351e48b5ba",
+        public_id: "products/konjphfhvrsz6gpofbdb",
+        version: 1686582207,
+        version_id: "9a0d0017cb06a507b0a1d0e216064bb7",
+        signature: "46bdb865426784f87fdb636ad4e5810150699d52",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T15:03:27Z",
+        tags: [],
+        bytes: 92478,
+        type: "upload",
+        etag: "d216d3dad4385fe2a6181f48332d34ca",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/konjphfhvrsz6gpofbdb.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/konjphfhvrsz6gpofbdb.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "1",
+        delete_token:
+          "d7341c579ffae69e8a84915a09708a2f15ef83602f1816ca34281a24c6f35dd3b7db683cb949a968ccc3693db5831ac9a589593a95b298aca8672caa0736c0c7e76374374775c94324c44adcc927117f1a5be50fa867beca7b3d61c87b3a355a5921d55916f1308d3063ed69add3cb3967cb1be8b5d76a88800be2f8b7201c8d57cf0ed4ee6365aa89c0891715b64b03",
+        path: "v1686582207/products/konjphfhvrsz6gpofbdb.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686582207/products/konjphfhvrsz6gpofbdb.png",
+      },
+      {
+        id: "uw-file5",
+        batchId: "uw-batch2",
+        asset_id: "24fd51ca406b82676ebac9d1fb045ee1",
+        public_id: "products/lrwfuylbhoerjdzmze2t",
+        version: 1686582207,
+        version_id: "9a0d0017cb06a507b0a1d0e216064bb7",
+        signature: "0aafe99d3315be3b5679c49c444907105acb8b60",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T15:03:27Z",
+        tags: [],
+        bytes: 86250,
+        type: "upload",
+        etag: "c6a965145bd7ea2c22807be119a76b24",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/lrwfuylbhoerjdzmze2t.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/lrwfuylbhoerjdzmze2t.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "3",
+        delete_token:
+          "28511231f412836751383a69b0355524991f9dc75bfe7e92251f41469ebe135af84386a15aea233ae82bd4ce0d7bae0c2d4f7db5002c10cc62337820673dde53e381f80c49f31531396ecbe20272942c067940bb8679516939a2972011332f3c2fc2a71848e6693621fae8e7aa4363b2f0c7bcf280a798628bf484bd67b4687c35bc72c0b5137a680e269f73d9460f51",
+        path: "v1686582207/products/lrwfuylbhoerjdzmze2t.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686582207/products/lrwfuylbhoerjdzmze2t.png",
+      },
+      {
+        id: "uw-file4",
+        batchId: "uw-batch2",
+        asset_id: "6e5d04f3f89d85fc603cdaf64e09c524",
+        public_id: "products/fim1io4ghqk977vaoxoz",
+        version: 1686582207,
+        version_id: "9a0d0017cb06a507b0a1d0e216064bb7",
+        signature: "a6b6d0a7db3baee23d96a0d7d1e927f97301654e",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T15:03:27Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/fim1io4ghqk977vaoxoz.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/fim1io4ghqk977vaoxoz.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "526b80ca8ac6841c5e257ccad3accfab3e8ef5a717914bca62fb7d0589c25d4b1e636788345c2bf4babcde592532e55e0c9bf6a1e3eb5a17405f1e37c3b64893d3e452c0d8b33be55bacec4012405b9fbaa20efe3c5ffa7f09cc0de6e1e113ca37ffcbe06bc3cee45145f8887fc85210f2f1912cf8460e50b866c6649bbeff1e5b628bf7d6f21a8905e79eeff13d2768",
+        path: "v1686582207/products/fim1io4ghqk977vaoxoz.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686582207/products/fim1io4ghqk977vaoxoz.png",
+      },
+    ],
+    options: null,
+    backOrder: false,
+    priceType: "fixed",
     variants: "no",
-    weight: "0.12",
-
-    _id: "2",
+    minPrice: null,
+    maxPrice: null,
+    fixedPrice: 18.4,
+    salePrice: 0,
+    model: "py-0886",
+    quantity: 3,
+    tags: ["fiber", "optic", "instrument", "tool", "optical"],
+    weight: "0.29",
+    __v: 0,
   },
   {
-    backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
+    _id: {
+      $oid: "648edd9291b4513428922fee",
+    },
+    title: "Adson Forceps Tungsten Carbide",
+    slug: "Fiber Optic Instruments",
+    category: "plastic surgery instruments",
     short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection with fiber optic",
-    variants: "no",
-    weight: "0.12",
-
-    _id: "3",
+      '<p><span style="color: rgb(119, 119, 119);">adas forceps made of high grade German Steel is well know and general purpose dressing forceps. Tungsten carbide tips provide maximum control for the user and increase the length of time and the instrument will remain sharp.</span></p>',
+    long_description:
+      "<p>Adson Forceps Tungsten Carbide</p><p>adas forceps made of high grade German Steel is well known and general purpose dressing forceps. Tungsten carbide tips provide maximum control for the user and increase the length of time and the instrument will remain sharp.</p>",
+    combination: [
+      ["14", "15"],
+      ["red", "blue"],
+    ],
+    combination_set: ["size", "color"],
+    image: [
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "5c52a0e3a03e57f82bdb9cd3706809ea",
+        public_id: "products/f5shumlkbnkvbdupivbi",
+        version: 1687084428,
+        version_id: "1312a207bb5975215c7f60254e81aca0",
+        signature: "8cb861dada77b9669f97155f4e02a1db0a28d2fc",
+        width: 1200,
+        height: 1200,
+        format: "jpg",
+        resource_type: "image",
+        created_at: "2023-06-18T10:33:48Z",
+        tags: [],
+        bytes: 38636,
+        type: "upload",
+        etag: "003872656fc0607a14c2d3397198d36e",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1687084428/products/f5shumlkbnkvbdupivbi.jpg",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1687084428/products/f5shumlkbnkvbdupivbi.jpg",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "adson-tc2",
+        delete_token:
+          "3ebcde5106b26d8b09983883cfa0a127f752cea19f8a4cc34aee66b9782031b40e19b82b1f5763f1ad2a6bf507cefcf3288ee6b299bbff3708ab07cdf48700236f9fab9b6d63709169938751a7f0c7f3aac720661be3f4f8e6383c9dff74a0330a572694851cd8426653fe009e8c7dc73cd835854e99fa5e9ffb1eda9b4a15c109f8ca40cb37c0d215ca7faf08405818",
+        path: "v1687084428/products/f5shumlkbnkvbdupivbi.jpg",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1687084428/products/f5shumlkbnkvbdupivbi.jpg",
+      },
+    ],
+    options: [
+      {
+        combination: "14-red",
+        weight: "20.10",
+        price: "18",
+        image: "",
+      },
+      {
+        combination: "14-blue",
+        weight: "20.10",
+        price: "17.00",
+        image: "",
+      },
+      {
+        combination: "15-red",
+        weight: "20.10",
+        price: "22",
+        image: "",
+      },
+      {
+        combination: "15-blue",
+        weight: "20.10",
+        price: "21",
+        image: "",
+      },
+    ],
+    backOrder: true,
+    priceType: "range",
+    variants: "yes",
+    minPrice: 17,
+    maxPrice: 22,
+    fixedPrice: null,
+    salePrice: null,
+    model: "AC-41.121",
+    quantity: 4,
+    tags: [
+      "Rhinoplasty Instruments",
+      " Neck Lift Instruments,",
+      "Breast Surgery Instruments",
+    ],
+    weight: "0.035",
+    __v: 0,
   },
   {
+    _id: {
+      $oid: "648753911f3cc4cdee2c63a17",
+    },
+    title: "123",
+    slug: "Knives and handles",
+    category: "plastic surgery instruments",
+    short_description: "<p>short</p>",
+    long_description: "<p>long</p>",
+    combination: [["14", "15"], ["red"]],
+    combination_set: ["size", "color"],
+    image: [
+      {
+        id: "uw-file4",
+        batchId: "uw-batch2",
+        asset_id: "dd5257aebaaf609590bfce3496e32259",
+        public_id: "products/go6ey6nnmwukbmdzmxke",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "847c1066a13009bf9dd8d2b579d835816e1947ff",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 86250,
+        type: "upload",
+        etag: "c6a965145bd7ea2c22807be119a76b24",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "3",
+        delete_token:
+          "cbf434a4455c2a11a59e218d73de81654a0c5bd720c7e9631d8067a85b5a7ba27c2acf4ec867ce3bbe57e8cb2b84b008bb995b0b044074448f3c9d22e6c14af01d403a46967efc26558207a0ac3d12146dbdd5c3020b4bb2bbba10598d707a5cf250c77a7988cdcbd432fb0cfb70b8407f10b3e41ac1653f9bf7bbe085f9ab573435230b50020501717cf7d2bcad19c4",
+        path: "v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+    ],
+    options: [
+      {
+        combination: "14-red",
+        weight: "",
+        price: "15",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590340/products/selqvtmzejep3upwusrl.jpg",
+      },
+      {
+        combination: "15-red",
+        weight: "",
+        price: "20",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590342/products/j98wtkbonio4qtieang4.jpg",
+      },
+    ],
     backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
-    short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
-    variants: "no",
-    weight: "0.12",
-
-    _id: "4",
+    priceType: "range",
+    variants: "yes",
+    minPrice: 10,
+    maxPrice: 19.98,
+    fixedPrice: null,
+    salePrice: null,
+    model: "xyz",
+    quantity: 5,
+    tags: [],
+    weight: "0.78",
+    __v: 0,
   },
-
   {
+    _id: {
+      $oid: "648753911f3cc4cdee2c63a17",
+    },
+    title: "123",
+    slug: "Knives and handles",
+    category: "plastic surgery instruments",
+    short_description: "<p>short</p>",
+    long_description: "<p>long</p>",
+    combination: [["14", "15"], ["red"]],
+    combination_set: ["size", "color"],
+    image: [
+      {
+        id: "uw-file4",
+        batchId: "uw-batch2",
+        asset_id: "dd5257aebaaf609590bfce3496e32259",
+        public_id: "products/go6ey6nnmwukbmdzmxke",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "847c1066a13009bf9dd8d2b579d835816e1947ff",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 86250,
+        type: "upload",
+        etag: "c6a965145bd7ea2c22807be119a76b24",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "3",
+        delete_token:
+          "cbf434a4455c2a11a59e218d73de81654a0c5bd720c7e9631d8067a85b5a7ba27c2acf4ec867ce3bbe57e8cb2b84b008bb995b0b044074448f3c9d22e6c14af01d403a46967efc26558207a0ac3d12146dbdd5c3020b4bb2bbba10598d707a5cf250c77a7988cdcbd432fb0cfb70b8407f10b3e41ac1653f9bf7bbe085f9ab573435230b50020501717cf7d2bcad19c4",
+        path: "v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+    ],
+    options: [
+      {
+        combination: "14-red",
+        weight: "",
+        price: "15",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590340/products/selqvtmzejep3upwusrl.jpg",
+      },
+      {
+        combination: "15-red",
+        weight: "",
+        price: "20",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590342/products/j98wtkbonio4qtieang4.jpg",
+      },
+    ],
     backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
-    short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
-    variants: "no",
-    weight: "0.12",
-
-    _id: "5",
+    priceType: "range",
+    variants: "yes",
+    minPrice: 10,
+    maxPrice: 19.98,
+    fixedPrice: null,
+    salePrice: null,
+    model: "xyz",
+    quantity: 5,
+    tags: [],
+    weight: "0.78",
+    __v: 0,
   },
   {
+    _id: {
+      $oid: "648753911f3cc4cdee2c63a17",
+    },
+    title: "123",
+    slug: "Knives and handles",
+    category: "plastic surgery instruments",
+    short_description: "<p>short</p>",
+    long_description: "<p>long</p>",
+    combination: [["14", "15"], ["red"]],
+    combination_set: ["size", "color"],
+    image: [
+      {
+        id: "uw-file4",
+        batchId: "uw-batch2",
+        asset_id: "dd5257aebaaf609590bfce3496e32259",
+        public_id: "products/go6ey6nnmwukbmdzmxke",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "847c1066a13009bf9dd8d2b579d835816e1947ff",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 86250,
+        type: "upload",
+        etag: "c6a965145bd7ea2c22807be119a76b24",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "3",
+        delete_token:
+          "cbf434a4455c2a11a59e218d73de81654a0c5bd720c7e9631d8067a85b5a7ba27c2acf4ec867ce3bbe57e8cb2b84b008bb995b0b044074448f3c9d22e6c14af01d403a46967efc26558207a0ac3d12146dbdd5c3020b4bb2bbba10598d707a5cf250c77a7988cdcbd432fb0cfb70b8407f10b3e41ac1653f9bf7bbe085f9ab573435230b50020501717cf7d2bcad19c4",
+        path: "v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/go6ey6nnmwukbmdzmxke.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+      {
+        id: "uw-file3",
+        batchId: "uw-batch2",
+        asset_id: "70239d8e4bc95e63f27aaeba7836e70e",
+        public_id: "products/lwhseopnsrowr7iq45qj",
+        version: 1686590351,
+        version_id: "fce1991abc99638ea6fb57a1bc80e6db",
+        signature: "0d055bdd1eb1644d2b91d9dd7227c9039a594518",
+        width: 550,
+        height: 550,
+        format: "png",
+        resource_type: "image",
+        created_at: "2023-06-12T17:19:11Z",
+        tags: [],
+        bytes: 123670,
+        type: "upload",
+        etag: "a416e374def7f81c631c41405e2cb4e0",
+        placeholder: false,
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        secure_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        folder: "products",
+        access_mode: "public",
+        original_filename: "2",
+        delete_token:
+          "93ff8693bb291e59b79dc42bd49ba176c0d4152126b4ebdcdd566ac0e27f06a73bd68e35742c238d9c9e6a184dd51f4485fdd335a8c279968f0d0e6dbd0702281c30673fbc43bd2ad5c0502071c1f2696b9f9ee762147ea40a8cb79dc9368ce329be35d4f189472b849cf83bee83824e6c125c58f111d524418536c8d7c64421cb84470d06868c6b2a9a0fda57359e5e",
+        path: "v1686590351/products/lwhseopnsrowr7iq45qj.png",
+        thumbnail_url:
+          "https://res.cloudinary.com/dexc7zdm4/image/upload/c_limit,h_60,w_90/v1686590351/products/lwhseopnsrowr7iq45qj.png",
+      },
+    ],
+    options: [
+      {
+        combination: "14-red",
+        weight: "",
+        price: "15",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590340/products/selqvtmzejep3upwusrl.jpg",
+      },
+      {
+        combination: "15-red",
+        weight: "",
+        price: "20",
+        image:
+          "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686590342/products/j98wtkbonio4qtieang4.jpg",
+      },
+    ],
     backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
-    short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
-    variants: "no",
-    weight: "0.12",
-
-    _id: "6",
-  },
-  {
-    backOrder: true,
-    category: "liposuction cannula and accessories",
-    combination: [],
-    combination_set: "",
-    fixedPrice: 24,
-    image: null,
-    long_description:
-      '<p><span style="color: rgb(119, 119, 119);">Adaptor with LUER-LOCK connection Made Stainless steel Gold plated</span></p>',
-    maxPrice: 0,
-    minPrice: 0,
-    model: "A-503-01",
-    options: null,
-    priceType: "fixed",
-    quantity: 0,
-    salePrice: 0,
-    short_description:
-      "<ul><li>Made Stainless steel Gold plated</li><li>luer sryinge to insdie threeded cannula</li></ul>",
-    slug: "Tommy – Inside Threaded Cannula",
-    tags: [(" LUER-LOCK connection", "Adaptor ")],
-    title: "Adaptor with LUER LOCK connection",
-    variants: "no",
-    weight: "0.12",
-
-    _id: "7",
+    priceType: "range",
+    variants: "yes",
+    minPrice: 10,
+    maxPrice: 19.98,
+    fixedPrice: null,
+    salePrice: null,
+    model: "xyz",
+    quantity: 5,
+    tags: [],
+    weight: "0.78",
+    __v: 0,
   },
 ];
 
 const LatestProduct = () => {
-  const [showOptions, setShowOptions] = useState(false);
-
-  const handleMouseEnter = () => {
-    setShowOptions(true);
-  };
-
-  const handleMouseLeave = () => {
-    setShowOptions(false);
-  };
-  const [startIndex, setStartIndex] = useState(0);
-  const [endIndex, setEndIndex] = useState(4);
-
-  const handleNext = () => {
-    if (endIndex < products.length) {
-      setStartIndex(startIndex + 1);
-      setEndIndex(endIndex + 1);
-    }
-  };
-
-  const handlePrev = () => {
-    if (startIndex > 0) {
-      setStartIndex(startIndex - 1);
-      setEndIndex(endIndex - 1);
-    }
-  };
-
   const variants = {
     hidden: { y: 20, opacity: 0 },
     visible: { y: 0, opacity: 1 },
-  };
-
-  const handleHover = async (key) => {
-    let check = products.map((items) => {
-      return items.id === key;
-    });
-    if (check) {
-      setShowOptions(true);
-    } else {
-      setShowOptions(false);
-    }
   };
 
   const responsive = {
@@ -271,63 +699,6 @@ const LatestProduct = () => {
 
   return (
     <>
-      {/* <Flex
-        justify={"center"}
-        // border={"1px"}
-        // width={"100%"}
-        alignItems="center"
-        overflowX={"hidden"}
-        overflowY={"hidden"}
-        cursor={"pointer"}
-        direction={"column"}
-      >
-        <Flex width={"100%"} justify={"space-between"} align={"right"}>
-          <Box>
-            {startIndex > 0 && (
-              <Button
-                variant={"none"}
-                onClick={handlePrev}
-                // border={"1px"}
-                leftIcon={<MdOutlineArrowBackIos fontSize={"1.5rem"} />}
-              ></Button>
-            )}
-          </Box>
-          <Box>
-            {endIndex < products.length && (
-              <Button
-                variant={"none"}
-                onClick={handleNext}
-                leftIcon={<MdOutlineArrowForwardIos fontSize={"1.5rem"} />}
-              ></Button>
-              //   <IoChevronForwardCircle />
-            )}
-          </Box>
-        </Flex>
-        <Flex
-          // w={["10%", "100%", "100%", "100%"]}
-          border={"1px"}
-          // display="flex"
-          borderColor={"red"}
-          justify={"center"}
-          // align={"center"}
-          // gap={"1rem"}
-          // overflowX="hidden"
-          // width={"100%"}
-          height={"400px"}
-          // overflowY={"hidden"}
-        >
-          {products.slice(startIndex, endIndex).map((products) => (
-            <Index
-              // id={product.id}
-              // title={product.title}
-              // name={product.name}
-              // price={product.price}
-              // description={product.description}
-              product={products}
-            />
-          ))}
-        </Flex>
-      </Flex> */}
       <Carousel responsive={responsive}>
         {products.map((products) => (
           <Index key={products._id} product={products} />

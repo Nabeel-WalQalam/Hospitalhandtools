@@ -228,7 +228,6 @@ export default function Index() {
                             alt={items.title}
                             width={250}
                             height={200}
-                            priority
                           />
                         ) : (
                           <Image

@@ -32,6 +32,7 @@ import {
 import { Modalproduct } from "@/Components/ProductModal/Modalproduct";
 import secureLocalStorage from "react-secure-storage";
 import { AddToCartProduct } from "@/Components/ProductModal/AddToCartProduct";
+import BreadCrumb from "@/Components/Shared/BreadCrumb";
 
 export default function Index() {
   const dispatch = useDispatch();
@@ -55,22 +56,29 @@ export default function Index() {
 
   return (
     <>
-      <Box minH={"100vh"}>
-        <Box>
-          <Center bg="#153A5B">
-            <Heading color={"white"}>WishList</Heading>
-          </Center>{" "}
+      <Box>
+        <Box bg={"#EFF1F4"} p="0.8rem">
+          <BreadCrumb>My Wish List</BreadCrumb>
+        </Box>
+        <Box width={"85%"} mx="auto" mt={"1rem"}>
+          <Heading>My Wish List</Heading>
         </Box>
         {wishListProduct.length ? (
           <>
-            <TableContainer width={"90%"} mx="auto" mt={"2rem"}>
+            <TableContainer
+              border={"1px"}
+              borderColor={"gray.200"}
+              width={"85%"}
+              mx="auto"
+              mt={"2rem"}
+            >
               <Table
-                variant="striped"
-                colorScheme={"facebook"}
-                _hover={{ bg: "none" }}
+                // variant="striped"
+                // colorScheme={"facebook"}
+                // _hover={{ bg: "none" }}
                 border="none"
               >
-                <Thead bg={"gray.100"} border={"1px"} borderColor="gray.300">
+                <Thead bg={"gray.100"} border={"1px"} borderColor="gray.100">
                   <Tr>
                     <Th
                       color={colorMode === "light" ? "#white" : "white"}
@@ -111,14 +119,17 @@ export default function Index() {
                     </Th>
                   </Tr>
                 </Thead>
-                <Tbody>
+                <Tbody bg={"white"}>
                   {wishListProduct.map((items) => {
                     return (
-                      <Tr bg={"white"}>
+                      <Tr key={items._id}>
                         <Td>
                           <Image
+                            boxSize={"90px"}
                             src={`${
-                              items.image ? items.image : "/assets/logo.svg"
+                              items.image
+                                ? items.image[0].url
+                                : "/assets/logo.svg"
                             }`}
                             alt={items.title}
                           />
@@ -132,11 +143,11 @@ export default function Index() {
                             <Text color={"green"}>In-Stock</Text>
                           )}
                         </Td>
-                        <Td>
+                        <Td fontWeight={"semibold"}>
                           $
                           {items.priceType === "fixed"
                             ? items.fixedPrice
-                            : items.minPrice - items.maxPrice}
+                            : `${items.minPrice} - ${items.maxPrice}`}
                         </Td>
                         <Td>
                           <Flex align={"center"}>
@@ -147,14 +158,22 @@ export default function Index() {
                               leftIcon={<HiOutlineShoppingCart />}
                               
                             ></Button> */}
-                            <AddToCartProduct product={items} />
+                            <Box
+                              cursor={"pointer"}
+                              bg={"#153A5B"}
+                              p={2}
+                              color={"white"}
+                            >
+                              <AddToCartProduct product={items} />
+                            </Box>
                             <CloseButton
-                              onClick={() => handleDelete(items._id)}
+                              onClick={() => handleDelete(items._id.$oid)}
                               mx={"0.5rem"}
                               bg={"red.500"}
                               as={"Button"}
-                              colorScheme="red"
-                              size="lg"
+                              borderRadius={"none"}
+                              color="white"
+                              size="md"
                             />
                           </Flex>
                         </Td>
@@ -164,20 +183,60 @@ export default function Index() {
                 </Tbody>
               </Table>
             </TableContainer>
+
+            <Link href={"/"}>
+              <Box width={"85%"} mx={"auto"}>
+                <Button
+                  _hover={{
+                    shadow: "2xl",
+                  }}
+                  width={"100%"}
+                  borderRadius={"none"}
+                  bg="#153A5B"
+                  color={"white"}
+                  my="1.5rem"
+                  textTransform={"uppercase"}
+                >
+                  Continue
+                </Button>
+              </Box>
+            </Link>
           </>
         ) : (
           <>
-            <Flex direction={"column"} mt={"2rem"} ml={"3rem"}>
-              <Text fontWeight={"semibold"} fontSize={"2xl"}>
+            <Flex
+              width={"85%"}
+              // border={"1px"}
+              mx="auto"
+              direction={"column"}
+              mt={"1rem"}
+            >
+              <Text
+                width={"100%"}
+                fontWeight={"medium"}
+                color={"gray.600"}
+                fontSize={"2xl"}
+              >
                 Your wish list is empty.
               </Text>
-
-              <Link href={"/"}>
-                <Button width={"40%"} mt={"1rem"} colorScheme="facebook">
-                  Shop Now
-                </Button>
-              </Link>
             </Flex>
+            <Link href={"/"}>
+              <Box width={"85%"} mx={"auto"}>
+                <Button
+                  _hover={{
+                    shadow: "2xl",
+                  }}
+                  width={"100%"}
+                  borderRadius={"none"}
+                  bg="#153A5B"
+                  color={"white"}
+                  my="1.5rem"
+                  textTransform={"uppercase"}
+                >
+                  Continue
+                </Button>
+              </Box>
+            </Link>
           </>
         )}
       </Box>

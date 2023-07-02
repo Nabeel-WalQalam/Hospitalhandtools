@@ -27,33 +27,32 @@ export default function Index({ categoryList }) {
         </Box>
         {categoryList.length ? (
           <>
-        <Center bg="#153A5B" p={"1rem"}>
-          <Heading
-            textTransform={"Capitalize"}
-            color={"white"}
-            size={{ sm: "lg", md: "lg", lg: "lg" }}
-          >
-            Ent-Instruments
-          </Heading>
-        </Center>
-        <Center mt={"1rem"}>
-          <Text
-            color={"grey.400"}
-            fontSize={{ base: "11px", md: "15px", lg: "1.2rem" }}
-          >
-            Go with the Best Preminum Quality of Instruments
-          </Text>
-        </Center>
-       
-          <PlasticSurgery
-            categoryList={categoryList}
-            slug={"ent-instruments"}
-          />
+            <Center bg="#153A5B" p={"1rem"}>
+              <Heading
+                textTransform={"Capitalize"}
+                color={"white"}
+                size={{ sm: "lg", md: "lg", lg: "lg" }}
+              >
+                Ent-Instruments
+              </Heading>
+            </Center>
+            <Center mt={"1rem"}>
+              <Text
+                color={"grey.400"}
+                fontSize={{ base: "11px", md: "15px", lg: "1.2rem" }}
+              >
+                Go with the Best Preminum Quality of Instruments
+              </Text>
+            </Center>
+
+            <PlasticSurgery
+              categoryList={categoryList}
+              slug={"ent-instruments"}
+            />
           </>
         ) : (
           <>
-          <NotFound text={' Sorry ! No Category Posted Yet'} />
-            
+            <NotFound text={" Sorry ! No Category Posted Yet"} />
           </>
         )}
       </Box>
@@ -70,11 +69,20 @@ export async function getServerSideProps(context) {
       mainCategory: "ent-instruments",
     });
     posts = await JSON.parse(JSON.stringify(res));
+    console.log(posts);
+    if (posts.length) {
+      return {
+        props: { categoryList: posts },
+      };
+    } else {
+      return {
+        redirect: {
+          permanent: false,
+          destination: "/",
+        },
+      };
+    }
   } catch (error) {
     console.log(error.message);
   }
-
-  return {
-    props: { categoryList: posts },
-  };
 }

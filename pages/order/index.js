@@ -124,7 +124,6 @@ export default function Index({ order, clearCart }) {
                   alt="Logo"
                   width={"200"}
                   height="100"
-                  priority={true}
                 />
               </Flex>
               <Box my="1rem" ml={"1rem"}>
@@ -312,7 +311,6 @@ export default function Index({ order, clearCart }) {
                   alt="Logo"
                   width={"200"}
                   height="100"
-                  priority={true}
                 />
               </Flex>
               <Box my="1rem" ml={"1rem"}>

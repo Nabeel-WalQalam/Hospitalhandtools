@@ -1,8 +1,18 @@
-import { Box, Flex, Text, Tooltip, useColorMode } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  Text,
+  Tooltip,
+  useColorMode,
+} from "@chakra-ui/react";
 import React from "react";
 import { EmailIcon, FacebookMessengerIcon, WhatsappIcon } from "react-share";
 import { motion } from "framer-motion";
 import { BsSkype } from "react-icons/bs";
+import { useSelector } from "react-redux";
+import Link from "next/link";
+import { BiUserCircle } from "react-icons/bi";
 
 const Message = () => {
   const { colorMode } = useColorMode();
@@ -22,6 +32,7 @@ const Message = () => {
       subject
     )}&body=${encodeURIComponent(body)}`;
   }
+  const user = useSelector((state) => state.user.user);
 
   return (
     <>
@@ -29,7 +40,7 @@ const Message = () => {
         // bg={colorMode === "light" ? "#153A5B" : "white"}
         // width={"98%"}
         // mx="auto"
-        display={["none", "none", "Flex"]}
+        display={["none", "none", "none", "flex"]}
         align={"center"}
         justify={"space-between"}
         py={"0.4rem"}
@@ -57,8 +68,9 @@ const Message = () => {
             >
               <FacebookMessengerIcon
                 cursor={"pointer"}
-                size={25}
+                size={22}
                 round={true}
+                color="#153A5B"
               />
             </Box>
           </Tooltip>
@@ -76,7 +88,7 @@ const Message = () => {
               <WhatsappIcon
                 onClick={handleWhatsapp}
                 cursor={"pointer"}
-                size={25}
+                size={22}
                 round={true}
               />
             </Box>
@@ -94,7 +106,7 @@ const Message = () => {
             >
               <EmailIcon
                 cursor={"pointer"}
-                size={25}
+                size={22}
                 round={true}
                 onClick={handleEmail}
               />
@@ -134,6 +146,43 @@ const Message = () => {
             CALL NOW : +92-3216126225
           </Text>
         </Box>
+      </Flex>
+      <Flex display={["flex", "flex", "flex", "none"]}>
+        <Flex align={"center"}>
+          {!user ? (
+            <Link href={"/Auth"}>
+              <Button
+                variant={"none"}
+                leftIcon={<BiUserCircle fontSize={"20px"} />}
+                // ml={"0.5rem"}
+                // fontSize="1.5rem"
+                color={colorMode === "light" ? "#153A5B" : "white"}
+                fontWeight="semibold"
+              >
+                My Account
+              </Button>
+            </Link>
+          ) : (
+            <Box>
+              <Box>
+                <Text
+                  textTransform={"Capitalize"}
+                  fontWeight={"semibold"}
+                  // fontSize="1.5rem"
+                  textDecoration="underline"
+                >
+                  {user.displayName ? user.displayName : ""}
+                </Text>
+              </Box>
+              <Flex direction={"column"}>
+                <Link href={"/my-orders"}>
+                  <Box fontSize="1.2rem">Orders</Box>
+                </Link>
+                <Box fontSize="1.2rem">Logout</Box>
+              </Flex>
+            </Box>
+          )}
+        </Flex>
       </Flex>
     </>
   );

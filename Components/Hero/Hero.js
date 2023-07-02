@@ -36,11 +36,11 @@ const Hero = () => {
             mb="20"
           >
             <Box
-              as={motion.div}
-              layout
-              initial={{ opacity: 0, scale: 0.5 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 1 }}
+              // as={motion.div}
+              // layout
+              // initial={{ opacity: 0, scale: 0.5 }}
+              // animate={{ opacity: 1, scale: 1 }}
+              // transition={{ duration: 1, delay: 1 }}
               flex="1"
               maxW={{ lg: "xl" }}
               pt="6"
@@ -63,9 +63,8 @@ const Hero = () => {
             </Box>
             <Box boxSize={{ base: "20", lg: "8" }} />
             <Image
-              width="600"
-              priority
-              height={"100"}
+              width={600}
+              height={100}
               src="/assets/hero.png"
               alt="surgical instrument Tools"
             />

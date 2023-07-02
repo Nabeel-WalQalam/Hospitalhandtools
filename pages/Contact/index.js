@@ -16,6 +16,8 @@ import {
   InputGroup,
   InputLeftElement,
   Textarea,
+  Divider,
+  Checkbox,
 } from "@chakra-ui/react";
 import {
   MdPhone,
@@ -24,10 +26,53 @@ import {
   MdFacebook,
   MdOutlineEmail,
 } from "react-icons/md";
-import { BsPinterest, BsYoutube, BsInstagram, BsPerson } from "react-icons/bs";
+import {
+  BsPinterest,
+  BsYoutube,
+  BsInstagram,
+  BsPerson,
+  BsPhone,
+  BsSmartwatch,
+} from "react-icons/bs";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useRef, useState, Fragment } from "react";
 import { useToast } from "@chakra-ui/react";
+import BreadCrumb from "@/Components/Shared/BreadCrumb";
+import { BiLocationPlus } from "react-icons/bi";
+import { RiCustomerService2Fill } from "react-icons/ri";
+
+const information = [
+  {
+    id: 1,
+    logo: <MdLocationOn fontSize={"30px"} fill="#153A5B" />,
+    title: "STORE ADDRESS",
+    msg: `
+    Nawan Pind
+Daak Khana Chitti Sheikhan
+    `,
+    msg2: "Sialkot, Pakistan",
+  },
+  {
+    id: 2,
+    logo: <BsPhone fontSize={"30px"} fill="#153A5B" />,
+    title: "CALL US",
+    msg: "Call / WhatsApp / Viber / WeChat",
+    msg2: "00923216126225",
+  },
+  {
+    id: 3,
+    logo: <BsSmartwatch fontSize={"30px"} fill="#153A5B" />,
+    title: "STORE HOURS",
+    msg: "Mon-Fri: 09:00 - 18:00",
+    msg2: "Weekend: 11:00 - 15:00",
+  },
+  {
+    id: 4,
+    logo: <RiCustomerService2Fill fontSize={"30px"} fill="#153A5B" />,
+    title: "SUPPORT",
+    msg: "Customer support 24/7",
+  },
+];
 
 export default function Contact() {
   const name = useRef();
@@ -81,167 +126,147 @@ export default function Contact() {
   };
 
   return (
-    <Container
-      bg="gray.100 "
-      maxW="full"
-      mt={0}
-      centerContent
-      overflow="hidden"
-    >
-      <Flex>
-        <Box
-          bg="#02054B"
-          color="white"
-          borderRadius="lg"
-          m={{ sm: 4, md: 16, lg: 10 }}
-          p={{ sm: 5, md: 5, lg: 16 }}
+    <Fragment>
+      <Box bg={"gray.100"} p="0.6rem">
+        <BreadCrumb>contact us</BreadCrumb>
+      </Box>
+      <Box width={"85%"} mx="auto" mt="1rem">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3364.0786327351193!2d74.49829717557985!3d32.52404677377038!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x391ee967e555556f%3A0x5036ead1a061586b!2sAdas%20Surgical%20Instruments!5e0!3m2!1sen!2s!4v1688231732697!5m2!1sen!2s"
+          // width="900"
+          height="300"
+          style={{ border: 0, width: "100%" }}
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+        ></iframe>
+      </Box>
+      <Flex my="1.5rem" width={"85%"} mx="auto">
+        <Flex
+          width={"33%"}
+          padding={"20px"}
+          background="rgba(238, 238, 238, 1)"
+          direction={"column"}
+          // border={"1px"}
+          gap={"1.5rem"}
         >
-          <Box p={4}>
-            <Wrap spacing={{ base: 20, sm: 3, md: 5, lg: 20 }}>
-              <WrapItem>
-                <Box>
-                  <Heading>Contact</Heading>
-                  <Text mt={{ sm: 3, md: 3, lg: 5 }} color="gray.500">
-                    Fill up the form below to contact
-                  </Text>
-                  <Box py={{ base: 5, sm: 5, md: 8, lg: 10 }}>
-                    <VStack pl={0} spacing={3} alignItems="flex-start">
-                      <Button
-                        size="md"
-                        height="48px"
-                        width="300px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdPhone color="#1970F1" size="20px" />}
-                      >
-                        Call / WhatsApp / Viber / WeChat: <br /> 00923216126225
-                      </Button>
-                      <Button
-                        size="md"
-                        height="48px"
-                        width="300px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdEmail color="#1970F1" size="20px" />}
-                      >
-                        Info@adasinstrument.com
-                      </Button>
-                      <Button
-                        size="md"
-                        height="48px"
-                        width="300px"
-                        variant="ghost"
-                        color="#DCE2FF"
-                        _hover={{ border: "2px solid #1C6FEB" }}
-                        leftIcon={<MdLocationOn color="#1970F1" size="20px" />}
-                      >
-                        Nawan Pind Daak Khana Chitti <br /> Sheikhan Sialkot,
-                        Pakistan
-                      </Button>
-                    </VStack>
-                  </Box>
-                  <HStack
-                    mt={{ lg: 10, md: 10 }}
-                    spacing={5}
-                    px={5}
-                    alignItems="flex-start"
-                  >
-                    <Link
-                      href={"https://www.pinterest.com/hospitalhandt/"}
-                      legacyBehavior
-                      passHref
-                    >
-                      <a target="_blank" rel="noopener noreferrer">
-                        <IconButton
-                          aria-label="facebook"
-                          variant="ghost"
-                          size="lg"
-                          isRound={true}
-                          _hover={{ bg: "#0D74FF" }}
-                          icon={<BsPinterest size="28px" />}
-                        />
-                      </a>
-                    </Link>
-                    <Link href={"#"}>
-                      <IconButton
-                        aria-label="github"
-                        variant="ghost"
-                        size="lg"
-                        isRound={true}
-                        _hover={{ bg: "#0D74FF" }}
-                        icon={<BsYoutube size="28px" />}
+          {information &&
+            information.map((data) => {
+              return (
+                <Flex
+                  width={"95%"}
+                  mx="auto"
+                  key={data.id}
+                  align={"center"}
+                  justify={"flex-start"}
+                  gap="1rem"
+                  padding={"7px"}
+                >
+                  <Box>{data.logo}</Box>
+                  <Flex direction={"column"}>
+                    <Text fontWeight={"bold"} fontSize={"14px"}>
+                      {data.title}
+                    </Text>
+                    <Text color={"gray.500"} fontSize={"13px"}>
+                      {data.msg}
+                    </Text>
+                    <Text color={"gray.500"} fontSize={"13px"}>
+                      {data.msg2 ? data.msg2 : null}
+                    </Text>
+                    {data.msg2 ? (
+                      <Divider
+                        borderColor={"#153A5B"}
+                        width={"100%"}
+                        my={"0.4rem"}
                       />
-                    </Link>
-                    <Link href={"#"}>
-                      <IconButton
-                        aria-label="discord"
-                        variant="ghost"
-                        size="lg"
-                        isRound={true}
-                        _hover={{ bg: "#0D74FF" }}
-                        icon={<BsInstagram size="28px" />}
-                      />
-                    </Link>
-                  </HStack>
-                </Box>
-              </WrapItem>
-              <WrapItem>
-                <Box bg="white" borderRadius="lg">
-                  <Box m={8} color="#0B0E3F">
-                    <VStack spacing={5}>
-                      <FormControl id="name">
-                        <FormLabel>Your Name</FormLabel>
-                        <InputGroup borderColor="#E0E1E7">
-                          <InputLeftElement
-                            pointerEvents="none"
-                            children={<BsPerson color="gray.800" />}
-                          />
-                          <Input type="text" ref={name} size="md" />
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Mail</FormLabel>
-                        <InputGroup borderColor="#E0E1E7">
-                          <InputLeftElement
-                            pointerEvents="none"
-                            children={<MdOutlineEmail color="gray.800" />}
-                          />
-                          <Input ref={email} type="email" size="md" />
-                        </InputGroup>
-                      </FormControl>
-                      <FormControl id="name">
-                        <FormLabel>Message</FormLabel>
-                        <Textarea
-                          ref={message}
-                          borderColor="gray.300"
-                          _hover={{
-                            borderRadius: "gray.300",
-                          }}
-                          placeholder="message"
-                        />
-                      </FormControl>
-                      <FormControl id="name" float="right">
-                        <Button
-                          isDisabled={isButtonDisabled}
-                          onClick={handleClick}
-                          variant="solid"
-                          bg="#0D74FF"
-                          color="white"
-                          _hover={{}}
-                        >
-                          Send Message
-                        </Button>
-                      </FormControl>
-                    </VStack>
-                  </Box>
-                </Box>
-              </WrapItem>
-            </Wrap>
+                    ) : null}
+                  </Flex>
+                </Flex>
+              );
+            })}
+        </Flex>
+        <Box p={"20px"} width={"70%"}>
+          <Heading size={"md"}>Looking forward to hearing from you</Heading>
+          <Flex mt={"1rem"} gap={"1.5rem"} direction={"column"} width={"85%"}>
+            <FormControl isRequired display={"flex"}>
+              <FormLabel fontWeight={"normal"} width={"20%"}>
+                Your Name
+              </FormLabel>
+              <Input
+                borderRadius={"none"}
+                bg="rgba(250, 250, 250, 1)"
+                _hover={{
+                  bg: "white",
+                  border: "1px solid #153A5B",
+                }}
+                placeholder="Your Name"
+              />
+            </FormControl>
+            <FormControl isRequired display={"flex"}>
+              <FormLabel fontWeight={"normal"} width={"20%"}>
+                Your Email
+              </FormLabel>
+              <Input
+                borderRadius={"none"}
+                bg="rgba(250, 250, 250, 1)"
+                _hover={{
+                  bg: "white",
+                  border: "1px solid #153A5B",
+                }}
+                placeholder="Your Email"
+                type="email"
+              />
+            </FormControl>
+            <FormControl isRequired>
+              <Flex>
+                <FormLabel fontWeight={"normal"} width={"20%"}>
+                  Message
+                </FormLabel>
+                <Textarea
+                  borderRadius={"none"}
+                  bg="rgba(250, 250, 250, 1)"
+                  _hover={{
+                    bg: "white",
+                    border: "1px solid #153A5B",
+                  }}
+                  // value={value}
+                  // onChange={handleInputChange}
+                  placeholder="Message"
+                  size="sm"
+                />
+              </Flex>
+            </FormControl>
+          </Flex>
+          <Box my={"1rem"}>
+            <Checkbox>
+              I have read and agree to the{" "}
+              <Text
+                display={"inline"}
+                textDecor={"underline"}
+                fontWeight={"medium"}
+              >
+                {" "}
+                Privacy Policy
+              </Text>
+            </Checkbox>
+          </Box>
+          <Box>
+            <Button
+              _hover={{
+                shadow: "2xl",
+              }}
+              width={"100%"}
+              borderRadius={"none"}
+              bg="#153A5B"
+              color={"white"}
+              my="1.5rem"
+              textTransform={"uppercase"}
+            >
+              Submit
+            </Button>
           </Box>
         </Box>
       </Flex>
-    </Container>
+    </Fragment>
   );
 }

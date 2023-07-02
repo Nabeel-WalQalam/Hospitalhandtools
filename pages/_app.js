@@ -7,9 +7,6 @@ import {
   ChakraProvider,
   Flex,
   ColorModeProvider,
-  Spinner,
-  Text,
-  Box,
   useDisclosure,
   useColorMode,
 } from "@chakra-ui/react";
@@ -28,15 +25,16 @@ import Index from "@/Components/SubNavbar/Index";
 import Head from "next/head";
 import Script from "next/script";
 import { Loader } from "@/Components/Spinner/Loader";
+import { SubFooter } from "@/Components/Footer/SubFooter";
 
-const TawkTo = dynamic(() => import("@/Components/Chat/Tawk"), {
-  ssr: false,
-});
+// const TawkTo = dynamic(() => import("@/Components/Chat/Tawk"), {
+//   ssr: false,
+// });
 
-const lato = Lato({
-  subsets: ["latin"],
-  weight: ["400", "700", "900"],
-});
+// const lato = Lato({
+//   subsets: ["latin"],
+//   weight: ["400", "700", "900"],
+// });
 export default function App({ Component, pageProps }) {
   const { colorMode } = useColorMode();
   // console.log("color", colorMode);
@@ -119,10 +117,10 @@ export default function App({ Component, pageProps }) {
         ></Script>
       </Head>
       <ColorModeProvider
-        options={{
-          initialColorMode: "light",
-          useSystemColorMode: true,
-        }}
+      // options={{
+      //   initialColorMode: "light",
+      //   useSystemColorMode: true,
+      // }}
       >
         <ChakraProvider>
           {router.pathname.startsWith("/haniya") ? (
@@ -168,10 +166,10 @@ export default function App({ Component, pageProps }) {
               {<Navbar isOpen={isOpen} onToggle={onToggle} />}
               <Index />
               <Component {...pageProps} />
-              <Box display={["none", "none", "block"]}>
+              {/* <Box display={["none", "none", "block"]}>
                 <TawkTo />
-              </Box>
-
+              </Box> */}
+              <SubFooter />
               <Footer />
             </>
           )}

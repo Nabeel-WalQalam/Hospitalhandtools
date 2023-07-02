@@ -19,12 +19,14 @@ import {
   TableCaption,
   TableContainer,
   useToast,
+  CloseButton,
 } from "@chakra-ui/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import ReactHtmlParser from "react-html-parser";
 import { removeProduct } from "@/store/compareSlice";
 import { addToCart } from "@/store/cartSlice";
 import { AddToCartProduct } from "@/Components/ProductModal/AddToCartProduct";
+import BreadCrumb from "@/Components/Shared/BreadCrumb";
 export default function Compare() {
   const toast = useToast();
   const dispatch = useDispatch();
@@ -48,11 +50,14 @@ export default function Compare() {
 
   return (
     <>
-      <Box minH={"90vh"} mt={"2rem"} id="DIV_1">
+      <Box id="DIV_1">
         <Box id="DIV_2">
-          <Heading width={"90%"} mx={"auto"} id="H1_3">
-            Product Comparison
-          </Heading>
+          <Box bg={"#EFF1F4"} p="0.8rem">
+            <BreadCrumb>Product Comparison</BreadCrumb>
+          </Box>
+          <Box width={"85%"} mx="auto" mt={"1rem"}>
+            <Heading>Product Comparison</Heading>
+          </Box>
 
           {compareProduct.length ? (
             <>
@@ -60,12 +65,13 @@ export default function Compare() {
                 mt="1rem"
                 border={"1px"}
                 borderColor={"gray.200"}
-                width={"90%"}
+                width={"85%"}
                 mx={"auto"}
                 id="DIV_4"
+                mb="3rem"
               >
                 <Table id="TABLE_5">
-                  <Thead id="THEAD_6">
+                  <Thead bg={"lightgray.100"} id="THEAD_6">
                     <Tr bg={"gray.300"} id="TR_7">
                       <Td colspan="4" id="TD_8">
                         <strong id="STRONG_9">Product Details</strong>
@@ -101,13 +107,16 @@ export default function Compare() {
 
                       {compareProduct.map((items) => {
                         return (
-                          <Td id="TD_24">
+                          <Td>
                             <Image
                               src={`${
-                                items.image ? items.image : "/assets/logo.svg"
+                                items.image
+                                  ? items.image[0].url
+                                  : "/assets/logo.svg"
                               }`}
                               alt={items.title}
-                              id="IMG_25"
+                              boxSize={"90px"}
+                              // id="IMG_25"
                             />
                           </Td>
                         );
@@ -121,7 +130,7 @@ export default function Compare() {
                             $
                             {items.priceType === "fixed"
                               ? items.fixedPrice
-                              : items.minPrice - items.maxPrice}
+                              : `${items.minPrice} - ${items.maxPrice}`}
                           </Td>
                         );
                       })}
@@ -175,18 +184,28 @@ export default function Compare() {
                       {compareProduct.map((items) => {
                         return (
                           <Td id="TD_132">
-                            <Box id="DIV_133">
-                              <AddToCartProduct product={items} />
-                              <Button
-                                mx={"1rem"}
-                                id="SPAN_137"
-                                colorScheme="red"
-                                onClick={() => handleRemove(items._id)}
+                            <Flex id="DIV_133">
+                              <Box
+                                cursor={"pointer"}
+                                bg={"#153A5B"}
+                                p={2}
+                                color={"white"}
                               >
-                                Remove
-                              </Button>
+                                <AddToCartProduct product={items} />
+                              </Box>
+
+                              <CloseButton
+                                onClick={() => handleRemove(items._id.$oid)}
+                                mx={"0.5rem"}
+                                bg={"red.500"}
+                                // as={"Button"}
+                                borderRadius={"none"}
+                                color="white"
+                                size="md"
+                              />
+
                               {/* </Link> */}
-                            </Box>
+                            </Flex>
                           </Td>
                         );
                       })}
@@ -197,14 +216,31 @@ export default function Compare() {
             </>
           ) : (
             <>
-              <Flex ml={"5rem"} justify={"center"} direction={"column"}>
-                <Text fontSize={"1.3rem"} mt={"1rem"} fontWeight={"semibold"}>
+              <Flex width={"85%"} mx={"auto"} direction={"column"}>
+                <Text
+                  fontSize={"1.3rem"}
+                  mt={"1rem"}
+                  fontWeight={"medium"}
+                  color={"gray.600"}
+                >
                   You have not chosen any products to compare.
                 </Text>
                 <Link href={"/"}>
-                  <Button mt={"1rem"} colorScheme="facebook" w={"50%"}>
-                    Shop
-                  </Button>
+                  <Box>
+                    <Button
+                      _hover={{
+                        shadow: "2xl",
+                      }}
+                      width={"100%"}
+                      borderRadius={"none"}
+                      bg="#153A5B"
+                      color={"white"}
+                      my="1.5rem"
+                      textTransform={"uppercase"}
+                    >
+                      Continue
+                    </Button>
+                  </Box>
                 </Link>
               </Flex>
             </>

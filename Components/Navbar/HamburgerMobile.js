@@ -48,7 +48,7 @@ export const HamburgerMobile = () => {
       <GiHamburgerMenu
         // ref={btnRef}
         onClick={onOpen}
-        fontSize={"1.5rem"}
+        fontSize={"1.8rem"}
         fill={colorMode == "light" ? "#153A5B" : "white"}
         display={["block", "block", "none"]}
       />
@@ -60,24 +60,24 @@ export const HamburgerMobile = () => {
         onClose={onClose}
         // finalFocusRef={btnRef}
       >
-        <DrawerOverlay display={["block", "block", "none"]} />
-        <DrawerContent display={["block", "block", "none"]} padding={"0px"}>
+        <DrawerOverlay />
+        <DrawerContent>
           <DrawerCloseButton />
           <DrawerHeader>
             {" "}
-            <Image
+            {/* <Image
               src={"/assets/logo.svg"}
               alt="Logo"
               width={200}
               height={100}
-              priority
-            />
+              
+            /> */}
           </DrawerHeader>
 
           <DrawerBody p={"0px"}>
-            <Box mt={"2rem"}>
+            {/* <Box mt={"2rem"}>
               <VoucherSearch />
-            </Box>
+            </Box> */}
             <Box>
               {" "}
               <Flex
@@ -532,7 +532,6 @@ export const HamburgerMobile = () => {
                                 alt="Face-Surgery-Instrument"
                                 width={250}
                                 height={100}
-                                priority={true}
                               />
                             </Box>
                             <Text
@@ -592,61 +591,6 @@ export const HamburgerMobile = () => {
                 ></Flex>
               </Flex>
             </Box>
-            <Box>
-              {!user ? (
-                <Link href={"/Auth"}>
-                  <Text
-                    ml={"1.5rem"}
-                    fontSize="1.5rem"
-                    color={colorMode === "light" ? "#153A5B" : "white"}
-                    fontWeight="semibold"
-                  >
-                    My Account
-                  </Text>
-                </Link>
-              ) : (
-                <Box ml={"1rem"}>
-                  <Box>
-                    <Text
-                      textTransform={"Capitalize"}
-                      fontWeight={"semibold"}
-                      fontSize="1.5rem"
-                      textDecoration="underline"
-                    >
-                      {user.displayName ? user.displayName : ""}
-                    </Text>
-                  </Box>
-                  <Flex direction={"column"}>
-                    <Link href={"/myaccount"}>
-                      <Box fontSize="1.2rem">My Account </Box>
-                    </Link>
-                    <Link href={"/my-orders"}>
-                      <Box fontSize="1.2rem">Orders</Box>
-                    </Link>
-                    <Box fontSize="1.2rem">Logout</Box>
-                  </Flex>
-                </Box>
-              )}
-            </Box>
-            <Box>
-              <Link href={"/about-us"}>
-                <Text
-                  ml={"1.5rem"}
-                  fontSize="1.5rem"
-                  color={colorMode === "light" ? "#153A5B" : "white"}
-                  fontWeight="semibold"
-                >
-                  About Us
-                </Text>
-              </Link>
-            </Box>
-            {/* <Box ml={"1rem"} onClick={toggleColorMode} cursor={"pointer"}>
-              {colorMode === "light" ? (
-                <MdDarkMode fontSize={"1.4rem"} />
-              ) : (
-                <IoMdSunny fontSize={"1.4rem"} />
-              )}
-            </Box> */}
           </DrawerBody>
         </DrawerContent>
       </Drawer>

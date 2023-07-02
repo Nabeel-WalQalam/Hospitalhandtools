@@ -62,7 +62,7 @@ export default function Allproducts({ products }) {
                     alt="Green double couch with wooden legs"
                     width={250}
                     height={200}
-                    priority
+                  
                   />
                   <Divider border="1px" borderColor={"#153A5B"} />
                   <Stack mt="6" spacing="3">
