@@ -958,7 +958,7 @@ export default function Editproduct({ product }) {
                                         "color" || "size" || "type"
                                       ) ? (
                                         <Button
-                                          onClick={handleAttribute}
+                                          onClick={() => handleAttribute()}
                                           colorScheme={"green"}
                                           // isDisabled={disableButton}
                                           disabled={true}
@@ -968,7 +968,7 @@ export default function Editproduct({ product }) {
                                       ) : (
                                         <Button
                                           // disabled={true}
-                                          onClick={handleAttribute}
+                                          onClick={() => handleAttribute()}
                                           colorScheme={"green"}
                                           // isDisabled={true}
                                           isDisabled={disableButton}

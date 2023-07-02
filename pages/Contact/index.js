@@ -136,14 +136,19 @@ export default function Contact() {
           // width="900"
           height="300"
           style={{ border: 0, width: "100%" }}
-          allowfullscreen=""
+          allowFullScreen=""
           loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade"
+          referrerPolicy="no-referrer-when-downgrade"
         ></iframe>
       </Box>
-      <Flex my="1.5rem" width={"85%"} mx="auto">
+      <Flex
+        direction={["column", "column", "row"]}
+        my="1.5rem"
+        width={"85%"}
+        mx="auto"
+      >
         <Flex
-          width={"33%"}
+          width={["100%", "90%", "33%"]}
           padding={"20px"}
           background="rgba(238, 238, 238, 1)"
           direction={"column"}
@@ -185,11 +190,11 @@ export default function Contact() {
               );
             })}
         </Flex>
-        <Box p={"20px"} width={"70%"}>
+        <Box p={"20px"} width={["100%", "100%", "70%"]}>
           <Heading size={"md"}>Looking forward to hearing from you</Heading>
           <Flex mt={"1rem"} gap={"1.5rem"} direction={"column"} width={"85%"}>
-            <FormControl isRequired display={"flex"}>
-              <FormLabel fontWeight={"normal"} width={"20%"}>
+            <FormControl isRequired display={["block", "flex", "flex"]}>
+              <FormLabel fontWeight={"normal"} width={["50%", "30%", "20%"]}>
                 Your Name
               </FormLabel>
               <Input
@@ -202,8 +207,8 @@ export default function Contact() {
                 placeholder="Your Name"
               />
             </FormControl>
-            <FormControl isRequired display={"flex"}>
-              <FormLabel fontWeight={"normal"} width={"20%"}>
+            <FormControl isRequired display={["block", "flex", "flex"]}>
+              <FormLabel fontWeight={"normal"} width={["50%", "30%", "20%"]}>
                 Your Email
               </FormLabel>
               <Input
@@ -218,8 +223,8 @@ export default function Contact() {
               />
             </FormControl>
             <FormControl isRequired>
-              <Flex>
-                <FormLabel fontWeight={"normal"} width={"20%"}>
+              <Flex direction={["column", "row", "row"]}>
+                <FormLabel fontWeight={"normal"} width={["50%", "30%", "20%"]}>
                   Message
                 </FormLabel>
                 <Textarea

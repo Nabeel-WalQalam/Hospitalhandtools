@@ -25,6 +25,7 @@ const Index = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const cart = useSelector((state) => state.cart.cart);
   const [subTotal, setsubTotal] = useState(0);
+  const [totalQuantity, settotalQuantity] = useState(0);
 
   const isDesktop = useBreakpointValue({
     base: true,
@@ -33,26 +34,23 @@ const Index = () => {
     lg: false,
   });
 
-  const getTotalQuantity = () => {
-    let total = 0;
-    cart.forEach((item) => {
-      total += 1;
-    });
-    return total;
-  };
-
   useEffect(() => {
     if (cart.length) {
       let total = 0;
+      let totalProduct = 0;
       for (let i = 0; i < cart.length; i++) {
         let stotal = cart[i].price * cart[i].quantity;
         total += stotal;
+        totalProduct += 1;
       }
       setsubTotal(total);
+      settotalQuantity(totalProduct);
     } else {
       setsubTotal(0);
+      settotalQuantity(0);
     }
   }, [cart]);
+
   return (
     <>
       {!isDesktop && (
@@ -62,25 +60,16 @@ const Index = () => {
           bg={colorMode === "light" ? "white" : "#153A5B"}
           zIndex={"999"}
           shadow={"base"}
-          // border={colorMode == "dark" ? "1px" : "none"}
-          // border={"1px"}
           height={"100%"}
         >
-          <Flex
-            justify={"space-around"}
-            // justify={["right", "right", "space-between", "space-between"]}
-          >
+          <Flex justify={"space-around"}>
             <Flex justify={"center"} gap={"2rem"} align={"center"}>
               <Box className="dropdown" height={"100%"}>
                 <Button
                   className="dropbtn"
                   variant={"unstyled"}
                   pos={"relative"}
-                  // style={{ fontWeight: "bold" }}
-                  // onClick={() => setIsOpen(!isOpen)}
                   fontWeight={"semibold"}
-                  // color={colorMode === "light" ? "#153A5B" : "white"}
-                  // fontSize={"0.9rem"}
                   borderRadius={"none"}
                   color={colorMode === "light" ? "white" : "white"}
                   bg={"#153A5B"}
@@ -170,7 +159,7 @@ const Index = () => {
                     // }}
                     style={{ color: "#153A5B", fontWeight: "bold" }}
                     cursor={"pointer"}
-                    onClick={toggleColorMode}
+                    // onClick={toggleColorMode}
                   >
                     {colorMode === "light" ? (
                       <MdDarkMode fontSize={"1.4rem"} />
@@ -184,7 +173,7 @@ const Index = () => {
               <Divider
                 orientation="vertical"
                 border={"1px"}
-                borderColor={"gray"}
+                borderColor={"gray.300"}
                 // width={"100%"}
                 // height={"30px"}
               />
@@ -192,8 +181,7 @@ const Index = () => {
               <Flex height={"100%"} align={"center"} gap={"1rem"}>
                 <Box>
                   <Text color={colorMode == "light" ? "gray.800" : "white"}>
-                    {getTotalQuantity() || 0} item(s) - $
-                    {subTotal.toFixed(2) || 0}
+                    {totalQuantity} item(s) - ${subTotal.toFixed(2) || 0}
                   </Text>
                 </Box>
                 <Box
@@ -205,7 +193,12 @@ const Index = () => {
                   // py={"0.5rem"}
                   // px="0.5rem"
                 >
-                  <NavbarCat paddingGap={true} color={"white"} />
+                  <NavbarCat
+                    subTotal={subTotal}
+                    totalQuantity={totalQuantity}
+                    paddingGap={true}
+                    color={"white"}
+                  />
                 </Box>
               </Flex>
             </Flex>

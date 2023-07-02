@@ -56,6 +56,10 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
+    console.log("run _app.js");
+  }, []);
+
+  useEffect(() => {
     let token = localStorage.getItem("token");
 
     if (token) {
@@ -94,14 +98,22 @@ export default function App({ Component, pageProps }) {
   }, []);
 
   useEffect(() => {
-    router.events.on("routeChangeComplete", () => {
+    const handleRouteChangeComplete = () => {
       setProgress(100);
-    });
+    };
 
-    router.events.on("routeChangeStart", () => {
+    const handleRouteChangeStart = () => {
       setProgress(40);
-    });
-  }, [router.query]);
+    };
+
+    router.events.on("routeChangeComplete", handleRouteChangeComplete);
+    router.events.on("routeChangeStart", handleRouteChangeStart);
+
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChangeComplete);
+      router.events.off("routeChangeStart", handleRouteChangeStart);
+    };
+  }, [router]);
 
   return Loading ? (
     <>

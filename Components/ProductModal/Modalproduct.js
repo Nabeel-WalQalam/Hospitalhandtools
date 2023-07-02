@@ -168,7 +168,7 @@ export const Modalproduct = ({ product }) => {
         }}
         bg="#153A5B"
         color="white"
-        onClick={handleOpen}
+        onClick={() => handleOpen()}
         borderRadius={"none"}
       >
         Quick Buy
@@ -310,7 +310,11 @@ export const Modalproduct = ({ product }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="facebook" mr={3} onClick={handleOnClose}>
+            <Button
+              colorScheme="facebook"
+              mr={3}
+              onClick={() => handleOnClose()}
+            >
               Close
             </Button>
           </ModalFooter>

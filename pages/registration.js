@@ -71,44 +71,33 @@ export default function Registration() {
 
   return (
     <>
-      <Flex
-        // border={"1px"}
-        width="100%"
-        bg={"facebook.100"}
-        align="center"
-        justify={"center"}
-        py="2rem"
-      >
-        <FormControl
-          as={"form"}
-          display="flex"
-          flexDirection={"column"}
-          justifyContent="center"
-          alignItems={"center"}
-          alignContent="center"
-          onSubmit={handleSubmit(onSubmit)}
+      <Box bg="#153A5B" w={"100%"}>
+        <Center>
+          <Heading size={"lg"} color="white">
+            New Account
+          </Heading>
+        </Center>
+      </Box>
+      <FormControl as={"form"} onSubmit={handleSubmit(onSubmit)}>
+        <Flex
+          width="80%"
+          mx={"auto"}
+          justify={"center"}
+          align="center"
+          direction={"column"}
+          py="2rem"
         >
-          <Box bg="#153A5B" w={"100%"}>
-            <Center>
-              <Heading size={"lg"} color="white">
-                New Account
-              </Heading>
-            </Center>
-          </Box>
           <FormControl
-            display="flex"
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
+            // justifyContent="center"
+            // alignItems={"center"}
             isRequired
-            my="0.3rem"
+            // my="0.3rem"
           >
             <FormLabel color={colorMode == "light" ? "black" : "black"}>
               Display-Name
             </FormLabel>
 
             <Input
-              w={"90%"}
               bg={"white"}
               dropShadow="outline"
               name="displayName"
@@ -137,19 +126,12 @@ export default function Registration() {
             </Text>
           </FormControl>
 
-          <FormControl
-            display="flex"
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
-            my="0.3rem"
-          >
+          <FormControl my="0.3rem">
             <FormLabel color={colorMode == "light" ? "black" : "black"}>
               Address
             </FormLabel>
 
             <Input
-              w={"90%"}
               bg={"white"}
               dropShadow="outline"
               name="address"
@@ -172,19 +154,12 @@ export default function Registration() {
               )}
             </Text>
           </FormControl>
-          <FormControl
-            display="flex"
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
-            my="0.3rem"
-          >
+          <FormControl my="0.3rem">
             <FormLabel color={colorMode == "light" ? "black" : "black"}>
               Phone-Number
             </FormLabel>
 
             <Input
-              w={"90%"}
               bg={"white"}
               dropShadow="outline"
               name="Phone-Number"
@@ -207,20 +182,12 @@ export default function Registration() {
               )}
             </Text>
           </FormControl>
-          <FormControl
-            display="flex"
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
-            my="0.3rem"
-            isRequired
-          >
+          <FormControl my="0.3rem" isRequired>
             <FormLabel color={colorMode == "light" ? "black" : "black"}>
               Email
             </FormLabel>
 
             <Input
-              w={"90%"}
               bg={"white"}
               dropShadow="outline"
               name="email"
@@ -247,20 +214,12 @@ export default function Registration() {
               )}
             </Text>
           </FormControl>
-          <FormControl
-            display="flex"
-            flexDirection={"column"}
-            justifyContent="center"
-            alignItems={"center"}
-            my="0.3rem"
-            isRequired
-          >
+          <FormControl my="0.3rem" isRequired>
             <FormLabel color={colorMode == "light" ? "black" : "black"}>
               Password
             </FormLabel>
 
             <Input
-              w={"90%"}
               bg={"white"}
               dropShadow="outline"
               name="password"
@@ -293,20 +252,22 @@ export default function Registration() {
             px="45px"
             py="12px"
             bg={"#153a5b"}
+            w={"100%"}
+            borderRadius={"none"}
             color="white"
-            w="140px"
-            className="mian-2"
+            // w="140px"
+            // className="mian-2"
             type="submit"
-            _hover={{
-              bg: "white",
-              color: "#153A5B",
-              border: "1px solid #153A5B",
-            }}
+            // _hover={{
+            //   bg: "white",
+            //   color: "#153A5B",
+            //   border: "1px solid #153A5B",
+            // }}
           >
             Sign Up
           </Button>
-        </FormControl>
-      </Flex>
+        </Flex>
+      </FormControl>
     </>
   );
 }

@@ -117,7 +117,7 @@ export default function Allcoupen({ Coupens }) {
               <Button
                 my={"1rem"}
                 colorScheme={"facebook"}
-                onClick={handleCoupen}
+                onClick={() => handleCoupen()}
               >
                 Generate Random Coupen
               </Button>

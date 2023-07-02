@@ -187,7 +187,7 @@ const Index = ({ orders, products, category, Users, zones }) => {
               <br />
               <MenuDivider />
 
-              <MenuItem onClick={logout}>Logout</MenuItem>
+              <MenuItem onClick={() => logout()}>Logout</MenuItem>
             </MenuList>
           </Menu>
         </Flex>

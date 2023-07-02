@@ -237,14 +237,15 @@ const NavList = () => {
               </Link>
               <Link href={"/plastic-surgery-instruments"}>
                 <Text
-                  _hover={{ textDecoration: "underline" }}
+                  // _hover={{ textDecoration: "underline" }}
                   // my="0.3rem"
-                  color={colorMode === "light" ? "white" : "#153A5B"}
-                  bg={colorMode == "light" ? "#153A5B" : "white"}
+                  // color={colorMode === "light" ? "white" : "#153A5B"}
+                  // bg={colorMode == "light" ? "#153A5B" : "white"}
                   // w="60%"
-                  // p={"0.3rem"}
+                  // p={"0.1rem"}
                   // w={"80%"}
                   // borderRadius="6px"
+                  textDecoration="underline"
                 >
                   See All Products
                 </Text>

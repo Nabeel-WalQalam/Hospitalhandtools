@@ -191,7 +191,7 @@ export default function Compare() {
                                 p={2}
                                 color={"white"}
                               >
-                                <AddToCartProduct product={items} />
+                                {/* <AddToCartProduct product={items} /> */}
                               </Box>
 
                               <CloseButton

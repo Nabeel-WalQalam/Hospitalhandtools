@@ -311,7 +311,7 @@ const Blogs = () => {
               surgical instruments
             </Badge>
 
-            <Badge fontSize="0.8em" colorScheme="gray">
+            <Badge fontSize="0.8em" overflow={"clip"} colorScheme="gray">
               Importance of surgical instruments
             </Badge>
 

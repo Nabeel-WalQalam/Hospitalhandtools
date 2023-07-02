@@ -184,7 +184,7 @@ const JoinOurTeam = () => {
                   bgGradient: "linear(to-r, red.400,pink.400)",
                   boxShadow: "xl",
                 }}
-                onClick={handleForm}
+                onClick={() => handleForm()}
                 isLoading={loading}
                 loadingText="please wait..."
               >

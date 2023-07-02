@@ -148,7 +148,7 @@ export default function Orderdetail({ order, clearCart }) {
             </Select>
           </Flex>
           <Button
-            onClick={handleChangeStatus}
+            onClick={() => handleChangeStatus()}
             variant={"solid"}
             colorScheme="green"
           >
@@ -191,7 +191,7 @@ export default function Orderdetail({ order, clearCart }) {
             </Select>
           </Flex>
           <Button
-            onClick={handleChangeStatus2}
+            onClick={() => handleChangeStatus2()}
             variant={"solid"}
             colorScheme="green"
           >
@@ -199,7 +199,7 @@ export default function Orderdetail({ order, clearCart }) {
           </Button>
         </Flex>
         <Flex my={"0.5rem"} justify="right" w={"90%"}>
-          <Button colorScheme={"purple"} onClick={handlePrint}>
+          <Button colorScheme={"purple"} onClick={() => handlePrint()}>
             Print this out!
           </Button>
         </Flex>

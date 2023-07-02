@@ -109,11 +109,12 @@ const Index = ({ product }) => {
             shadow={"base"}
           >
             {/* <Box>{product._id}</Box> */}
-            <Box>
+            <Box pos={"relative"} width={"inherit"} height={"inherit"}>
               <Image
                 src={product.image ? product.image[0].url : "/assets/logo.svg"}
                 alt="product-1"
                 fill={"auto"}
+                sizes="(max-width: 600px) 100vw, 600px"
               />
             </Box>
             {showOptions ? (

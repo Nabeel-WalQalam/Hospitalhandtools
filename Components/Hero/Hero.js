@@ -67,6 +67,12 @@ const Hero = () => {
               height={100}
               src="/assets/hero.png"
               alt="surgical instrument Tools"
+              style={{
+                width: "auto",
+                height: "auto",
+                maxWidth: 600,
+                maxHeight: 100,
+              }}
             />
           </Flex>
         </Box>

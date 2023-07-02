@@ -36,7 +36,7 @@ const products = [
         type: "upload",
         etag: "48ea07c7119ed6942b19ff82a710c84e",
         placeholder: false,
-        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
+        url: "http://res.cloudinary.com/dexc7zdm4/image/upload/v1686582207/products/konjphfhvrsz6gpofbdb.png",
         secure_url:
           "https://res.cloudinary.com/dexc7zdm4/image/upload/v1686564276/products/zvdbyawe2lrxnrxuoao1.jpg",
         folder: "products",

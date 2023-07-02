@@ -38,24 +38,8 @@ export const AddToCartProduct = ({ variants, text, product, size, color }) => {
   // console.log("field", Query);
 
   const handleOnClose = async () => {
-    // Router.push(`/${product.category}/${product.slug}`);
-
     onClose();
   };
-
-  // const handleBuyNow = (
-  //   Slug,
-  //   price,
-  //   qty,
-  //   title,
-  //   model,
-  //   weigth,
-  //   options,
-  //   image
-  // ) => {
-  //   // console.log(Slug, price, qty, title, model, weigth, options);
-  //   buyNow(Slug, price, qty, title, model, weigth, options, image);
-  // };
 
   useEffect(() => {
     console.log("hi im products list page");
@@ -158,24 +142,6 @@ export const AddToCartProduct = ({ variants, text, product, size, color }) => {
   };
   return (
     <>
-      {/* <Button
-        leftIcon={
-          variants !== "outline" ? (
-            <BsCart fontSize={size} />
-          ) : (
-            <BsFillCartFill />
-          )
-        }
-        key={product._id}
-        // border="1px solid #153A5B"
-        variant={variants}
-        // bg="#153A5B"
-        // color="white"
-        // fontSize={"1.4rem"}
-        onClick={handleOpen}
-      >
-        {text ? text : null}
-      </Button> */}
       {variants !== "outline" ? (
         <BsCart
           fontSize={size}
@@ -324,7 +290,11 @@ export const AddToCartProduct = ({ variants, text, product, size, color }) => {
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="facebook" mr={3} onClick={handleOnClose}>
+            <Button
+              colorScheme="facebook"
+              mr={3}
+              onClick={() => handleOnClose()}
+            >
               Close
             </Button>
           </ModalFooter>

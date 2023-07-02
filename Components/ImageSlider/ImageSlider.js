@@ -71,10 +71,10 @@ const ImageSlider = ({ slides }) => {
   return (
     <Box width={"100%"} style={sliderStyles}>
       <div>
-        <div onClick={goToPrevious} style={leftArrowStyles}>
+        <div onClick={() => goToPrevious()} style={leftArrowStyles}>
           ❰
         </div>
-        <div onClick={goToNext} style={rightArrowStyles}>
+        <div onClick={() => goToNext()} style={rightArrowStyles}>
           ❱
         </div>
       </div>

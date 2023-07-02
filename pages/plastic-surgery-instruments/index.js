@@ -121,7 +121,7 @@ export default function Index({ categoryList }) {
               }}
               size="sm"
               borderRadius={"none"}
-              onClick={handleToggle}
+              onClick={() => handleToggle()}
               // mt="1rem"
             >
               Show {show ? "Less" : "More"}

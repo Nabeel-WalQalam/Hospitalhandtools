@@ -394,7 +394,10 @@ export const Variant = ({
                               );
                             })}
                         </Select>
-                        <Button colorScheme="green" onClick={handleGetValue}>
+                        <Button
+                          colorScheme="green"
+                          onClick={() => handleGetValue()}
+                        >
                           Add attribute
                         </Button>
                         <Button colorScheme="red" onClick={() => handleReset()}>

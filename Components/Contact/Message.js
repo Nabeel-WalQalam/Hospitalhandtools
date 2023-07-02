@@ -6,13 +6,15 @@ import {
   Tooltip,
   useColorMode,
 } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect } from "react";
 import { EmailIcon, FacebookMessengerIcon, WhatsappIcon } from "react-share";
 import { motion } from "framer-motion";
 import { BsSkype } from "react-icons/bs";
 import { useSelector } from "react-redux";
 import Link from "next/link";
-import { BiUserCircle } from "react-icons/bi";
+import { BiPhoneCall, BiUserCircle } from "react-icons/bi";
+import { MdCallMissed } from "react-icons/md";
+import { PhoneCall } from "react-feather";
 
 const Message = () => {
   const { colorMode } = useColorMode();
@@ -20,6 +22,7 @@ const Message = () => {
   const url = `https://api.whatsapp.com/send?phone=${phoneNumber}`;
 
   function handleWhatsapp() {
+    console.log("run whatsapp");
     window.open(url, "_blank");
   }
 
@@ -28,11 +31,16 @@ const Message = () => {
   const body = ""; // Replace with the body of the email
 
   function handleEmail() {
+    console.log("run email");
     window.location.href = `mailto:${emailAddress}?subject=${encodeURIComponent(
       subject
     )}&body=${encodeURIComponent(body)}`;
   }
   const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    console.log("run message");
+  }, []);
 
   return (
     <>
@@ -71,6 +79,9 @@ const Message = () => {
                 size={22}
                 round={true}
                 color="#153A5B"
+                bgStyle={{
+                  fill: "rgba(105, 105, 115, 1)",
+                }}
               />
             </Box>
           </Tooltip>
@@ -86,10 +97,14 @@ const Message = () => {
               }}
             >
               <WhatsappIcon
-                onClick={handleWhatsapp}
+                onClick={() => handleWhatsapp()}
                 cursor={"pointer"}
                 size={22}
                 round={true}
+                bgStyle={{
+                  fill: "rgba(105, 105, 115, 1)",
+                }}
+                // iconFillColor="white"
               />
             </Box>
           </Tooltip>
@@ -108,32 +123,13 @@ const Message = () => {
                 cursor={"pointer"}
                 size={22}
                 round={true}
-                onClick={handleEmail}
+                onClick={() => handleEmail()}
               />
             </Box>
           </Tooltip>
-          {/* <Tooltip label="Skype" aria-label="Skype">
-            <Box
-              as={motion.div}
-              whileHover={{ scale: 1.1 }}
-              // whileTap={{ scale: 0.9 }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 25,
-              }}
-            >
-              <BsSkype
-                cursor={"pointer"}
-                size={25}
-                fill="#00AFF0"
-                //   round={true}
-                onClick={handleSkype}
-              />
-            </Box>
-          </Tooltip> */}
         </Flex>
-        <Box ml="1rem">
+        <Flex align={"center"} gap={"0.3rem"}>
+          <BiPhoneCall fontSize={"18px"} color="gray" />
           <Text
             fontSize={["0.7rem", "0.7rem", "0.8rem", "0.8rem"]}
             // color={colorMode === "light" ? "white" : "#153A5B"}
@@ -145,7 +141,7 @@ const Message = () => {
           >
             CALL NOW : +92-3216126225
           </Text>
-        </Box>
+        </Flex>
       </Flex>
       <Flex display={["flex", "flex", "flex", "none"]}>
         <Flex align={"center"}>

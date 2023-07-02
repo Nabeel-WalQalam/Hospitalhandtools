@@ -3,6 +3,7 @@ import secureLocalStorage from "react-secure-storage";
 
 const initialState = {
   cart: [],
+  totalQuantity: 0,
 };
 
 export const cartSlice = createSlice({

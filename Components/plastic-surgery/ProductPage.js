@@ -408,7 +408,7 @@ const ProductPage = ({ product }) => {
                     <IconButton
                       icon={<RiArrowUpSLine />}
                       isDisabled={currentIndex === 0}
-                      onClick={handlePrevious}
+                      onClick={() => handlePrevious()}
                       aria-label="Previous"
                       mb={2}
                       fontSize={"2rem"}
@@ -443,7 +443,7 @@ const ProductPage = ({ product }) => {
                     <IconButton
                       icon={<RiArrowDownSLine />}
                       isDisabled={currentIndex === product.image.length - 1}
-                      onClick={handleNext}
+                      onClick={() => handleNext()}
                       aria-label="Next"
                       mt={2}
                       variant={"ghost"}
@@ -539,7 +539,7 @@ const ProductPage = ({ product }) => {
                     <IconButton
                       icon={<RiArrowUpSLine />}
                       isDisabled={currentIndex === 0}
-                      onClick={handlePrevious}
+                      onClick={() => handlePrevious()}
                       aria-label="Previous"
                       mb={2}
                       fontSize={"2rem"}
@@ -574,7 +574,7 @@ const ProductPage = ({ product }) => {
                     <IconButton
                       icon={<RiArrowDownSLine />}
                       isDisabled={currentIndex === product.image.length - 1}
-                      onClick={handleNext}
+                      onClick={() => handleNext()}
                       aria-label="Next"
                       mt={2}
                       variant={"ghost"}
@@ -993,7 +993,7 @@ const ProductPage = ({ product }) => {
                         }}
                       >
                         <WhatsappIcon
-                          onClick={handleWhatsapp}
+                          onClick={() => handleWhatsapp()}
                           cursor={"pointer"}
                           size={32}
                           round={true}
@@ -1015,7 +1015,7 @@ const ProductPage = ({ product }) => {
                           cursor={"pointer"}
                           size={32}
                           round={true}
-                          onClick={handleEmail}
+                          onClick={() => handleEmail()}
                         />
                       </Box>
                     </Tooltip>
@@ -1035,7 +1035,7 @@ const ProductPage = ({ product }) => {
                           size={32}
                           fill="#00AFF0"
                           //   round={true}
-                          onClick={handleSkype}
+                          onClick={() => handleSkype()}
                         />
                       </Box>
                     </Tooltip>

@@ -516,66 +516,6 @@ i {
   transform: translate(-1px, -1px);
 }
 
-.Nav_Menu {
-  /* border: 1px solid gray; */
-  width: 20%;
-  position: absolute;
-  top: -2px;
-}
-
-/* .circleDot {
-  width: 10px;
-  height: 10px;
-  background-color: #153a5b;
-  border: 1px;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  margin: auto;
-  -webkit-animation: circleDot 5s linear infinite;
-  animation: circleDot 5s linear infinite;
-  z-index: -99;
-}
-
-.circleDot2 {
-  width: 10px;
-  height: 10px;
-  background-color: #ffffff;
-  border: 1px;
-  border-radius: 50%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  overflow: hidden;
-  margin: auto;
-  -webkit-animation: circleDot 5s linear infinite;
-  animation: circleDot 5s linear infinite;
-  z-index: -99;
-}
-
-@-webkit-keyframes circleDot {
-  0% {
-    transform: rotate(0deg) translate(-32px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translate(-32px) rotate(-360deg);
-  }
-}
-@keyframes circleDot {
-  0% {
-    transform: rotate(0deg) translate(-32px) rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg) translate(-32px) rotate(-360deg);
-  }
-} */
-
 /* scrool bar */
 
 ::-webkit-scrollbar-track {

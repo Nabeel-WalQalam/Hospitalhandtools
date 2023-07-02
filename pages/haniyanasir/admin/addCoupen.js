@@ -111,7 +111,7 @@ export default function AddCoupen() {
               <Button
                 my={"1rem"}
                 colorScheme={"facebook"}
-                onClick={handleCoupen}
+                onClick={() => handleCoupen()}
               >
                 Generate Random Coupen
               </Button>

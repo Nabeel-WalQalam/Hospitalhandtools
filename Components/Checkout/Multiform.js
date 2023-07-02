@@ -430,7 +430,7 @@ const Form3 = ({ cart, subTotal, clearCart, removeFromCart, addtoCart }) => {
               <Button
                 width={[80, 80, 80, 60]}
                 colorScheme={"red"}
-                onClick={clearCart}
+                onClick={() => clearCart()}
               >
                 Clear Cart
               </Button>
@@ -441,7 +441,7 @@ const Form3 = ({ cart, subTotal, clearCart, removeFromCart, addtoCart }) => {
                   // mx={"1rem"}
                   colorScheme={"blue"}
                   // my="1rem"
-                  onClick={onClose}
+                  onClick={() => onClose()}
                 >
                   CHECKOUT
                 </Button>
