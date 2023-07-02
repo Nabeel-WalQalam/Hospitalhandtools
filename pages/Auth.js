@@ -880,18 +880,14 @@ function Auth({ user }) {
           justify={"center"}
           // bg={useColorModeValue("gray.50", "gray.800")}
         >
-          <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+          <Stack spacing={8} mx={"auto"} maxW={"lg"}>
             <Stack align={"center"}>
               <Heading
-                fontSize={"4xl"}
+                fontSize={"3xl"}
                 color={colorMode === "light" ? "#153A5B" : "#153A5B"}
               >
                 Sign in to your account
               </Heading>
-              <Text fontSize={"lg"} color={"gray.600"}>
-                to enjoy all of our cool{" "}
-                <span color={"blue.400"}>features ✌️</span>
-              </Text>
             </Stack>
             <Box
               rounded={"lg"}
@@ -899,9 +895,15 @@ function Auth({ user }) {
               boxShadow={"lg"}
               // p={8}
             >
-              <Stack py="2rem">
-                <form onSubmit={loginHandler}>
+              <Stack py="2rem" width={"100%"}>
+                <form
+                  style={{
+                    padding: "10px",
+                  }}
+                  onSubmit={loginHandler}
+                >
                   <Input
+                    border={"1px"}
                     my={"1rem"}
                     bg={colorMode === "light" ? "white" : "#153A5B"}
                     color={colorMode === "light" ? "#153A5B" : "white"}

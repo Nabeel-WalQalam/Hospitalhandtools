@@ -69,7 +69,6 @@ export default function Index() {
               alt="Green double couch with wooden legs"
               width={500}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"} width="80%">
@@ -129,7 +128,6 @@ export default function Index() {
               alt="Green double couch with wooden legs"
               width={500}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"} width="80%">
@@ -189,7 +187,6 @@ export default function Index() {
               alt="Green double couch with wooden legs"
               width={500}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"} width="80%">
@@ -247,7 +244,6 @@ export default function Index() {
               alt="Green double couch with wooden legs"
               width={500}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"} width="80%">
@@ -304,7 +300,6 @@ export default function Index() {
               alt="Green double couch with wooden legs"
               width={500}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"} width="80%">

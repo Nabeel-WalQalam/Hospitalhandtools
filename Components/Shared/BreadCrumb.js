@@ -21,6 +21,9 @@ const BreadCrumb = (props) => {
   return (
     <>
       <Breadcrumb
+        // ml={"2rem"}
+        width={"85%"}
+        mx="auto"
         // spacing="8px"
         separator={<AiOutlineArrowRight color="gray.500" />}
         // overflowX="scroll"
@@ -76,7 +79,7 @@ const BreadCrumb = (props) => {
 
         <BreadcrumbItem isCurrentPage>
           <BreadcrumbLink
-            textTransform={"lowercase"}
+            textTransform={"Capitalize"}
             // fontSize={["0.7rem", "0.9rem", "1rem", "1.1rem"]}
             href={`${props.pgaeTitle}/${props.children}`}
             color={"gray.700"}

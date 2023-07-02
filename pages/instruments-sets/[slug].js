@@ -240,7 +240,6 @@ export default function Index({ productss }) {
                                   alt={items.title}
                                   width={250}
                                   height={200}
-                                  priority
                                 />
                               ) : (
                                 <Image
@@ -336,7 +335,7 @@ export default function Index({ productss }) {
             </Box>
           </>
         ) : (
-          <NotFound text={'Sorry Product Not Listed'}/>
+          <NotFound text={"Sorry Product Not Listed"} />
         )}
       </Box>
     </>

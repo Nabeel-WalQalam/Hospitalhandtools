@@ -18,7 +18,7 @@ export const compareSlice = createSlice({
     },
     removeProduct: (state, action) => {
       const removeItem = state.product.filter(
-        (item) => item._id !== action.payload
+        (item) => item._id.$oid !== action.payload
       );
       state.product = removeItem;
       // console.log(action.payload);

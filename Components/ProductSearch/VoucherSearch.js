@@ -20,6 +20,7 @@ import {
   Spinner,
   InputGroup,
   InputRightElement,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useDispatch, useSelector } from "react-redux";
 import { FaSearch, FaArrowDown } from "react-icons/fa";
@@ -31,11 +32,14 @@ import { useToast } from "@chakra-ui/react";
 import Image from "next/image";
 import Link from "next/link";
 import { setCategory, setProduct, setquery } from "@/store/searchProduct";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { MdOutlineArrowDropDown } from "react-icons/md";
 // import Vouchers from "../admindashboard/vouchers";
 function VoucherSearch() {
   // const [cookie, setCookie] = useCookies(["token"]);
   const toast = useToast();
   const { colorMode } = useColorMode();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [keyword, setkeyword] = useState("");
   const [agentname, setagentname] = useState("All");
@@ -174,11 +178,11 @@ function VoucherSearch() {
                 href={`/${category}/${slug}/${tite}`}
                 onClick={handleCloseMenu}
               >
-                <Flex gap={"1rem"} my={"0.5rem"}>
+                <Flex gap={"1rem"} my={"0.5rem"} _hover={{ bg: "gray.100" }}>
                   <Box
                     border={"1px"}
                     width={"50px"}
-                    borderColor={"gray.300"}
+                    borderColor={"gray.100"}
                     height={"50px"}
                     pos={"relative"}
                   >
@@ -187,7 +191,7 @@ function VoucherSearch() {
                         result.image ? result.image[0].url : "/assets/150.png"
                       }
                       fill="fill"
-                      objectFit="contain"
+                      // objectFit="contain"
                       // alt={result.title}
                       // fill={true}
                     />
@@ -206,7 +210,7 @@ function VoucherSearch() {
           })}
         </List>
       );
-    } else if (searchQuery.length > 0) {
+    } else {
       return <Text>No products found.</Text>;
     }
   };
@@ -214,14 +218,18 @@ function VoucherSearch() {
   return (
     <>
       <Flex
+        w={"100%"}
         // border={"1px"}
-        display={["block", "block", "none", "none", "block"]}
+        // display={["block", "block", "none", "none", "block"]}
         pos={"relative"}
       >
-        <Flex justify={"center"}>
-          <Box position={"relative"}>
-            <Menu w={"100%"} closeOnSelect={false}>
+        <Flex w={"100%"} justify={"center"}>
+          <Box>
+            <Menu isOpen={isOpen}>
               <MenuButton
+                as={Button}
+                variant={"none"}
+                rightIcon={<MdOutlineArrowDropDown fontSize={"20px"} />}
                 border="1px"
                 borderColor="#153A5B"
                 borderTopLeftRadius={"40px"}
@@ -234,20 +242,26 @@ function VoucherSearch() {
                 overflow="hidden"
                 bg={colorMode === "light" ? "#153A5B" : "white"}
                 color={colorMode == "light" ? "white" : "#153A5B"}
-                position={"relative"}
+                // position={"relative"}
                 height={"100%"}
                 _hover={{
-                  bg: colorMode == "light" ? "white" : "#153A5B",
-                  color: colorMode === "light" ? "#153A5B" : "white",
-                  border: "1px",
-                  borderColor: colorMode === "light" ? "#153A5B" : "white",
+                  bg: colorMode == "light" ? "#153A5C" : "#153A5B",
+                  // color: colorMode === "light" ? "#153A5B" : "white",
+                  // border: "1px",
+                  // borderColor: colorMode === "light" ? "#153A5B" : "white",
                 }}
                 // w={"50px"}
-                px={"1rem"}
+                // px={"1rem"}
+                onMouseEnter={onOpen}
+                onMouseLeave={onClose}
               >
                 {agentname}
               </MenuButton>
-              <MenuList className="Nav_Menu">
+              <MenuList
+                onMouseEnter={onOpen}
+                onMouseLeave={onClose}
+                className="Nav_Menu"
+              >
                 <MenuOptionGroup
                   onChange={getCategory}
                   defaultValue="All"
@@ -278,19 +292,26 @@ function VoucherSearch() {
             </Menu>
           </Box>
 
-          <Box
+          <Flex
             // width={["100%", "100%", "100%", "100%"]}
-            w={["270px", "250px", "270px", "370px"]}
+            w={"100%"}
+            // maxW={"400px"}
+            // border={"1px"}
+            flexGrow={"1"}
           >
             <InputGroup>
               <Input
                 border={colorMode === "light" ? "1px" : "none"}
-                borderColor={colorMode == "light" ? "gray.300" : "white"}
+                borderColor={colorMode == "light" ? "gray.100" : "white"}
                 borderRadius="none"
+                bg="rgba(240, 242, 245, 1)"
                 borderTopRightRadius={"none"}
                 borderBottomRightRadius={"none"}
                 variant={"none"}
                 placeholder="Search here..."
+                _placeholder={{
+                  color: "gray.600",
+                }}
                 // value={keyword}
                 value={searchQuery}
                 // onChange={(e) => {
@@ -300,7 +321,7 @@ function VoucherSearch() {
               />
               <InputRightElement>{loader ? <Spinner /> : ""}</InputRightElement>
             </InputGroup>
-          </Box>
+          </Flex>
 
           <Box>
             <ButtonGroup>
@@ -316,12 +337,13 @@ function VoucherSearch() {
                 // onClick={submitQuery}
                 border="1px"
                 borderColor="#153A5B"
-                _hover={{
-                  bg: colorMode == "light" ? "white" : "#153A5B",
-                  color: colorMode === "light" ? "#153A5B" : "white",
-                  border: "1px",
-                  borderColor: colorMode === "light" ? "#153A5B" : "white",
-                }}
+                variant={"none"}
+                // _hover={{
+                //   bg: colorMode == "light" ? "white" : "#153A5B",
+                //   color: colorMode === "light" ? "#153A5B" : "white",
+                //   border: "1px",
+                //   borderColor: colorMode === "light" ? "#153A5B" : "white",
+                // }}
                 borderTopLeftRadius={"none"}
                 borderBottomLeftRadius={"none"}
               ></Button>
@@ -349,12 +371,14 @@ function VoucherSearch() {
           zIndex={9999}
           bg="white"
           border="1px"
-          borderColor="gray.200"
+          borderColor="gray.100"
+          top={"2.5rem"}
           mt={2}
           p={2}
           width={"100%"}
           display={searchQuery.length ? "block" : "none"}
-          borderRadius={"10px"}
+          borderRadius={"none"}
+          boxShadow={"2xl"}
           // borderTopLeftRadius={"10px"}
         >
           {renderSearchResults()}

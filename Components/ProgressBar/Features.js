@@ -7,7 +7,7 @@ export const Features = () => {
     <>
       <Flex
         p={"2rem"}
-        justify={"center"}
+        justify={["center", "space-between", "center"]}
         gap={["1rem", "2rem", "4rem", "5rem", "10rem"]}
         wrap={"wrap"}
         // border="1px"

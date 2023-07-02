@@ -21,9 +21,9 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { buyNow, addToCart } from "@/store/cartSlice";
 import { FiShoppingCart } from "react-icons/fi";
-import { BsCart } from "react-icons/bs";
+import { BsCart, BsFillCartFill } from "react-icons/bs";
 
-export const AddToCartProduct = ({ variants, text, product }) => {
+export const AddToCartProduct = ({ variants, text, product, size, color }) => {
   const toast = useToast();
   const { colorMode, toggleColorMode } = useColorMode();
   const Router = useRouter();
@@ -142,6 +142,7 @@ export const AddToCartProduct = ({ variants, text, product }) => {
 
     const price = parseFloat(price2).toFixed(2);
     const weight = parseFloat(weight2).toFixed(2);
+    console.log(image);
     // addtocart(Slug, price, qty, title, model, weight, options, image);
     dispatch(addToCart({ Slug, price, title, model, weight, options, image }));
     toast({
@@ -157,18 +158,35 @@ export const AddToCartProduct = ({ variants, text, product }) => {
   };
   return (
     <>
-      <Button
-        leftIcon={<BsCart />}
+      {/* <Button
+        leftIcon={
+          variants !== "outline" ? (
+            <BsCart fontSize={size} />
+          ) : (
+            <BsFillCartFill />
+          )
+        }
         key={product._id}
         // border="1px solid #153A5B"
         variant={variants}
         // bg="#153A5B"
         // color="white"
-        fontSize={"1.4rem"}
+        // fontSize={"1.4rem"}
         onClick={handleOpen}
       >
         {text ? text : null}
-      </Button>
+      </Button> */}
+      {variants !== "outline" ? (
+        <BsCart
+          fontSize={size}
+          onClick={() => handleOpen()}
+          cursor={"pointer"}
+          key={product._id}
+          color={color}
+        />
+      ) : (
+        <BsFillCartFill />
+      )}
       <Modal
         closeOnOverlayClick={false}
         size={"2xl"}
@@ -274,7 +292,7 @@ export const AddToCartProduct = ({ variants, text, product }) => {
                     product.model,
                     product.weight,
                     cartslug ? cartslug : null,
-                    product.image ? product.image[0] : "/assets/logo.svg"
+                    product.image ? product.image[0].url : "/assets/logo.svg"
                   );
                 }}
                 w={[250, 300, 350, 400]}

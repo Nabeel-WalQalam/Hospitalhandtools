@@ -31,9 +31,9 @@ export default function Index() {
           <Center>
             <Heading
               color={colorMode === "light" ? "#153A5B" : "white"}
-              fontSize={["20", "lg", "lg", "xl"]}
+              fontSize={["20", "lg", "lg", "4xl"]}
             >
-              Hi, we are HospitalHandTools
+              Hi, we are HospitalHandTool
             </Heading>
           </Center>{" "}
         </Box>
@@ -112,13 +112,12 @@ export default function Index() {
           align={"center"}
           gap="5rem"
         >
-          <Box border={"1px"} borderColor="gray.400">
+          <Box border={"1px"} borderColor="gray.100">
             <Image
               src="/assets/C_pic_1.png"
               alt="Green double couch with wooden legs"
               width={400}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"}>
@@ -205,13 +204,12 @@ export default function Index() {
               </Center>
             </Box>
           </Flex>
-          <Box border={"1px"} borderColor="gray.400">
+          <Box border={"1px"} borderColor="gray.100">
             <Image
               src="/assets/C_pic_1.png"
               alt="Green double couch with wooden legs"
               width={400}
               height={200}
-              priority
             />
           </Box>
         </Flex>
@@ -227,13 +225,12 @@ export default function Index() {
           align={"center"}
           gap="5rem"
         >
-          <Box border={"1px"} borderColor="gray.400">
+          <Box border={"1px"} borderColor="gray.100">
             <Image
               src="/assets/C_pic_1.png"
               alt="Green double couch with wooden legs"
               width={400}
               height={200}
-              priority
             />
           </Box>
           <Flex direction={"column"}>
@@ -319,13 +316,12 @@ export default function Index() {
                 </Box>
               </Box>
             </Flex>
-            <Box border={"1px"} borderColor="gray.400">
+            <Box border={"1px"} borderColor="gray.100">
               <Image
                 src="/assets/4016710_218.jpg"
                 alt="Contact-Us"
                 width={400}
                 height={200}
-                priority
               />
             </Box>
           </Flex>

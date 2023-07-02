@@ -66,7 +66,7 @@ const Index = () => {
             bg={"#153A5B"}
             color={"white"}
             fontSize={"15px"}
-            fontWeight={"normal"}
+            fontWeight={"semibold"}
             px={"1rem"}
             py="0.2rem"
           >
@@ -86,6 +86,7 @@ const Index = () => {
               borderRadius={"none"}
               variant={"outline"}
               rightIcon={<BsChevronRight />}
+              fontWeight={"normal"}
             >
               See All Products
             </Button>
@@ -117,8 +118,8 @@ const Index = () => {
                   }}
                   src={image}
                   objectFit="cover"
-                  width="120px"
-                  height="120px"
+                  width="100px"
+                  height="100px"
                   borderRadius="md"
                   boxShadow="md"
                 />

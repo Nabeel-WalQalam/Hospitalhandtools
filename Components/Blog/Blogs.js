@@ -243,7 +243,12 @@ const Blogs = () => {
     // </Flex>
     <>
       <Center>
-        <Heading color={'#153A5B'} as="h2" fontSize={["1rem", "2rem", "2.3rem"]} marginTop="5">
+        <Heading
+          color={"#153A5B"}
+          as="h2"
+          fontSize={["1rem", "2rem", "2.3rem"]}
+          marginTop="5"
+        >
           Stories by HospitalHandTools
         </Heading>
       </Center>
@@ -295,26 +300,28 @@ const Blogs = () => {
           </Box>
         </Box>
         <Box
-          display={["none", "flex"]}
+          // display={["none", "flex"]}
           flex="1"
           flexDirection="column"
           justifyContent="center"
           marginTop={{ base: "3", sm: "0" }}
         >
-          <Badge size={"md"} variant="solid" colorScheme="orange">
-            surgical instruments
-          </Badge>
+          <Flex wrap={"wrap"} gap={"0.5rem"}>
+            <Badge size={"md"} colorScheme="gray">
+              surgical instruments
+            </Badge>
 
-          <Badge fontSize="0.8em" colorScheme="red">
-            Importance of surgical instruments
-          </Badge>
+            <Badge fontSize="0.8em" colorScheme="gray">
+              Importance of surgical instruments
+            </Badge>
 
-          <Badge fontSize="0.8em" colorScheme="purple">
-            surgical procedures
-          </Badge>
-          <Badge fontSize="0.8em" colorScheme="green">
-            Types of surgical instruments
-          </Badge>
+            <Badge fontSize="0.8em" colorScheme="gray">
+              surgical procedures
+            </Badge>
+            <Badge fontSize="0.8em" colorScheme="gray">
+              Types of surgical instruments
+            </Badge>
+          </Flex>
           <Heading marginTop="1">
             <Link
               href={
@@ -322,11 +329,11 @@ const Blogs = () => {
               }
               textDecoration="none"
               _hover={{ textDecoration: "none" }}
-              
             >
-              <Text my={'0.2rem'} color={'#153A5B'}>
-              5 Types of Surgical Instruments Every Operating Room
-            </Text></Link>
+              <Text my={"0.2rem"} color={"#153A5B"}>
+                5 Types of Surgical Instruments Every Operating Room
+              </Text>
+            </Link>
           </Heading>
           <Text
             as="p"

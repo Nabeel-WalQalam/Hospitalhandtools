@@ -18,6 +18,7 @@ import Link from "next/link";
 
 import BreadCrumb from "@/Components/Shared/BreadCrumb";
 import secureLocalStorage from "react-secure-storage";
+import { ArrowDown, ArrowUp } from "react-feather";
 
 export default function Index({ categoryList }) {
   const [show, setShow] = useState(false);
@@ -46,8 +47,8 @@ export default function Index({ categoryList }) {
         <Flex
           direction={["column", "column", "row"]}
           justify={"center"}
-          align={"center"}
-          gap={"3rem"}
+          // align={"center"}
+          gap={"2rem"}
           w={"90%"}
           mx="auto"
         >
@@ -60,10 +61,15 @@ export default function Index({ categoryList }) {
               // height={"250px"}
               // mx={"auto"}
               border={"1px"}
-              borderColor={"gray.300"}
+              borderColor={"gray.100"}
             />
           </Box>
-          <Box width={"90%"} mx={"auto"} mt={"3rem"}>
+          <Box
+            mt={"1rem"}
+            width={"90%"}
+            textTransform={"capitalize"}
+            mx={"auto"}
+          >
             <Collapse color="'gray.500" startingHeight={150} in={show}>
               At Hospital Hand Tool, we offer a wide range of high-quality
               <Text as={"span"} color={"black"} fontWeight={"semibold"}>
@@ -99,29 +105,30 @@ export default function Index({ categoryList }) {
               tools can make.
             </Collapse>
             <Button
-              colorScheme="darkGray"
-              variant={"outline"}
-              size="sm"
-              onClick={handleToggle}
               mt="1rem"
+              bg={"#153A5B"}
+              rightIcon={
+                show ? (
+                  <ArrowUp fontSize={"6px"} />
+                ) : (
+                  <ArrowDown fontSize={"6px"} />
+                )
+              }
+              color="white"
+              // variant={"outline"}
+              _hover={{
+                shadow: "base",
+              }}
+              size="sm"
+              borderRadius={"none"}
+              onClick={handleToggle}
+              // mt="1rem"
             >
               Show {show ? "Less" : "More"}
             </Button>
           </Box>
         </Flex>
 
-        <Divider mt={"2rem"} />
-        <Center mt={"1rem"}>
-          <Text
-            textAlign={"center"}
-            width="60%"
-            color={"grey.400"}
-            fontSize={{ base: "11px", md: "15px", lg: "1.2rem" }}
-          >
-            Experience the Precision and Quality of Our Cutting-Edge Plastic
-            Surgery Instruments - Empowering Your Beauty with Confidence
-          </Text>
-        </Center>
         {categoryList.length ? (
           <PlasticSurgery
             categoryList={categoryList}
@@ -130,7 +137,7 @@ export default function Index({ categoryList }) {
         ) : (
           <>
             <Flex justify="center" mt={"4rem"}>
-              <Text fontSize={"3rem"} color={'#153A5B'} fontWeight={"semibold"}>
+              <Text fontSize={"3rem"} color={"#153A5B"} fontWeight={"semibold"}>
                 Sorry ! No Category Added Yet
               </Text>
             </Flex>
@@ -150,7 +157,7 @@ export async function getServerSideProps(context) {
       mainCategory: "plastic surgery instruments",
     });
     const posts = await JSON.parse(JSON.stringify(res));
-    
+
     // console.log(posts);
     return {
       props: { categoryList: posts }, // will be passed to the page component as props
